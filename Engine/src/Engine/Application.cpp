@@ -1,7 +1,8 @@
 #include "Application.h"
+#include "Platform/Window/Window.h"
 
 namespace Engine {
-	Application::Application()
+	Application::Application() : m_Window(1280, 720, "Engine")
 	{
 	}
 	Application::~Application()
@@ -10,6 +11,9 @@ namespace Engine {
 
 	void Application::Run()
 	{
-		while (true);
+		while (!m_Window.ShouldClose())
+		{
+			m_Window.PollEvents();
+		}
 	}
 }

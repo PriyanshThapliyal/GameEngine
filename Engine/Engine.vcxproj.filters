@@ -4,8 +4,11 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Window">
-      <UniqueIdentifier>{3DEA79DA-298C-A4B0-1247-B804FE872B01}</UniqueIdentifier>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Window">
+      <UniqueIdentifier>{D1E05B2F-3D6C-C9F3-467D-4CE8B28725F4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -19,16 +22,16 @@
     <ClInclude Include="src\Engine\EntryPoint.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\Window.h">
-      <Filter>Window</Filter>
+    <ClInclude Include="src\Platform\Window\Window.h">
+      <Filter>Platform\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Application.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window\Window.cpp">
-      <Filter>Window</Filter>
+    <ClCompile Include="src\Platform\Window\Window.cpp">
+      <Filter>Platform\Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

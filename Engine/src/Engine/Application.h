@@ -1,4 +1,5 @@
 #pragma once
+#include "Platform/Window/Window.h"
 
 namespace Engine {
 
@@ -9,7 +10,9 @@ namespace Engine {
 		virtual ~Application();
 
 		void Run();
+
+	private:
+		Window m_Window;
+
 	};
-
-
 }
