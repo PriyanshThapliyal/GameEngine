@@ -13,6 +13,6 @@ namespace Engine {
 
 	private:
 		Window m_Window;
-
+		bool m_Running = true;
 	};
 }

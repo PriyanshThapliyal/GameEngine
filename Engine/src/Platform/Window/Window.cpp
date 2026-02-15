@@ -2,28 +2,41 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-void Engine::Window::Init(unsigned int width, unsigned int height, const char* title) 
-{
-	if (!glfwInit())
-	{
-		std::cout << "Failed to initialize GLFW" << std::endl;
-		return;
-	}
+static bool s_GLLFWInititalized = false;
 
-	m_Window = glfwCreateWindow(width, height, title , nullptr , nullptr);
+void Engine::Window::Init(unsigned int width, unsigned int height, const char* title) 
+{	
+	if (!s_GLLFWInititalized) 
+	{
+		if (!glfwInit())
+		{
+			std::cout << "Failed to initialize GLFW" << std::endl;
+			return;
+		}
+		s_GLLFWInititalized = true;
+	}
 	
-	if (!m_Window)
+
+	GLFWwindow* window = glfwCreateWindow(width, height, title , nullptr , nullptr);
+	
+	if (!window)
 	{
 		std::cout << "Window Creation Failed" << std::endl;
 		glfwTerminate();
 		return;
 	}
 
+	m_Window = window;
+
 	glfwMakeContextCurrent((GLFWwindow*)m_Window);
 
-	glfwSetWindowSizeCallback((GLFWwindow*)m_Window, [](GLFWwindow* window, int width, int height)
+	glfwSetWindowSizeCallback((GLFWwindow*)m_Window, 
+		[](GLFWwindow* window, int width, int height)
 		{
-			std::cout << "Resized: " << width << " , " << height << std::endl;
+			#ifdef EN_DEBUG
+				std::cout << "Window Size Changed: " << width << " , " << height << std::endl;
+			#endif
+			glViewport(0, 0, width, height);
 		});
 }
     
@@ -39,8 +52,16 @@ Engine::Window::~Window()
 
 void Engine::Window::Shutdown()
 {
-	glfwDestroyWindow((GLFWwindow*)m_Window);
-	glfwTerminate();
+	if (m_Window) {
+		glfwDestroyWindow((GLFWwindow*)m_Window);
+		m_Window = nullptr;
+	}
+
+	if(s_GLLFWInititalized)
+	{
+		glfwTerminate();
+		s_GLLFWInititalized = false;
+	}
 }
 
 void Engine::Window::PollEvents()
@@ -50,5 +71,7 @@ void Engine::Window::PollEvents()
 
 bool Engine::Window::ShouldClose() const
 {
+	if (!m_Window) return true;
+
 	return glfwWindowShouldClose((GLFWwindow*)m_Window);
 }

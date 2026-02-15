@@ -17,7 +17,7 @@ namespace Engine {
 
 
 	private:
-		void* m_Window; // Hides GLFWwindow* to avoid including GLFW in the header
+		void* m_Window = nullptr; // Hides GLFWwindow* to avoid including GLFW in the header
 	};
 
 }

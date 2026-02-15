@@ -11,9 +11,12 @@ namespace Engine {
 
 	void Application::Run()
 	{
-		while (!m_Window.ShouldClose())
+		while (m_Running)
 		{
 			m_Window.PollEvents();
+
+			if(m_Window.ShouldClose())
+				m_Running = false;
 		}
 	}
 }
