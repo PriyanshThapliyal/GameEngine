@@ -13,6 +13,10 @@ namespace Engine {
 
 	private:
 		Window m_Window;
+
+	protected:
 		bool m_Running = true;
 	};
+
+	Application* CreateApplication();
 }

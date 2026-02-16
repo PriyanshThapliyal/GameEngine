@@ -5,6 +5,7 @@ namespace Engine {
 	Application::Application() : m_Window(1280, 720, "Engine")
 	{
 	}
+
 	Application::~Application()
 	{
 	}
