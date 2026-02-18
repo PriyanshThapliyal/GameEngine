@@ -11,6 +11,13 @@ namespace Engine {
 
 		void Run();
 
+	protected:
+		virtual void OnUpdate();
+		virtual void OnRender();
+
+	private: 
+		void PollEvents();
+
 	private:
 		Window m_Window;
 

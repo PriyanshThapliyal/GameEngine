@@ -10,14 +10,25 @@ namespace Engine {
 	{
 	}
 
+	void Application::PollEvents() {
+		m_Window.PollEvents();
+
+		if (m_Window.ShouldClose())
+			m_Running = false;
+	}
+
+	void Application::OnUpdate() {}
+
+	void Application::OnRender() {}
+
 	void Application::Run()
 	{
 		while (m_Running)
 		{
-			m_Window.PollEvents();
+			PollEvents();   // Input / OS messages
+			OnUpdate();		// Game Logic
+			OnRender();		// Placeholder Render
 
-			if(m_Window.ShouldClose())
-				m_Running = false;
 		}
 	}
 }
