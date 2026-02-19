@@ -12,7 +12,7 @@ namespace Engine {
 		void Run();
 
 	protected:
-		virtual void OnUpdate();
+		virtual void OnUpdate(float deltaTime);
 		virtual void OnRender();
 
 	private: 
