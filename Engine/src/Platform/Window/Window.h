@@ -11,6 +11,8 @@ namespace Engine {
 		void PollEvents();
 		bool ShouldClose() const;
 
+		void* GetNativeWindow() const { return m_Window; } // Provides access to the native window for internal use
+
 	private:
 		void Init(unsigned int width, unsigned int height, const char* title);
 		void Shutdown();

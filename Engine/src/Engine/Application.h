@@ -10,6 +10,9 @@ namespace Engine {
 		virtual ~Application();
 
 		void Run();
+		Window& GetWindow() { return m_Window; }
+
+		static Application& Get() { return *s_Instance; }
 
 	protected:
 		virtual void OnUpdate(float deltaTime);
@@ -20,6 +23,8 @@ namespace Engine {
 
 	private:
 		Window m_Window;
+
+		static Application* s_Instance; // Static instance for global access
 
 	protected:
 		bool m_Running = true;

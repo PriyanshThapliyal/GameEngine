@@ -5,11 +5,14 @@
 namespace Engine {
 	Application::Application() : m_Window(1280, 720, "Engine")
 	{
+		s_Instance = this;
 	}
 
 	Application::~Application()
 	{
 	}
+
+	Application* Application::s_Instance = nullptr;
 
 	void Application::PollEvents() {
 		m_Window.PollEvents();
@@ -25,10 +28,10 @@ namespace Engine {
 	void Application::Run()
 	{
 		
-		float lastTime = glfwGetTime();
+		float lastTime = (float)glfwGetTime();
 		while (m_Running)
 		{
-			float currentTime = glfwGetTime();
+			float currentTime = (float)glfwGetTime();
 			float deltaTime = currentTime - lastTime;
 			PollEvents();   // Input / OS messages
 			OnUpdate(deltaTime);		// Game Logic

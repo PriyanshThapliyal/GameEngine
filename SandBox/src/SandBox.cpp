@@ -17,9 +17,14 @@ public:
 protected:
 	virtual void OnUpdate(float deltaTime) override
 	{
-		#ifdef _DEBUG
-		std::cout << "Delta Time: " << deltaTime << " seconds \n";
-		#endif
+		//#ifdef _DEBUG
+		//std::cout << "Delta Time: " << deltaTime << " seconds \n";
+		//#endif
+
+		if (Engine::Input::IsKeyPressed(Engine::Key::W))
+		{
+			std::cout << "W key is pressed! \n";
+		}
 		// Update game logic here
 	}
 	virtual void OnRender() override

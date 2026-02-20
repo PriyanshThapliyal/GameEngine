@@ -25,12 +25,21 @@
     <ClInclude Include="src\Platform\Window\Window.h">
       <Filter>Platform\Window</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Window\KeyCode.h">
+      <Filter>Platform\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Input.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Application.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Window\Window.cpp">
+      <Filter>Platform\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Window\KeyInput.cpp">
       <Filter>Platform\Window</Filter>
     </ClCompile>
   </ItemGroup>

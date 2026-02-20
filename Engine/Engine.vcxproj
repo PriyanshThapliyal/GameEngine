@@ -142,10 +142,13 @@
     <ClInclude Include="src\Engine\Application.h" />
     <ClInclude Include="src\Engine\Core.h" />
     <ClInclude Include="src\Engine\EntryPoint.h" />
+    <ClInclude Include="src\Engine\Input.h" />
+    <ClInclude Include="src\Platform\Window\KeyCode.h" />
     <ClInclude Include="src\Platform\Window\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Application.cpp" />
+    <ClCompile Include="src\Platform\Window\KeyInput.cpp" />
     <ClCompile Include="src\Platform\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
