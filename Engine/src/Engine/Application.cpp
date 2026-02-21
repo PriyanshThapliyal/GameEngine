@@ -27,7 +27,7 @@ namespace Engine {
 
 	void Application::Run()
 	{
-		
+
 		float lastTime = (float)glfwGetTime();
 		while (m_Running)
 		{
