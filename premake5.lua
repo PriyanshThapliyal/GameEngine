@@ -14,16 +14,18 @@ outputdir = "%{cfg.buildcfg}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Engine/Dependencies/GLFW/include"
+IncludeDir["spdlog"] = "Engine/Dependencies/spdlog/include"
 
 include "Engine/Dependencies/GLFW" -- Same Include as C++ , takes GLFW premake5.lua file and use it 
+include "Engine/Dependencies/spdlog"
 
 project "Engine"
     location "Engine"
 	kind "StaticLib"
 	language "C++"
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}") 
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+    targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}") 
+	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{
@@ -34,13 +36,15 @@ project "Engine"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.spdlog}"
 	}
 
 	links
 	{
 		"GLFW",
-		"opengl32.lib"
+		"opengl32.lib",
+		"spdlog"
 	}
 
 	filter "system:windows"
@@ -48,10 +52,21 @@ project "Engine"
 		staticruntime "On"
 		systemversion "latest"
 
+		buildoptions 
+		{
+			"/utf-8"
+		}
+
 		defines
 		{
-			"EN_PLATFORM_WINDOWS"
+			"EN_PLATFORM_WINDOWS",
+			"SPDLOG_COMPLIED_LIB"
 		}
+
+		buildoptions 
+        {
+            "/utf-8"
+        }
 
 	filter "configurations:Debug"
 		defines "EN_DEBUG"
@@ -59,11 +74,15 @@ project "Engine"
 
 	filter "configurations:Release"
 		defines "EN_RELEASE"
+		optimize "On"
 		symbols "On"
 
 	filter "configurations:Dist"
 		defines "EN_DIST"
+		optimize "Full"
 		symbols "On"
+
+	filter {}
 
 
 project "SandBox"
@@ -71,8 +90,8 @@ project "SandBox"
 	kind "ConsoleApp"
 	language "C++"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{
@@ -82,11 +101,52 @@ project "SandBox"
 
 	includedirs
 	{
-		"Engine/Dependencies/GLFW/include",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.spdlog}",
 		"Engine/src"
 	}
 
 	links
 	{
-		"Engine"
+		"Engine",
+		"spdlog",
+		"GLFW"
 	}
+
+	filter "system:windows"
+		staticruntime "On"
+		cppdialect "C++20"
+		systemversion "latest"
+
+		buildoptions 
+		{
+			"/utf-8"
+		}
+
+		defines
+		{
+			"EN_PLATFORM_WINDOWS",
+			"SPDLOG_COMPILED_LIB"
+		}
+
+		buildoptions 
+        {
+            "/utf-8"
+        }
+
+
+	filter "configurations:Debug"
+		defines "EN_DEBUG"
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "EN_RELEASE"
+		optimize "On"
+		symbols "On"
+
+	filter "configurations:Dist"
+		defines "EN_DIST"
+		optimize "Full"
+		symbols "On"
+
+	filter {}	
