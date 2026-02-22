@@ -8,6 +8,10 @@ namespace Engine {
 
 int main(int argc, char** argv)
 {
+	Engine::Log::Init();
+	EN_CORE_WARN("Initialized Log!");
+	EN_INFO("Initialized Log!");
+
 	auto app = Engine::CreateApplication();
 	app->Run();
 	delete app;

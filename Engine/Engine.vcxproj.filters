@@ -31,6 +31,9 @@
     <ClInclude Include="src\Platform\Window\Window.h">
       <Filter>Platform\Window</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Log.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Application.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="src\Platform\Window\Window.cpp">
       <Filter>Platform\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Log.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
