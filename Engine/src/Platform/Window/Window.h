@@ -20,6 +20,8 @@ namespace Engine {
 
 	private:
 		void* m_Window = nullptr; // Hides GLFWwindow* to avoid including GLFW in the header
+		unsigned int m_Width = 0;
+		unsigned int m_Height= 0;
 	};
 
 }

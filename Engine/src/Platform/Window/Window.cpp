@@ -2,18 +2,18 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-static bool s_GLLFWInititalized = false;
+static bool s_GLFWInititalized = false;
 
 void Engine::Window::Init(unsigned int width, unsigned int height, const char* title) 
 {	
-	if (!s_GLLFWInititalized) 
+	if (!s_GLFWInititalized) 
 	{
 		if (!glfwInit())
 		{
 			std::cout << "Failed to initialize GLFW" << std::endl;
 			return;
 		}
-		s_GLLFWInititalized = true;
+		s_GLFWInititalized = true;
 	}
 	
 
@@ -27,16 +27,23 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 	}
 
 	m_Window = window;
+	glfwSetWindowUserPointer((GLFWwindow*)m_Window, this); // Set the user pointer to the Window instance
 
 	glfwMakeContextCurrent((GLFWwindow*)m_Window);
+	m_Width = width;
+	m_Height = height;
 
 	glfwSetWindowSizeCallback((GLFWwindow*)m_Window, 
 		[](GLFWwindow* window, int width, int height)
 		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+
+			win->m_Width = width;
+			win->m_Height = height;
+
 			#ifdef EN_DEBUG
 				std::cout << "Window Size Changed: " << width << " , " << height << std::endl;
 			#endif
-			glViewport(0, 0, width, height);
 		});
 }
     
@@ -57,10 +64,10 @@ void Engine::Window::Shutdown()
 		m_Window = nullptr;
 	}
 
-	if(s_GLLFWInititalized)
+	if(s_GLFWInititalized)
 	{
 		glfwTerminate();
-		s_GLLFWInititalized = false;
+		s_GLFWInititalized = false;
 	}
 }
 
