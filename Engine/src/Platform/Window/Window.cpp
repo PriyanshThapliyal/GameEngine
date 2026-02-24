@@ -29,19 +29,25 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 	m_Window = window;
 	glfwSetWindowUserPointer((GLFWwindow*)m_Window, this); // Set the user pointer to the Window instance
 
+	glfwSetWindowCloseCallback((GLFWwindow*)m_Window, [](GLFWwindow* window)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->m_Data.CloseRequested = true;
+			EN_CORE_INFO("Window close requested");
+		});
+
 	glfwMakeContextCurrent((GLFWwindow*)m_Window);
-	m_Width = width;
-	m_Height = height;
+
+	m_Data.m_Width = width;
+	m_Data.m_Height = height;
 
 	glfwSetWindowSizeCallback((GLFWwindow*)m_Window, 
 		[](GLFWwindow* window, int width, int height)
 		{
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
-
-			win->m_Width = width;
-			win->m_Height = height;
-
-			EN_CORE_INFO("Window resized: {0}x{1}", width, height);
+			win->m_Data.m_Width = width;
+			win->m_Data.m_Height = height;
+			win->m_Data.Resized = true;
 		});
 }
     
@@ -76,7 +82,24 @@ void Engine::Window::PollEvents()
 
 bool Engine::Window::ShouldClose() const
 {
-	if (!m_Window) return true;
+	return m_Data.CloseRequested;
+}
 
-	return glfwWindowShouldClose((GLFWwindow*)m_Window);
+bool Engine::Window::WasResized()
+{
+	if (m_Data.Resized)
+	{
+		m_Data.Resized = false; // Reset the flag after checking
+		return true;
+	}
+	return false;
+}
+
+unsigned int Engine::Window::GetWidth() const
+{
+	return m_Data.m_Width;
+}
+unsigned int Engine::Window::GetHeight() const
+{
+	return m_Data.m_Height;
 }
