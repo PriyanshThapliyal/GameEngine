@@ -1,6 +1,6 @@
 #include "Window.h"
 #include <GLFW/glfw3.h>
-#include <iostream>
+#include "Engine/Log.h"
 
 static bool s_GLFWInititalized = false;
 
@@ -10,7 +10,7 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 	{
 		if (!glfwInit())
 		{
-			std::cout << "Failed to initialize GLFW" << std::endl;
+			EN_CORE_ERROR("Failed to initialize GLFW");
 			return;
 		}
 		s_GLFWInititalized = true;
@@ -21,7 +21,7 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 	
 	if (!window)
 	{
-		std::cout << "Window Creation Failed" << std::endl;
+		EN_CORE_ERROR("Failed to create GLFW window");
 		glfwTerminate();
 		return;
 	}
@@ -41,9 +41,7 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 			win->m_Width = width;
 			win->m_Height = height;
 
-			#ifdef EN_DEBUG
-				std::cout << "Window Size Changed: " << width << " , " << height << std::endl;
-			#endif
+			EN_CORE_INFO("Window resized: {0}x{1}", width, height);
 		});
 }
     

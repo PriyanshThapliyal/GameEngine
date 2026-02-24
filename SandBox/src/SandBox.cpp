@@ -17,13 +17,11 @@ public:
 protected:
 	virtual void OnUpdate(float deltaTime) override
 	{
-		//#ifdef _DEBUG
-		//std::cout << "Delta Time: " << deltaTime << " seconds \n";
-		//#endif
-
+		EN_CORE_TRACE("Delta Time -> {0} ", deltaTime);
+		
 		if (Engine::Input::IsKeyPressed(Engine::Key::W))
 		{
-			std::cout << "W key is pressed! \n";
+			EN_CORE_INFO("W key pressed");
 		}
 		// Update game logic here
 	}

@@ -33,10 +33,10 @@ namespace Engine {
 		{
 			float currentTime = Time::GetTime();
 			float deltaTime = currentTime - lastTime;
+			lastTime = currentTime;
 			PollEvents();   // Input / OS messages
 			OnUpdate(deltaTime);		// Game Logic
 			OnRender();		// Placeholder Render
-			lastTime = currentTime;
 		}
 	}
 }
