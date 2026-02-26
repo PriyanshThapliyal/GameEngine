@@ -1,3 +1,4 @@
+#include <enpch.h>
 #include "Application.h"
 #include "Platform/Window/Window.h"
 #include "Time.h"

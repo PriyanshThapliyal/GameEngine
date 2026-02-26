@@ -8,7 +8,10 @@ namespace Engine {
 		Window(unsigned int width, unsigned int height, const char* title);
 		~Window();
 
+		Window(const Window&) = delete; // Delete copy constructor to prevent copying of the Window class
+		Window& operator = (const Window&) = delete; // Delete copy assignment operator to prevent copying of the Window class
 		void PollEvents();
+
 		bool ShouldClose() const;
 		bool WasResized() ;
 		unsigned int GetWidth() const;
@@ -24,15 +27,16 @@ namespace Engine {
 	private:
 		void* m_Window = nullptr; // Hides GLFWwindow* to avoid including GLFW in the header
 		
-		struct m_Data{
+		struct WindowData{
 			bool CloseRequested = false;
 			bool Resized = false;
 			unsigned int m_Width = 0;
 			unsigned int m_Height = 0;
 		};
-		m_Data m_Data;
+		WindowData m_Data;
 	};
 
 }
+
 
 // Note : The implementation of the Window class is in the corresponding .cpp file, and it uses GLFW for window management. The header file only declares the interface of the Window class, while the implementation details are hidden in the .cpp file to avoid exposing GLFW-specific code in the header.
