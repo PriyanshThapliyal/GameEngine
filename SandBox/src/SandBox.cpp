@@ -19,14 +19,18 @@ protected:
 	{
 		//EN_CORE_TRACE("Delta Time -> {0} ", deltaTime);
 
-		if (Engine::Input::IsKeyPressed(Engine::Key::W))
+		if (Engine::Input::IsKeyPressed(Engine::KeyCode::W))
 		{
 			EN_CORE_INFO("W key pressed");
 		}
 
-		EN_CORE_INFO("Mouse Position -> {0} , {1} ", Engine::Input::GetMousePosition().first, Engine::Input::GetMousePosition().second);
-		//EN_CORE_INFO("Mouse Button Pressed -> {0}", Engine::Input::IsMouseButtonPressed(0)); 
+		if (Engine::Input::IsMouseButtonPressed(Engine::MouseCode::Left))
+		{
+			EN_CORE_INFO("Left mouse button pressed");
+		}
 
+		//EN_CORE_TRACE("Mouse Position -> {0} , {1} ", Engine::Input::GetMousePosition().first, Engine::Input::GetMousePosition().second);
+		
 		// Update game logic here
 	}
 	virtual void OnRender() override

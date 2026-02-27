@@ -4,9 +4,13 @@
 
 #include "Engine/Core.h"
 #include "Engine/Application.h"
-#include "Engine/Input.h"
-#include "Platform/Window/KeyCode.h"
 #include "Engine/Log.h"
+
+
+#include "Engine/Input/Input.h"
+#include "Engine/Input/KeyCode.h"
+#include "Engine/Input/MouseCode.h"
+
 
 // --- Entry Point ---
 #include "Engine/EntryPoint.h"

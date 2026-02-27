@@ -1,14 +1,17 @@
 #pragma once
 
-#include "Engine/Input.h"
+#include "Engine/Input/Input.h"
 
 namespace Engine{
 
 	class WindowsInput : public Input
 	{
+	public:
+		
+		
 	protected:
-		virtual bool IsKeyPressedImpl(int keycode) override;
-		virtual bool IsMouseButtonPressedImpl(int button) override;
+		virtual bool IsKeyPressedImpl(KeyCode key) override;
+		virtual bool IsMouseButtonPressedImpl(MouseCode button) override;
 		virtual std::pair<float, float> GetMousePositionImpl() override;
 	};
 }
