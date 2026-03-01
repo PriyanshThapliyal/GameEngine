@@ -2,6 +2,7 @@
 #include "Window.h"
 #include <GLFW/glfw3.h>
 #include "Engine/Log.h"
+#include "Engine/Events/ApplicationEvent.h"
 
 static bool s_GLFWInititalized = false;
 
@@ -28,29 +29,34 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 	}
 
 	m_Window = window;
-	glfwSetWindowUserPointer((GLFWwindow*)m_Window, this); // Set the user pointer to the Window instance
+
+	glfwMakeContextCurrent((GLFWwindow*)m_Window);
+
+	glfwSetWindowUserPointer((GLFWwindow*)m_Window, &m_Data); // Set the user pointer to our WindowData struct for later use in callbacks
 
 	glfwSetWindowCloseCallback((GLFWwindow*)m_Window, [](GLFWwindow* window)
 		{
-			Window* win = (Window*)glfwGetWindowUserPointer(window);
-			win->m_Data.CloseRequested = true;
-			EN_CORE_INFO("Window close requested");
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window); // Retrieve the WindowData from the user pointer
+			
+			WindowCloseEvent event; // Create a WindowCloseEvent
+			data.m_EventCallback(event);
 		});
-
-	glfwMakeContextCurrent((GLFWwindow*)m_Window);
 
 	m_Data.m_Width = width;
 	m_Data.m_Height = height;
 
-	glfwSetWindowSizeCallback((GLFWwindow*)m_Window, 
+	glfwSetWindowSizeCallback((GLFWwindow*)m_Window,
 		[](GLFWwindow* window, int width, int height)
 		{
-			Window* win = (Window*)glfwGetWindowUserPointer(window);
-			win->m_Data.m_Width = width;
-			win->m_Data.m_Height = height;
-			win->m_Data.Resized = true;
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			data.m_Width = width;
+			data.m_Height = height;
+
+			WindowResizeEvent event(width, height);
+			data.m_EventCallback(event);
 		});
-}
+	}
     
 Engine::Window::Window(unsigned int width , unsigned int height , const char* title)
 {
@@ -71,7 +77,6 @@ void Engine::Window::Shutdown()
 
 	if(s_GLFWInititalized)
 	{
-		glfwTerminate();
 		s_GLFWInititalized = false;
 	}
 }
@@ -81,19 +86,9 @@ void Engine::Window::PollEvents()
 	glfwPollEvents();
 }
 
-bool Engine::Window::ShouldClose() const
+void Engine::Window::SwapBuffers(void* m_Window)
 {
-	return m_Data.CloseRequested;
-}
-
-bool Engine::Window::WasResized()
-{
-	if (m_Data.Resized)
-	{
-		m_Data.Resized = false; // Reset the flag after checking
-		return true;
-	}
-	return false;
+	glfwSwapBuffers((GLFWwindow*)m_Window);
 }
 
 unsigned int Engine::Window::GetWidth() const
@@ -103,4 +98,9 @@ unsigned int Engine::Window::GetWidth() const
 unsigned int Engine::Window::GetHeight() const
 {
 	return m_Data.m_Height;
+}
+
+void Engine::Window::SetEventCallback(const EventCallbackFn& callback)
+{
+	m_Data.m_EventCallback = callback;
 }

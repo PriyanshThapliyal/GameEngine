@@ -20,6 +20,8 @@ namespace Engine {
 
 	private: 
 		void PollEvents();
+		void OnEvent(Event& e);
+		void SwapBuffers();
 
 	private:
 		Window m_Window;

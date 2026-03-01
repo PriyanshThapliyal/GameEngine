@@ -3,11 +3,15 @@
 #include "Platform/Window/Window.h"
 #include "Time.h"
 #include "Engine/Log.h"
+#include "Engine/Events/Event.h"
+#include "Engine/Events/ApplicationEvent.h"
 
 namespace Engine {
 	Application::Application() : m_Window(1280, 720, "Engine")
 	{
 		s_Instance = this;
+		m_Window.SetEventCallback([this](Event& e) 
+			{ OnEvent(e); });
 	}
 
 	Application::~Application()
@@ -16,14 +20,25 @@ namespace Engine {
 
 	Application* Application::s_Instance = nullptr;
 
-	void Application::PollEvents() {
+	void Application::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+	
+		dispatcher.Dispatch<WindowCloseEvent>(
+			[this](WindowCloseEvent& e) 
+			{ 
+				m_Running = false; 
+				return true; 
+			});
+	}
+	void Application::PollEvents()
+	{
 		m_Window.PollEvents();
+	}
 
-		if (m_Window.ShouldClose())
-			m_Running = false;
-		if (m_Window.WasResized()) 
-			EN_CORE_INFO("Window resized: {0}x{1}", m_Window.GetWidth(), m_Window.GetHeight());
-			
+	void Application::SwapBuffers()
+	{
+		m_Window.SwapBuffers(m_Window.GetNativeWindow());
 	}
 
 	void Application::OnUpdate(float deltaTime) {}
@@ -39,9 +54,11 @@ namespace Engine {
 			float currentTime = Time::GetTime();
 			float deltaTime = currentTime - lastTime;
 			lastTime = currentTime;
-			PollEvents();   // Input / OS messages
+			
+			PollEvents();	// Poll and handle events
 			OnUpdate(deltaTime);		// Game Logic
 			OnRender();		// Placeholder Render
+			SwapBuffers();	// Swap the front and back buffers
 		}
 	}
 }
