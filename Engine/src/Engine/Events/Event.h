@@ -26,14 +26,18 @@ namespace Engine
 	class EventDispatcher
 	{
 	public:
+		//Constructor 
 		EventDispatcher(Event& event)
 			: m_Event(event) {}
 
+		// Template function to dispatch events based on their type
 		template<typename T , typename F>
 		bool Dispatch(const F& func)
 		{
+			//The type check 
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
+				// Cast and execute
 				m_Event.Handled |= func(static_cast<T&>(m_Event));
 				return true;
 			}

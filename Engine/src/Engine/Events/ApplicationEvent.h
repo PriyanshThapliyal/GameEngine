@@ -29,9 +29,10 @@ namespace Engine {
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
 			: m_Width(width), m_Height(height){}
-
-		EventType GetEventType() const override { return EventType::WindowResize; }
-		const char* GetName() const override { return "WindowResize"; }
+		
+		static EventType GetStaticType() { return EventType::WindowResize; }
+		virtual EventType GetEventType() const override { return GetStaticType(); }
+		virtual const char* GetName() const override { return "WindowResize"; }
 
 		unsigned int GetWidth() const { return m_Width; }
 		unsigned int GetHeight() const { return m_Height; }

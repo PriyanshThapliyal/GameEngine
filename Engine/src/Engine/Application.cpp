@@ -3,8 +3,6 @@
 #include "Platform/Window/Window.h"
 #include "Time.h"
 #include "Engine/Log.h"
-#include "Engine/Events/Event.h"
-#include "Engine/Events/ApplicationEvent.h"
 
 namespace Engine {
 	Application::Application() : m_Window(1280, 720, "Engine")
@@ -20,15 +18,35 @@ namespace Engine {
 
 	Application* Application::s_Instance = nullptr;
 
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+		m_Running = false;
+		EN_CORE_ERROR("Window close event received, shutting down application.");
+		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		EN_CORE_INFO("Window resized to {0}x{1}", e.GetWidth(), e.GetHeight());
+		return false;
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
 	
+		//dispatcher.Dispatch<WindowCloseEvent>(
+		//	std::bind(&Application::OnWindowClose, this, std::placeholders::_1)
+		//);     This is now considered anold fashioned in modern C++ instead we use this now
+		// Lambda expression
 		dispatcher.Dispatch<WindowCloseEvent>(
-			[this](WindowCloseEvent& e) 
-			{ 
-				m_Running = false; 
-				return true; 
+			[this](WindowCloseEvent& event) {
+				return OnWindowClose(event);
+			});
+
+		dispatcher.Dispatch<WindowResizeEvent>(
+			[this](WindowResizeEvent& event) {
+				return OnWindowResize(event);
 			});
 	}
 	void Application::PollEvents()

@@ -1,5 +1,7 @@
 #pragma once
 #include "Platform/Window/Window.h"
+#include "Engine/Events/ApplicationEvent.h"
+#include "Engine/Events/Event.h"
 
 namespace Engine {
 
@@ -21,6 +23,8 @@ namespace Engine {
 	private: 
 		void PollEvents();
 		void OnEvent(Event& e);
+		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 		void SwapBuffers();
 
 	private:

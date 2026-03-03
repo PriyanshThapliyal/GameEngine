@@ -9,7 +9,7 @@ namespace Engine {
 	// Define a type for event callback functions that take an Event reference as a parameter
 
 
-	class Window
+	class Window 
 	{
 	public:
 		Window(unsigned int width, unsigned int height, const char* title);
