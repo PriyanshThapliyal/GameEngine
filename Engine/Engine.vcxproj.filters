@@ -10,6 +10,9 @@
     <Filter Include="Platform\Window">
       <UniqueIdentifier>{D1E05B2F-3D6C-C9F3-467D-4CE8B28725F4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{0920a5b6-6e18-4d20-9004-04ea7373b68c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h" />
@@ -19,34 +22,51 @@
     <ClInclude Include="src\Engine\Core.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\EntryPoint.h">
+    <ClInclude Include="src\Engine\ENTRYPOINT.H">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Input.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\Window\KeyCode.h">
-      <Filter>Platform\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\Window\Window.h">
-      <Filter>Platform\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Log.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Time.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Window\Window.h">
+      <Filter>Platform\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enpch.h" />
+    <ClInclude Include="src\Platform\Window\WindowsInput.h">
+      <Filter>Platform\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Input\Input.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Input\KeyCode.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Input\MouseCode.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Events\Event.h" />
+    <ClInclude Include="src\Engine\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Engine\Events\KeyEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Application.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Window\KeyInput.cpp">
+    <ClCompile Include="src\Engine\Log.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Time.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Window\WindowsInput.cpp">
       <Filter>Platform\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Window\Window.cpp">
       <Filter>Platform\Window</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Log.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
+    <ClCompile Include="src\enpch.cpp" />
   </ItemGroup>
 </Project>

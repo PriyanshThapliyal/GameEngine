@@ -39,6 +39,9 @@ namespace Engine {
 		//	std::bind(&Application::OnWindowClose, this, std::placeholders::_1)
 		//);     This is now considered anold fashioned in modern C++ instead we use this now
 		// Lambda expression
+		EN_CORE_INFO("Event Type Value: {0}", (int)e.GetEventType());
+		EN_CORE_INFO("WindowClose Static Value: {0}", (int)WindowCloseEvent::GetStaticType());
+
 		dispatcher.Dispatch<WindowCloseEvent>(
 			[this](WindowCloseEvent& event) {
 				return OnWindowClose(event);
@@ -48,6 +51,7 @@ namespace Engine {
 			[this](WindowResizeEvent& event) {
 				return OnWindowResize(event);
 			});
+
 	}
 	void Application::PollEvents()
 	{

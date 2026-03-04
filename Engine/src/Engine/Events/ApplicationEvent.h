@@ -8,20 +8,10 @@ namespace Engine {
 	public:
 		WindowCloseEvent() = default;
 
-		static EventType GetStaticType()
-		{
-			return EventType::WindowClose;
-		}
+		static EventType GetStaticType() { return EventType::WindowClose; }
+		EventType GetEventType() const override { return GetStaticType(); }
+		const char* GetName() const override { return "WindowClose"; }
 
-		EventType GetEventType() const override
-		{
-			return GetStaticType();
-		}
-
-		const char* GetName() const override
-		{
-			return "WindowClose";
-		}
 	};
 
 	class WindowResizeEvent : public Event

@@ -26,6 +26,8 @@ protected:
 
 	virtual void OnEvent(Engine::Event& e) override
 	{
+		Application::OnEvent(e); // Call base class event handling
+
 		if (e.GetEventType() == Engine::EventType::KeyPressed)
 		{
 			auto& keyEvent = static_cast<Engine::KeyPressedEvent&>(e);

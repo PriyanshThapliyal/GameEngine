@@ -31,9 +31,9 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 
 	m_Window = window;
 
-	glfwMakeContextCurrent((GLFWwindow*)m_Window);
-
 	glfwSetWindowUserPointer((GLFWwindow*)m_Window, &m_Data); // Set the user pointer to our WindowData struct for later use in callbacks
+
+	glfwMakeContextCurrent((GLFWwindow*)m_Window);
 
 	glfwSetWindowCloseCallback((GLFWwindow*)m_Window, [](GLFWwindow* window)
 		{
@@ -41,6 +41,7 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 			
 			WindowCloseEvent event; // Create a WindowCloseEvent
 			data.m_EventCallback(event);
+
 		});
 
 	m_Data.m_Width = width;
