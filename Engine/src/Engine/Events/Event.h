@@ -7,8 +7,8 @@ namespace Engine
 	enum class EventType
 	{
 		None = 0,
-		WindowClose,
-		WindowResize
+		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
+		KeyPressed, KeyReleased, KeyTyped, KeyRepeat, KeyScroll
 	};
 
 	class Event
@@ -17,7 +17,7 @@ namespace Engine
 		virtual ~Event() = default; // Virtual desturctor -> polymorphic base class
 
 		virtual EventType GetEventType() const = 0;  // Pure virtual function -> makes this class abstract
-		virtual const char* GetName() const = 0;
+		virtual const char* GetName() const  = 0;
 
 		bool Handled = false;
 

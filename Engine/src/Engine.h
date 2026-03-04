@@ -11,6 +11,10 @@
 #include "Engine/Input/KeyCode.h"
 #include "Engine/Input/MouseCode.h"
 
+#include "Engine/Events/Event.h"
+#include "Engine/Events/ApplicationEvent.h"
+#include "Engine/Events/KeyEvent.h"
+
 
 // --- Entry Point ---
 #include "Engine/EntryPoint.h"

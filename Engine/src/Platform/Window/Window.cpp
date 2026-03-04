@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "Engine/Log.h"
 #include "Engine/Events/ApplicationEvent.h"
+#include "Engine/Events/KeyEvent.h"
 
 static bool s_GLFWInititalized = false;
 
@@ -56,7 +57,39 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 			WindowResizeEvent event(width, height);
 			data.m_EventCallback(event);
 		});
-	}
+	
+	glfwSetKeyCallback((GLFWwindow*)m_Window, 
+		[](GLFWwindow* window,
+		int key,
+		int scancode,
+		int action,
+		int mods)
+		{
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			switch (action)
+			{
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent event((KeyCode)key, false);
+					data.m_EventCallback(event);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					KeyReleasedEvent event((KeyCode)key);
+					data.m_EventCallback(event);
+					break;
+				}
+				case GLFW_REPEAT:
+				{
+					KeyPressedEvent event((KeyCode)key, true);
+					data.m_EventCallback(event);
+					break;
+				}
+			}
+		});
+}
     
 Engine::Window::Window(unsigned int width , unsigned int height , const char* title)
 {
@@ -74,7 +107,7 @@ void Engine::Window::Shutdown()
 		glfwDestroyWindow((GLFWwindow*)m_Window);
 		m_Window = nullptr;
 	}
-
+	
 	if(s_GLFWInititalized)
 	{
 		s_GLFWInititalized = false;

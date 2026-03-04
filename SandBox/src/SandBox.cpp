@@ -17,25 +17,21 @@ public:
 protected:
 	virtual void OnUpdate(float deltaTime) override
 	{
-		//EN_CORE_TRACE("Delta Time -> {0} ", deltaTime);
-
-		if (Engine::Input::IsKeyPressed(Engine::KeyCode::W))
-		{
-			EN_CORE_INFO("W key pressed");
-		}
-
-		if (Engine::Input::IsMouseButtonPressed(Engine::MouseCode::Left))
-		{
-			EN_CORE_INFO("Left mouse button pressed");
-		}
-
-		//EN_CORE_TRACE("Mouse Position -> {0} , {1} ", Engine::Input::GetMousePosition().first, Engine::Input::GetMousePosition().second);
-		
-		// Update game logic here
+		// Update game logic here using deltaTime for frame-independent movement
 	}
 	virtual void OnRender() override
 	{
 		// Render game objects here
+	}
+
+	virtual void OnEvent(Engine::Event& e) override
+	{
+		if (e.GetEventType() == Engine::EventType::KeyPressed)
+		{
+			auto& keyEvent = static_cast<Engine::KeyPressedEvent&>(e);
+
+			EN_CORE_TRACE("Key Pressed : {0}  , Repeat : {1} ", (int)keyEvent.GetKeyCode(), keyEvent.IsRepeat());
+		}
 	}
 };
 

@@ -15,6 +15,7 @@ namespace Engine {
 		Window& GetWindow() { return m_Window; }
 
 		static Application& Get() { return *s_Instance; }
+		virtual void OnEvent(Event& e);
 
 	protected:
 		virtual void OnUpdate(float deltaTime);
@@ -22,7 +23,7 @@ namespace Engine {
 
 	private: 
 		void PollEvents();
-		void OnEvent(Event& e);
+		
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 		void SwapBuffers();
