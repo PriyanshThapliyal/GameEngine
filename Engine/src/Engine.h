@@ -14,6 +14,7 @@
 #include "Engine/Events/Event.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/KeyEvent.h"
+#include "Engine/Events/MouseEvent.h"
 
 
 // --- Entry Point ---

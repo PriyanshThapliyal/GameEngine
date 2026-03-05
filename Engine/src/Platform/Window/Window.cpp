@@ -4,6 +4,7 @@
 #include "Engine/Log.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/KeyEvent.h"
+#include "Engine/Events/MouseEvent.h"
 
 static bool s_GLFWInititalized = false;
 
@@ -90,6 +91,52 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 				}
 			}
 		});
+
+	glfwSetCursorPosCallback((GLFWwindow*)m_Window,
+		[](GLFWwindow* window,
+			double xpos, double ypos) 
+		{
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			MouseMovedEvent event((float)xpos, (float)ypos);
+			data.m_EventCallback(event);
+
+		}); 
+
+	glfwSetMouseButtonCallback((GLFWwindow*)m_Window,
+		[](GLFWwindow* window,
+			int button,
+			int action,
+			int mods) 
+		{
+			switch (action) {
+			case GLFW_PRESS:
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				MouseButtonPressedEvent event(button);
+				data.m_EventCallback(event);
+				break;
+			}
+			case GLFW_RELEASE:
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				MouseButtonReleasedEvent event(button);
+				data.m_EventCallback(event);
+				break;
+			}
+			}
+		});
+
+	glfwSetScrollCallback((GLFWwindow*)m_Window,
+		[](GLFWwindow* window,
+			double xoffset,
+			double yoffset)
+		{
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			MouseScrolledEvent event((float)xoffset, (float)yoffset);
+			data.m_EventCallback(event);
+		});
+
 }
     
 Engine::Window::Window(unsigned int width , unsigned int height , const char* title)

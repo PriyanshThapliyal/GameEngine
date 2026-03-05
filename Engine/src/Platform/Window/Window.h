@@ -38,8 +38,8 @@ namespace Engine {
 		struct WindowData {
 			unsigned int m_Width = 0;
 			unsigned int m_Height = 0;
-
-			EventCallbackFn m_EventCallback; // Function pointer for event callback
+			
+			EventCallbackFn m_EventCallback; // Function pointer for event callback			
 		};
 
 		WindowData m_Data;

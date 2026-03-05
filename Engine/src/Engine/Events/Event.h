@@ -8,7 +8,8 @@ namespace Engine
 	{
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
-		KeyPressed, KeyReleased, KeyTyped, KeyRepeat, KeyScroll
+		KeyPressed, KeyReleased, KeyTyped, KeyRepeat, KeyScroll,
+		MouseMoved, MouseButtonPressed, MouseButtonReleased, MouseScrolled
 	};
 
 	class Event
