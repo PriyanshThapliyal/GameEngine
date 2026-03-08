@@ -50,6 +50,15 @@ namespace Engine {
 				return OnWindowResize(event);
 			});
 
+		// Propagate event to layers in reverse order (from topmost to bottom)
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
+		{
+			(*it)->OnEvent(e);
+
+			if (e.Handled)
+				break;
+		}
+
 	}
 	void Application::PollEvents()
 	{
@@ -80,5 +89,17 @@ namespace Engine {
 			OnRender();		// Placeholder Render
 			SwapBuffers();	// Swap the front and back buffers
 		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 }

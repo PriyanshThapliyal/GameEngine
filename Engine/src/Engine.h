@@ -16,6 +16,7 @@
 #include "Engine/Events/KeyEvent.h"
 #include "Engine/Events/MouseEvent.h"
 
+#include "Engine/LayerStack.h"
 
 // --- Entry Point ---
 #include "Engine/EntryPoint.h"

@@ -2,6 +2,7 @@
 #include "Platform/Window/Window.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/Event.h"
+#include "Engine/LayerStack.h"
 
 namespace Engine {
 
@@ -17,6 +18,9 @@ namespace Engine {
 		static Application& Get() { return *s_Instance; }
 		virtual void OnEvent(Event& e);
 
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* layer);
+
 	protected:
 		virtual void OnUpdate(float deltaTime);
 		virtual void OnRender();
@@ -30,6 +34,8 @@ namespace Engine {
 
 	private:
 		Window m_Window;
+
+		LayerStack m_LayerStack;
 
 		static Application* s_Instance; // Static instance for global access
 
