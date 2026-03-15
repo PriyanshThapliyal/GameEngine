@@ -15,9 +15,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Engine/Dependencies/GLFW/include"
 IncludeDir["spdlog"] = "Engine/Dependencies/spdlog/include"
+IncludeDir["glad"] = "Engine/Dependencies/glad/include"
 
 include "Engine/Dependencies/GLFW" -- Same Include as C++ , takes GLFW premake5.lua file and use it 
 include "Engine/Dependencies/spdlog"
+include "Engine/Dependencies/glad"
 
 project "Engine"
     location "Engine"
@@ -40,14 +42,16 @@ project "Engine"
 	{
 		"%{prj.name}/src",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.spdlog}"
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.glad}"
 	}
 
 	links
 	{
 		"GLFW",
 		"opengl32.lib",
-		"spdlog"
+		"spdlog",
+		"glad"
 	}
 
 	filter "system:windows"
@@ -106,6 +110,7 @@ project "SandBox"
 	{
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.glad}",
 		"Engine/src"
 	}
 
@@ -113,7 +118,8 @@ project "SandBox"
 	{
 		"Engine",
 		"spdlog",
-		"GLFW"
+		"GLFW",
+		"glad"
 	}
 
 	filter "system:windows"

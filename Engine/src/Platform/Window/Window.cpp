@@ -1,7 +1,8 @@
 #include <enpch.h>
 #include "Window.h"
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Engine/Log.h"
+#include "Engine/Core/Log.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/KeyEvent.h"
 #include "Engine/Events/MouseEvent.h"
@@ -35,6 +36,10 @@ void Engine::Window::Init(unsigned int width, unsigned int height, const char* t
 	glfwSetWindowUserPointer((GLFWwindow*)m_Window, &m_Data); // Set the user pointer to our WindowData struct for later use in callbacks
 
 	glfwMakeContextCurrent((GLFWwindow*)m_Window);
+
+	int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+	if (!status) EN_CORE_ERROR("Failed to initialize GLAD ");
 
 	glfwSetWindowCloseCallback((GLFWwindow*)m_Window, [](GLFWwindow* window)
 		{
