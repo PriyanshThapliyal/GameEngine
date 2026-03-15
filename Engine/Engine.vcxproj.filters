@@ -4,39 +4,56 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{130D9B61-7FC2-1357-08B7-0D2E746B0A5B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Events">
+      <UniqueIdentifier>{5FAFB439-CB6F-3070-94AA-79ED002A754C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{1AB06895-0613-F839-AF98-30F09BDAC3BC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Window">
       <UniqueIdentifier>{D1E05B2F-3D6C-C9F3-467D-4CE8B28725F4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Input">
-      <UniqueIdentifier>{0920a5b6-6e18-4d20-9004-04ea7373b68c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h" />
-    <ClInclude Include="src\Engine\Application.h">
-      <Filter>Engine</Filter>
+    <ClInclude Include="src\Engine\Core\Application.h">
+      <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Core.h">
-      <Filter>Engine</Filter>
+    <ClInclude Include="src\Engine\Core\Core.h">
+      <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\ENTRYPOINT.H">
-      <Filter>Engine</Filter>
+    <ClInclude Include="src\Engine\Core\ENTRYPOINT.H">
+      <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Log.h">
-      <Filter>Engine</Filter>
+    <ClInclude Include="src\Engine\Core\Layer.h">
+      <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Time.h">
-      <Filter>Engine</Filter>
+    <ClInclude Include="src\Engine\Core\LayerStack.h">
+      <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\Window\Window.h">
-      <Filter>Platform\Window</Filter>
+    <ClInclude Include="src\Engine\Core\Log.h">
+      <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\enpch.h" />
-    <ClInclude Include="src\Platform\Window\WindowsInput.h">
-      <Filter>Platform\Window</Filter>
+    <ClInclude Include="src\Engine\Core\Time.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Events\ApplicationEvent.h">
+      <Filter>Engine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Events\Event.h">
+      <Filter>Engine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Events\KeyEvent.h">
+      <Filter>Engine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Events\MouseEvent.h">
+      <Filter>Engine\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Input\Input.h">
       <Filter>Engine\Input</Filter>
@@ -47,30 +64,33 @@
     <ClInclude Include="src\Engine\Input\MouseCode.h">
       <Filter>Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Events\Event.h" />
-    <ClInclude Include="src\Engine\Events\ApplicationEvent.h" />
-    <ClInclude Include="src\Engine\Events\KeyEvent.h" />
-    <ClInclude Include="src\Engine\Events\MouseEvent.h" />
-    <ClInclude Include="src\Engine\Layer.h" />
-    <ClInclude Include="src\Engine\LayerStack.h" />
+    <ClInclude Include="src\Platform\Window\Window.h">
+      <Filter>Platform\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Window\WindowsInput.h">
+      <Filter>Platform\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enpch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\Application.cpp">
-      <Filter>Engine</Filter>
+    <ClCompile Include="src\Engine\Core\Application.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Log.cpp">
-      <Filter>Engine</Filter>
+    <ClCompile Include="src\Engine\Core\LayerStack.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Time.cpp">
-      <Filter>Engine</Filter>
+    <ClCompile Include="src\Engine\Core\Log.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Window\WindowsInput.cpp">
-      <Filter>Platform\Window</Filter>
+    <ClCompile Include="src\Engine\Core\Time.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Window\Window.cpp">
       <Filter>Platform\Window</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Window\WindowsInput.cpp">
+      <Filter>Platform\Window</Filter>
+    </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
-    <ClCompile Include="src\Engine\LayerStack.cpp" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,8 @@
 #include "Application.h"
 #include "Platform/Window/Window.h"
 #include "Time.h"
-#include "Engine/Log.h"
+#include "Engine/Core/Log.h"
+#include "glad/glad.h"
 
 namespace Engine {
 	Application::Application() : m_Window(1280, 720, "Engine")
@@ -83,6 +84,9 @@ namespace Engine {
 			float currentTime = Time::GetTime();
 			float deltaTime = currentTime - lastTime;
 			lastTime = currentTime;
+
+			glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
 			
 			PollEvents();	// Poll and handle events
 			OnUpdate(deltaTime);		// Game Logic

@@ -2,9 +2,9 @@
   
 // For use by Engine applications
 
-#include "Engine/Core.h"
-#include "Engine/Application.h"
-#include "Engine/Log.h"
+#include "Engine/Core/Core.h"
+#include "Engine/Core/Application.h"
+#include "Engine/Core/Log.h"
 
 
 #include "Engine/Input/Input.h"
@@ -16,10 +16,10 @@
 #include "Engine/Events/KeyEvent.h"
 #include "Engine/Events/MouseEvent.h"
 
-#include "Engine/LayerStack.h"
+#include "Engine/Core/LayerStack.h"
 
 // --- Entry Point ---
-#include "Engine/EntryPoint.h"
+#include "Engine/Core/EntryPoint.h"
 
 // Forward declaration of the application creation function so user projects
 // can implement Engine::CreateApplication() in their own module.

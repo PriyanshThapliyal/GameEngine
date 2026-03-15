@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Engine/Layer.h"
+#include "Engine/Core/Layer.h"
 #include "Engine/Events/KeyEvent.h"
 #include "Engine/Events/MouseEvent.h"
-#include "Engine/Log.h"
+#include "Engine/Core/Log.h"
 
 class SandboxLayer : public Engine::Layer
 {
