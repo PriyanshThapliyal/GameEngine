@@ -16,6 +16,7 @@ namespace Engine
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnEvent(Event& event) {}
+		virtual void OnRender() {}
 
 	protected:
 		std::string m_DebugName;

@@ -71,6 +71,7 @@
       <Filter>Platform\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\enpch.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -92,5 +93,10 @@
       <Filter>Platform\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Shaders\triangle.vert" />
+    <None Include="assets\Shaders\triangle.frag" />
   </ItemGroup>
 </Project>

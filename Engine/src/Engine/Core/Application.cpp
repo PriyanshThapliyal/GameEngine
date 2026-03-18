@@ -90,7 +90,11 @@ namespace Engine {
 			
 			PollEvents();	// Poll and handle events
 			OnUpdate(deltaTime);		// Game Logic
-			OnRender();		// Placeholder Render
+			
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnRender();
+			}
 			SwapBuffers();	// Swap the front and back buffers
 		}
 	}

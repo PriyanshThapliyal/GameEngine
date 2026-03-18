@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "enpch.h"
 #include "../SandboxLayer.h" 
+#include <glad/glad.h>
 
 class Sandbox : public Engine::Application
 {
@@ -15,6 +16,8 @@ public:
 
 	}
 
+private:
+	
 protected:
 	virtual void OnUpdate(float deltaTime) override
 	{
@@ -22,7 +25,7 @@ protected:
 	}
 	virtual void OnRender() override
 	{
-		// Render game objects here
+
 	}
 
 };

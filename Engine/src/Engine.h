@@ -6,6 +6,7 @@
 #include "Engine/Core/Application.h"
 #include "Engine/Core/Log.h"
 
+#include "Renderer/Shader.h"
 
 #include "Engine/Input/Input.h"
 #include "Engine/Input/KeyCode.h"
