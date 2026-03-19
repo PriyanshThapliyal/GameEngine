@@ -6,6 +6,9 @@
 #include "Engine/Core/Log.h"
 #include "Renderer/Shader.h"
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+
 
 class SandboxLayer : public Engine::Layer
 {
@@ -22,13 +25,36 @@ public:
 			"assets/shader/triangle.frag"
 		);
 		EN_CORE_WARN("Shader Compiled");
+
+		float vertices[] = {
+			0.0f,  0.5f, 0.0f,
+		   -0.5f, -0.5f, 0.0f,
+			0.5f, -0.5f, 0.0f
+		};
+
+		glGenVertexArrays(1, &m_VAO);
+		glGenBuffers(1, &m_VBO);
+
+		glBindVertexArray(m_VAO);
+		
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
 	}
 
 	void OnRender() override
 	{	
 		glClear(GL_COLOR_BUFFER_BIT);
 		m_Shader->Bind();
-		EN_CORE_TRACE("Shader Bound");
+
+		glBindVertexArray(m_VAO);
+
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		
 	}
 
 	void OnEvent(Engine::Event& e) override
@@ -68,5 +94,6 @@ public:
 
 private:
 	std::unique_ptr<Engine::Shader> m_Shader;
+	unsigned int m_VAO, m_VBO;
 
 };
