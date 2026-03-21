@@ -8,8 +8,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
-
 class SandboxLayer : public Engine::Layer
 {
 public:
@@ -21,8 +19,8 @@ public:
 	{
 		EN_CORE_WARN("SandboxLayer Attached");
 		m_Shader = std::make_unique<Engine::Shader>(
-			"assets/shader/triangle.vert",
-			"assets/shader/triangle.frag"
+			"Engine/assets/Shaders/triangle.vert",
+			"Engine/assets/Shaders/triangle.frag"
 		);
 		EN_CORE_WARN("Shader Compiled");
 
@@ -42,7 +40,7 @@ public:
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	}
 

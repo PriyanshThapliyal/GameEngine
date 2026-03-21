@@ -19,6 +19,9 @@
     <Filter Include="Platform\Window">
       <UniqueIdentifier>{D1E05B2F-3D6C-C9F3-467D-4CE8B28725F4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h" />
@@ -70,8 +73,10 @@
     <ClInclude Include="src\Platform\Window\WindowsInput.h">
       <Filter>Platform\Window</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Shader.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\enpch.h" />
-    <ClInclude Include="src\Renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -92,11 +97,9 @@
     <ClCompile Include="src\Platform\Window\WindowsInput.cpp">
       <Filter>Platform\Window</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\Shader.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
-    <ClCompile Include="src\Renderer\Shader.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\Shaders\triangle.vert" />
-    <None Include="assets\Shaders\triangle.frag" />
   </ItemGroup>
 </Project>

@@ -12,9 +12,18 @@ namespace Engine
 		m_RendererID = CreateShader(vertexPath, fragmentPath);
 	}
 
+	Shader::~Shader()
+	{
+		glDeleteProgram(m_RendererID);
+	}
+
 	std::string Shader::ReadFile(const std::string& path)
 	{
 		std::ifstream file(path);
+		if (!file.is_open())
+		{
+			EN_CORE_FATAL("Failed to open shader file: {0}", path);
+		}
 		std::stringstream ss;
 		ss << file.rdbuf();
 		return ss.str();
@@ -43,10 +52,12 @@ namespace Engine
 		if (result == GL_FALSE)
 		{
 			int length;
+			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+
 			std::vector<char> message(length);
 			glGetShaderInfoLog(id, length, &length, &message[0]);
 
-			EN_CORE_FATAL("Shader compilation failed :\n", &message[0]);
+			EN_CORE_FATAL("Shader compilation failed :\n{0}", &message[0]);
 			glDeleteShader(id);
 			return 0;
 		}
@@ -68,6 +79,20 @@ namespace Engine
 		glAttachShader(program, fs);
 		
 		glLinkProgram(program);
+
+		int success;
+		glGetProgramiv(program, GL_LINK_STATUS, &success);
+
+		if (success == GL_FALSE)
+		{
+			int length;
+			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
+
+			std::vector<char> message(length);
+			glGetProgramInfoLog(program, length, &length, message.data());
+
+			EN_CORE_FATAL("Shader linking failed:\n{0}", message.data());
+		}
 		glValidateProgram(program);
 
 		glDeleteShader(fs);
@@ -75,5 +100,29 @@ namespace Engine
 
 		return program;
 
+	}
+
+	int Shader::GetUniformLocation(const std::string& name)
+	{
+		if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
+			return m_UniformLocationCache[name];
+		
+		int location = glGetUniformLocation(m_RendererID, name.c_str());
+
+		if (location == -1)
+			EN_CORE_WARN("Uniform '{0}' not found!", name);
+
+		m_UniformLocationCache[name] = location;
+		return location;
+	}
+
+	void Shader::SetUniformFloat(const std::string& name, float value)
+	{
+		glUniform1f(GetUniformLocation(name), value);
+	}
+
+	void Shader::SetUniformFloat4(const std::string& name, float v0, float v1, float v2, float v3)
+	{
+		glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
 	}
 }
