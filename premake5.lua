@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Engine/Dependencies/GLFW/include"
 IncludeDir["spdlog"] = "Engine/Dependencies/spdlog/include"
 IncludeDir["glad"] = "Engine/Dependencies/glad/include"
+IncludeDir["glm"] = "Engine/Dependencies/glm"
 
 include "Engine/Dependencies/GLFW" -- Same Include as C++ , takes GLFW premake5.lua file and use it 
 include "Engine/Dependencies/spdlog"
@@ -43,7 +44,8 @@ project "Engine"
 		"%{prj.name}/src",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.glad}"
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -113,7 +115,8 @@ project "SandBox"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glad}",
-		"Engine/src"
+		"Engine/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links
