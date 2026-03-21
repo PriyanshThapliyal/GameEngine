@@ -7,6 +7,9 @@
 #include "Renderer/Shader.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 class SandboxLayer : public Engine::Layer
 {
@@ -48,6 +51,14 @@ public:
 	{	
 		glClear(GL_COLOR_BUFFER_BIT);
 		m_Shader->Bind();
+
+		glm::mat4 model = glm::mat4(1.0f);
+
+		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(1.047f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+
+		m_Shader->SetUniformMat4("u_Model", model);
 
 		glBindVertexArray(m_VAO);
 

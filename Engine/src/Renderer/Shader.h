@@ -2,6 +2,10 @@
 
 #include <string>
 #include <unordered_map>
+#include <glad/glad.h>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace Engine
 {
@@ -21,6 +25,7 @@ namespace Engine
 		//Uniforms
 		void SetUniformFloat(const std::string& name, float value);
 		void SetUniformFloat4(const std::string& name, float v0, float v1, float v2, float v3);
+		void SetUniformMat4(const std::string& name, glm::mat4 value);
 
 	private:
 		std::string ReadFile(const std::string& path);
