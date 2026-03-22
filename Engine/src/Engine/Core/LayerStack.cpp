@@ -23,6 +23,4 @@ namespace Engine
 	{
 		m_Layers.emplace_back(overlay);
 	}
-
-
 }

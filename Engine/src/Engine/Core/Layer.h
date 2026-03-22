@@ -17,6 +17,7 @@ namespace Engine
 		virtual void OnDetach() {}
 		virtual void OnEvent(Event& event) {}
 		virtual void OnRender() {}
+		virtual void OnUpdate(float deltaTime) {}
 
 	protected:
 		std::string m_DebugName;

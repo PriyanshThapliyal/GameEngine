@@ -47,6 +47,11 @@ public:
 
 	}
 
+	void OnUpdate(float deltaTime) override
+	{
+		m_Angle += deltaTime;
+	}
+
 	void OnRender() override
 	{	
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -54,14 +59,18 @@ public:
 
 		glm::mat4 model = glm::mat4(1.0f);
 
-		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(1.047f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.1f, 0.1f, 0.3f));
+		model = glm::rotate(model, m_Angle, glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
-		m_Shader->SetUniformMat4("u_Model", model);
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f);
+
+		glm::mat4 mvp = projection * view * model;
+
+		m_Shader->SetUniformMat4("u_MVP", mvp);
 
 		glBindVertexArray(m_VAO);
-
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		
 	}
@@ -104,5 +113,6 @@ public:
 private:
 	std::unique_ptr<Engine::Shader> m_Shader;
 	unsigned int m_VAO, m_VBO;
+	float m_Angle = 0.0f;
 
 };

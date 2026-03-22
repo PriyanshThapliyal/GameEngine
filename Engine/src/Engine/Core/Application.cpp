@@ -89,7 +89,11 @@ namespace Engine {
 			glClear(GL_COLOR_BUFFER_BIT);
 			
 			PollEvents();	// Poll and handle events
-			OnUpdate(deltaTime);		// Game Logic
+			
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnUpdate(deltaTime);
+			}
 			
 			for (Layer* layer : m_LayerStack)
 			{
