@@ -77,6 +77,9 @@
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\enpch.h" />
+    <ClInclude Include="src\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\Renderer\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Renderer\RenderCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -101,5 +104,8 @@
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
+    <ClCompile Include="src\Renderer\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Renderer\RendererAPI.cpp" />
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include "Renderer/RenderCommand.h"
 
 class SandboxLayer : public Engine::Layer
 {
@@ -43,7 +44,7 @@ public:
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		Engine::RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	}
 
@@ -54,7 +55,7 @@ public:
 
 	void OnRender() override
 	{	
-		glClear(GL_COLOR_BUFFER_BIT);
+		Engine::RenderCommand::Clear();
 		m_Shader->Bind();
 
 		glm::mat4 model = glm::mat4(1.0f);
@@ -71,7 +72,7 @@ public:
 		m_Shader->SetUniformMat4("u_MVP", mvp);
 
 		glBindVertexArray(m_VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		Engine::RenderCommand::Draw(3);
 		
 	}
 
@@ -112,7 +113,7 @@ public:
 
 private:
 	std::unique_ptr<Engine::Shader> m_Shader;
-	unsigned int m_VAO, m_VBO;
+	unsigned int m_VAO = 0, m_VBO = 0;
 	float m_Angle = 0.0f;
 
 };
