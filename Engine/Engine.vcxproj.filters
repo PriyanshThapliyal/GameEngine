@@ -67,10 +67,10 @@
     <ClInclude Include="src\Engine\Input\MouseCode.h">
       <Filter>Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\Window\Window.h">
+    <ClInclude Include="src\Platform\OpenGL\Window\Window.h">
       <Filter>Platform\Window</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\Window\WindowsInput.h">
+    <ClInclude Include="src\Platform\OpenGL\Window\WindowsInput.h">
       <Filter>Platform\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Shader.h">
@@ -78,8 +78,12 @@
     </ClInclude>
     <ClInclude Include="src\enpch.h" />
     <ClInclude Include="src\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Renderer\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Renderer\Buffer.h" />
+    <ClInclude Include="src\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -94,18 +98,22 @@
     <ClCompile Include="src\Engine\Core\Time.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Window\Window.cpp">
+    <ClCompile Include="src\Platform\OpenGL\Window\Window.cpp">
       <Filter>Platform\Window</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Window\WindowsInput.cpp">
+    <ClCompile Include="src\Platform\OpenGL\Window\WindowsInput.cpp">
       <Filter>Platform\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Shader.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
-    <ClCompile Include="src\Renderer\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
   </ItemGroup>
 </Project>

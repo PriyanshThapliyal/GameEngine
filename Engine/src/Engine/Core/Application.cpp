@@ -1,6 +1,6 @@
 #include <enpch.h>
 #include "Application.h"
-#include "Platform/Window/Window.h"
+#include "Platform/OpenGL/Window/Window.h"
 #include "Time.h"
 #include "Engine/Core/Log.h"
 #include "glad/glad.h"

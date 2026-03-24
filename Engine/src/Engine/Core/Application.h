@@ -1,5 +1,5 @@
 #pragma once
-#include "Platform/Window/Window.h"
+#include "Platform/OpenGL/Window/Window.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/Event.h"
 #include "Engine/Core/LayerStack.h"

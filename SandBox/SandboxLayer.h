@@ -11,6 +11,9 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "Renderer/RenderCommand.h"
+#include "Renderer/Buffer.h"
+#include <memory>
+#include "../Engine/src/Renderer/VertexArray.h"
 
 class SandboxLayer : public Engine::Layer
 {
@@ -33,17 +36,20 @@ public:
 		   -0.5f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f
 		};
-
-		glGenVertexArrays(1, &m_VAO);
-		glGenBuffers(1, &m_VBO);
-
-		glBindVertexArray(m_VAO);
 		
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		// Create a vertex buffer
+		m_VertexBuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		m_VertexArray.reset(Engine::VertexArray::Create());
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
+		// Give buffer its layout
+		Engine::BufferLayout layout = {
+			{Engine::ShaderDataType::Float3, "a_Position"}
+		};
+		m_VertexBuffer->SetLayout(layout);
+
+		// add buffer to the array 
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+
 		Engine::RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	}
@@ -70,8 +76,7 @@ public:
 		glm::mat4 mvp = projection * view * model;
 
 		m_Shader->SetUniformMat4("u_MVP", mvp);
-
-		glBindVertexArray(m_VAO);
+		m_VertexArray->Bind();
 		Engine::RenderCommand::Draw(3);
 		
 	}
@@ -113,7 +118,8 @@ public:
 
 private:
 	std::unique_ptr<Engine::Shader> m_Shader;
-	unsigned int m_VAO = 0, m_VBO = 0;
+	std::shared_ptr < Engine::VertexArray> m_VertexArray;
+	std::shared_ptr<Engine::VertexBuffer> m_VertexBuffer;
 	float m_Angle = 0.0f;
 
 };
