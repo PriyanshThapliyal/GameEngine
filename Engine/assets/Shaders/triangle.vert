@@ -2,9 +2,7 @@
 
 layout (location = 0  ) in vec3 aPos;
 
-uniform mat4 u_Model;
 uniform mat4 u_MVP;
-
 
 void main()
 {

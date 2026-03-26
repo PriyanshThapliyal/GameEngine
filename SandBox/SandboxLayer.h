@@ -5,8 +5,7 @@
 #include "Engine/Events/MouseEvent.h"
 #include "Engine/Core/Log.h"
 #include "Renderer/Shader.h"
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -50,7 +49,7 @@ public:
 		// add buffer to the array 
 		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 
-		Engine::RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		Engine::RenderCommand::SetClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 
 	}
 
@@ -66,7 +65,7 @@ public:
 
 		glm::mat4 model = glm::mat4(1.0f);
 
-		model = glm::translate(model, glm::vec3(0.1f, 0.1f, 0.3f));
+		model = glm::translate(model, glm::vec3(0.1f, 0.1f, 0.0f));
 		model = glm::rotate(model, m_Angle, glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
