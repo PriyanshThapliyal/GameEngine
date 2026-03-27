@@ -12,7 +12,7 @@
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Buffer.h"
 #include <memory>
-#include "../Engine/src/Renderer/VertexArray.h"
+#include "Renderer/VertexArray.h"
 
 class SandboxLayer : public Engine::Layer
 {
@@ -70,7 +70,9 @@ public:
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
 		glm::mat4 view = glm::mat4(1.0f);
-		glm::mat4 projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f);
+		glm::mat4 projection = glm::ortho(-1.0f, 1.0f, // Left Right 
+										  -1.0f, 1.0f, // Top Bottom
+										  -1.0f, 1.0f);// Near Far
 
 		glm::mat4 mvp = projection * view * model;
 
