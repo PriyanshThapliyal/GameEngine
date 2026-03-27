@@ -1,25 +1,29 @@
 #pragma once
 
+#include <memory>
+
 #include "Engine/Core/Layer.h"
 #include "Engine/Events/KeyEvent.h"
 #include "Engine/Events/MouseEvent.h"
 #include "Engine/Core/Log.h"
-#include "Renderer/Shader.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+
+#include "Renderer/Shader.h"
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Buffer.h"
-#include <memory>
-#include "../Engine/src/Renderer/VertexArray.h"
+#include "Renderer/VertexArray.h"
+#include "Renderer/Camera.h"
 
 class SandboxLayer : public Engine::Layer
 {
 public:
 	SandboxLayer()
-		: Layer("SandboxLayer") {
-	}
+		: Layer("SandboxLayer")
+		, m_Camera(-1.6f, 1.6f, -0.9f, 0.9f, -1.0f, 1.0f)
+	{}
 
 	void OnAttach() override
 	{
@@ -35,7 +39,7 @@ public:
 		   -0.5f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f
 		};
-		
+
 		// Create a vertex buffer
 		m_VertexBuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
 		m_VertexArray.reset(Engine::VertexArray::Create());
@@ -56,28 +60,28 @@ public:
 	void OnUpdate(float deltaTime) override
 	{
 		m_Angle += deltaTime;
+		m_Camera.SetPosition({ 0.5f, 0.0f, 0.0f });
 	}
 
 	void OnRender() override
-	{	
+	{
 		Engine::RenderCommand::Clear();
+
+		glm::mat4 vp = m_Camera.GetViewProjectionMatrix();
+
 		m_Shader->Bind();
+		m_Shader->SetUniformMat4("u_ViewProjection", vp);
 
 		glm::mat4 model = glm::mat4(1.0f);
 
-		model = glm::translate(model, glm::vec3(0.1f, 0.1f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, m_Angle, glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
-		glm::mat4 view = glm::mat4(1.0f);
-		glm::mat4 projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f);
+		m_Shader->SetUniformMat4("u_Model", model);
 
-		glm::mat4 mvp = projection * view * model;
-
-		m_Shader->SetUniformMat4("u_MVP", mvp);
 		m_VertexArray->Bind();
 		Engine::RenderCommand::Draw(3);
-		
 	}
 
 	void OnEvent(Engine::Event& e) override
@@ -112,13 +116,12 @@ public:
 	}
 
 	void OnDetach()
-	{
-	}
+	{}
 
 private:
 	std::unique_ptr<Engine::Shader> m_Shader;
 	std::shared_ptr < Engine::VertexArray> m_VertexArray;
 	std::shared_ptr<Engine::VertexBuffer> m_VertexBuffer;
 	float m_Angle = 0.0f;
-
+	Engine::Camera m_Camera;
 };
