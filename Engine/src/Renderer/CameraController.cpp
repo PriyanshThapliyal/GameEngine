@@ -32,4 +32,18 @@ namespace Engine {
 
 		m_Camera.SetPosition(m_CameraPosition);
 	}
+
+	void CameraController::OnResize(float width, float height)
+	{
+		m_AspectRatio = width / height;
+		
+		m_Camera.SetProjection(
+			-m_AspectRatio,
+			 m_AspectRatio,
+			-1.0f,
+			 1.0f,
+			-1.0f,
+			 1.0f
+		);
+	}
 }

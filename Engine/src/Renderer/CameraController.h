@@ -10,6 +10,7 @@ namespace Engine
 		CameraController(float aspectRatio);
 
 		void OnUpdate(float deltaTime);
+		void OnResize(float width, float height);
 
 		Camera& GetCamera() { return m_Camera; }
 

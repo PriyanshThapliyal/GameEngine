@@ -1,6 +1,7 @@
 #include "enpch.h"
 
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include "OpenGLRendererAPI.h"
 
 namespace Engine
@@ -30,5 +31,10 @@ namespace Engine
 	void OpenGLRendererAPI::DrawIndexed(unsigned int count)
 	{
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+	}
+
+	void OpenGLRendererAPI::SetViewPort(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+	{
+		glViewport(x, y, width, height);
 	}
 }

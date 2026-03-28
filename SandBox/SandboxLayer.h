@@ -117,6 +117,24 @@ public:
 
 			EN_CORE_TRACE("Mouse Scrolled : {0} , {1}", mouseEvent.GetXOffset(), mouseEvent.GetYOffset());
 		}
+
+		if (e.GetEventType() == Engine::EventType::WindowResize)
+		{
+			auto& resizeEvent = static_cast<Engine::WindowResizeEvent&>(e);
+
+			uint32_t width = resizeEvent.GetWidth();
+			uint32_t height = resizeEvent.GetHeight();
+
+			// Fix ViewPort
+			Engine::RenderCommand::SetViewPort(0, 0, width, height);
+
+			// Update Camera
+			m_CameraController.OnResize(
+				(float)resizeEvent.GetWidth(),
+				(float)resizeEvent.GetHeight()
+			);
+
+		}
 	}
 
 	void OnDetach()
