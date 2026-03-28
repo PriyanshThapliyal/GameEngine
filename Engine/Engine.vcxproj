@@ -156,7 +156,10 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="src\Renderer\CameraController.h" />
+=======
+>>>>>>> 6cd911df5498deef757be6574883a57cc62c178c
     <ClInclude Include="src\Renderer\Camera.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Renderer\Buffer.h" />
@@ -186,7 +189,10 @@
     <ClInclude Include="src\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="src\Renderer\CameraController.cpp" />
+=======
+>>>>>>> 6cd911df5498deef757be6574883a57cc62c178c
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Renderer\Buffer.cpp" />

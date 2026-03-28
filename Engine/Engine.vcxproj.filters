@@ -85,7 +85,10 @@
     <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Renderer\Camera.h" />
+<<<<<<< HEAD
     <ClInclude Include="src\Renderer\CameraController.h" />
+=======
+>>>>>>> 6cd911df5498deef757be6574883a57cc62c178c
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -118,6 +121,9 @@
     <ClCompile Include="src\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Renderer\Camera.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="src\Renderer\CameraController.cpp" />
+=======
+>>>>>>> 6cd911df5498deef757be6574883a57cc62c178c
   </ItemGroup>
 </Project>

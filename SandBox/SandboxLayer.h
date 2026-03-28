@@ -14,9 +14,14 @@
 #include "Renderer/Shader.h"
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Buffer.h"
+<<<<<<< HEAD
 #include "Renderer/VertexArray.h"
 #include "Renderer/Camera.h"
 #include "Renderer/CameraController.h"
+=======
+#include <memory>
+#include "Renderer/VertexArray.h"
+>>>>>>> 6cd911df5498deef757be6574883a57cc62c178c
 
 class SandboxLayer : public Engine::Layer
 {
@@ -82,7 +87,14 @@ public:
 		model = glm::rotate(model, m_Angle, glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
+<<<<<<< HEAD
 		m_Shader->SetUniformMat4("u_Model", model);
+=======
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 projection = glm::ortho(-1.0f, 1.0f, // Left Right 
+										  -1.0f, 1.0f, // Top Bottom
+										  -1.0f, 1.0f);// Near Far
+>>>>>>> 6cd911df5498deef757be6574883a57cc62c178c
 
 		m_VertexArray->Bind();
 		Engine::RenderCommand::Draw(3);
@@ -130,8 +142,8 @@ public:
 
 			// Update Camera
 			m_CameraController.OnResize(
-				(float)resizeEvent.GetWidth(),
-				(float)resizeEvent.GetHeight()
+				(float)width,
+				(float)height
 			);
 
 		}
