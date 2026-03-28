@@ -16,13 +16,14 @@
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
 #include "Renderer/Camera.h"
+#include "Renderer/CameraController.h"
 
 class SandboxLayer : public Engine::Layer
 {
 public:
 	SandboxLayer()
 		: Layer("SandboxLayer")
-		, m_Camera(-1.6f, 1.6f, -0.9f, 0.9f, -1.0f, 1.0f)
+		, m_CameraController(1280.f / 720.0f)
 	{}
 
 	void OnAttach() override
@@ -60,14 +61,17 @@ public:
 	void OnUpdate(float deltaTime) override
 	{
 		m_Angle += deltaTime;
-		m_Camera.SetPosition({ 0.5f, 0.0f, 0.0f });
+		
+		m_CameraController.OnUpdate(deltaTime);
+
 	}
 
 	void OnRender() override
 	{
 		Engine::RenderCommand::Clear();
 
-		glm::mat4 vp = m_Camera.GetViewProjectionMatrix();
+		auto& camera = m_CameraController.GetCamera();
+		glm::mat4 vp = camera.GetViewProjectionMatrix();
 
 		m_Shader->Bind();
 		m_Shader->SetUniformMat4("u_ViewProjection", vp);
@@ -123,5 +127,6 @@ private:
 	std::shared_ptr < Engine::VertexArray> m_VertexArray;
 	std::shared_ptr<Engine::VertexBuffer> m_VertexBuffer;
 	float m_Angle = 0.0f;
-	Engine::Camera m_Camera;
+
+	Engine::CameraController m_CameraController;
 };
