@@ -14,14 +14,13 @@
 #include "Renderer/Shader.h"
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Buffer.h"
-<<<<<<< HEAD
 #include "Renderer/VertexArray.h"
 #include "Renderer/Camera.h"
 #include "Renderer/CameraController.h"
-=======
-#include <memory>
 #include "Renderer/VertexArray.h"
->>>>>>> 6cd911df5498deef757be6574883a57cc62c178c
+
+#include <memory>
+
 
 class SandboxLayer : public Engine::Layer
 {
@@ -41,10 +40,19 @@ public:
 		EN_CORE_WARN("Shader Compiled");
 
 		float vertices[] = {
-			0.0f,  0.5f, 0.0f,
-		   -0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f
+			 0.5f,  0.5f, 0.0f,
+		    -0.5f,  0.5f, 0.0f,
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f
 		};
+
+		uint32_t indices[] = {
+			0 , 1, 2,
+			2, 3, 0
+		};
+
+		auto indexBuffer = Engine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+
 
 		// Create a vertex buffer
 		m_VertexBuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
@@ -52,9 +60,11 @@ public:
 
 		// Give buffer its layout
 		Engine::BufferLayout layout = {
-			{Engine::ShaderDataType::Float3, "a_Position"}
+			{Engine::ShaderDataType::Float3, "aPos"}
 		};
 		m_VertexBuffer->SetLayout(layout);
+
+		m_VertexArray->SetIndexBuffer(std::shared_ptr<Engine::IndexBuffer>(indexBuffer));
 
 		// add buffer to the array 
 		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
@@ -87,17 +97,10 @@ public:
 		model = glm::rotate(model, m_Angle, glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
-<<<<<<< HEAD
 		m_Shader->SetUniformMat4("u_Model", model);
-=======
-		glm::mat4 view = glm::mat4(1.0f);
-		glm::mat4 projection = glm::ortho(-1.0f, 1.0f, // Left Right 
-										  -1.0f, 1.0f, // Top Bottom
-										  -1.0f, 1.0f);// Near Far
->>>>>>> 6cd911df5498deef757be6574883a57cc62c178c
 
 		m_VertexArray->Bind();
-		Engine::RenderCommand::Draw(3);
+		Engine::RenderCommand::DrawIndexed(m_VertexArray);
 	}
 
 	void OnEvent(Engine::Event& e) override
@@ -138,7 +141,7 @@ public:
 			uint32_t height = resizeEvent.GetHeight();
 
 			// Fix ViewPort
-			Engine::RenderCommand::SetViewPort(0, 0, width, height);
+			Engine::RenderCommand::SetViewport(0, 0, width, height);
 
 			// Update Camera
 			m_CameraController.OnResize(

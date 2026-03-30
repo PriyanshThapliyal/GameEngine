@@ -28,12 +28,16 @@ namespace Engine
 		glDrawArrays(GL_TRIANGLES, 0, count);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(unsigned int count)
+	void OpenGLRendererAPI::DrawIndexed(std::shared_ptr<VertexArray> vertexArray)
 	{
-		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+		vertexArray->Bind();
+		glDrawElements(GL_TRIANGLES, 
+					   vertexArray->GetIndexBuffer()->GetCount(), 
+					   GL_UNSIGNED_INT, 
+					   nullptr);
 	}
 
-	void OpenGLRendererAPI::SetViewPort(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+	void OpenGLRendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 	{
 		glViewport(x, y, width, height);
 	}

@@ -83,4 +83,11 @@ namespace Engine
 
 		m_IndexBuffer = indexBuffer;
 	}
+
+	uint32_t OpenGLVertexArray::GetIndexBufferCount() const
+	{
+		if (m_IndexBuffer)
+			return m_IndexBuffer->GetCount();
+		return 0;
+	}
 }

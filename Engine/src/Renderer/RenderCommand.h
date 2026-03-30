@@ -1,7 +1,8 @@
 #pragma once
 
 #include "RendererAPI.h"
-
+#include "VertexArray.h"
+#include <cstdint>
 
 
 namespace Engine
@@ -29,14 +30,14 @@ namespace Engine
 			s_RendererAPI->Draw(count);
 		}
 
-		static void DrawIndexed(unsigned int count)
+		static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
 		{
-			s_RendererAPI->DrawIndexed(count);
+			s_RendererAPI->DrawIndexed(vertexArray);
 		}
 
-		static void SetViewPort(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+		static void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 		{
-			s_RendererAPI->SetViewPort(x, y, width, height);
+			s_RendererAPI->SetViewport(x, y, width, height);
 		}
 
 	private:

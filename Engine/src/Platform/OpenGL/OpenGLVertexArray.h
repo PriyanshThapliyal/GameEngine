@@ -19,6 +19,7 @@ namespace Engine
 		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const override { return m_VertexBuffers; }
 		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const override { return m_IndexBuffer; }
 
+		virtual uint32_t GetIndexBufferCount() const override;
 	private:
 		uint32_t m_RendererID;
 		uint32_t m_VertexBufferIndex = 0;
