@@ -161,4 +161,8 @@
     <ClCompile Include="src\enpch.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Shaders\quad.vert" />
+    <None Include="assets\Shaders\quad.frag" />
+  </ItemGroup>
 </Project>

@@ -18,6 +18,7 @@
 #include "Renderer/Camera.h"
 #include "Renderer/CameraController.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/Renderer.h"
 
 #include <memory>
 
@@ -40,19 +41,31 @@ public:
 		EN_CORE_WARN("Shader Compiled");
 
 		float vertices[] = {
-			 0.5f,  0.5f, 0.0f,
-		    -0.5f,  0.5f, 0.0f,
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f
+			 0.0f,  0.1f, 0.0f,
+		     0.5f,  0.0f, 0.0f,
+			 0.0f, -0.5f, 0.0f,
+			 -0.5f, 0.0f, 0.0f,
+			 -0.2f,  0.0f, 0.0f,
+			 0.2f,  0.0f, 0.0f,
+			 0.5f,  0.3f, 0.0f,
+			 0.2f,  0.3f, 0.0f,
+			 0.2f,  0.3f, 0.0f,
+			-0.5f,  0.3f, 0.0f
+
 		};
 
-		uint32_t indices[] = {
-			0 , 1, 2,
-			2, 3, 0
+		uint32_t indices[1] = {
+			//3,1,2,
+			//5,1,6,
+			//6,7,5,
+			//5,7,0,
+			//0,4,8,
+			//4,8,9,
+			//9,3,4,
+			//0,4,5
 		};
-
+		
 		auto indexBuffer = Engine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
-
 
 		// Create a vertex buffer
 		m_VertexBuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
@@ -86,21 +99,14 @@ public:
 		Engine::RenderCommand::Clear();
 
 		auto& camera = m_CameraController.GetCamera();
-		glm::mat4 vp = camera.GetViewProjectionMatrix();
 
-		m_Shader->Bind();
-		m_Shader->SetUniformMat4("u_ViewProjection", vp);
+		Engine::Renderer::SetCamera(camera);
 
-		glm::mat4 model = glm::mat4(1.0f);
+		Engine::Renderer::Init();
+		Engine::Renderer::DrawQuad({ 0.0f, 0.0f }, { 0.1f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
+		Engine::Renderer::DrawQuad({ 1.0f, 0.0f }, { 0.75f, 0.5f }, { 0, 1, 0, 1 });
+		Engine::Renderer::DrawQuad({ -1.0f, 0.0f }, { 0.75f, 0.75f }, { 0, 0, 1, 1 });
 
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, m_Angle, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-
-		m_Shader->SetUniformMat4("u_Model", model);
-
-		m_VertexArray->Bind();
-		Engine::RenderCommand::DrawIndexed(m_VertexArray);
 	}
 
 	void OnEvent(Engine::Event& e) override

@@ -46,18 +46,19 @@ namespace Engine
 		glShaderSource(id, 1, &src, nullptr);
 		glCompileShader(id);
 
-		int result;
-		glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+		GLint isCompiled = 0;
+		glGetShaderiv(id, GL_COMPILE_STATUS, &isCompiled);
 
-		if (result == GL_FALSE)
+		if (isCompiled == GL_FALSE)
 		{
-			int length;
-			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+			GLint maxLength = 0;
+			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &maxLength);
 
-			std::vector<char> message(length);
-			glGetShaderInfoLog(id, length, &length, &message[0]);
+			std::vector<GLchar> infoLog(maxLength);
+			glGetShaderInfoLog(id, maxLength, &maxLength, &infoLog[0]);
 
-			EN_CORE_FATAL("Shader compilation failed :\n{0}", &message[0]);
+			std::cout << infoLog.data() << std::endl;
+
 			glDeleteShader(id);
 			return 0;
 		}
