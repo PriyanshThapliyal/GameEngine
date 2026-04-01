@@ -108,6 +108,7 @@
     </ClInclude>
     <ClInclude Include="src\enpch.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Renderer\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -160,6 +161,7 @@
     </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\Renderer2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\Shaders\quad.vert" />

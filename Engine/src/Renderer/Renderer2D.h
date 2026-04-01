@@ -2,28 +2,28 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "VertexArray.h"
-
 #include "Shader.h"
-#include "Camera.h"
+#include "VertexArray.h"
+#include "RenderCommand.h"
+#include "Renderer.h"
+#include <memory>
+#include "../Engine/Core/Log.h"
 
 namespace Engine
 {
-	class Renderer
+	class Renderer2D
 	{
 	public:
 		static void Init();
+
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
 		static void SetCamera(const Camera& camera);
-		static const std::shared_ptr<Shader> GetShader() { return s_Shader; }
-		static const std::shared_ptr<VertexArray> GetQuadVA() { return s_QuadVA; }
+	
 	private:
-		static std::shared_ptr<VertexArray> s_QuadVA;
 		static std::shared_ptr<Shader> s_Shader;
-		std::shared_ptr<Engine::VertexBuffer> vb;
-		static Camera m_Camera;
+		static std::shared_ptr<VertexArray> s_VertexArray;
 		static glm::mat4 s_ViewProjectionMatrix;
+
 	};
+
 }
-
-

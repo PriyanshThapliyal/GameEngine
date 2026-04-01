@@ -19,6 +19,7 @@
 #include "Renderer/CameraController.h"
 #include "Renderer/VertexArray.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
 
 #include <memory>
 
@@ -34,56 +35,9 @@ public:
 	void OnAttach() override
 	{
 		EN_CORE_WARN("SandboxLayer Attached");
-		m_Shader = std::make_unique<Engine::Shader>(
-			"Engine/assets/Shaders/triangle.vert",
-			"Engine/assets/Shaders/triangle.frag"
-		);
-		EN_CORE_WARN("Shader Compiled");
-
-		float vertices[] = {
-			 0.0f,  0.1f, 0.0f,
-		     0.5f,  0.0f, 0.0f,
-			 0.0f, -0.5f, 0.0f,
-			 -0.5f, 0.0f, 0.0f,
-			 -0.2f,  0.0f, 0.0f,
-			 0.2f,  0.0f, 0.0f,
-			 0.5f,  0.3f, 0.0f,
-			 0.2f,  0.3f, 0.0f,
-			 0.2f,  0.3f, 0.0f,
-			-0.5f,  0.3f, 0.0f
-
-		};
-
-		uint32_t indices[1] = {
-			//3,1,2,
-			//5,1,6,
-			//6,7,5,
-			//5,7,0,
-			//0,4,8,
-			//4,8,9,
-			//9,3,4,
-			//0,4,5
-		};
-		
-		auto indexBuffer = Engine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
-
-		// Create a vertex buffer
-		m_VertexBuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
-		m_VertexArray.reset(Engine::VertexArray::Create());
-
-		// Give buffer its layout
-		Engine::BufferLayout layout = {
-			{Engine::ShaderDataType::Float3, "aPos"}
-		};
-		m_VertexBuffer->SetLayout(layout);
-
-		m_VertexArray->SetIndexBuffer(std::shared_ptr<Engine::IndexBuffer>(indexBuffer));
-
-		// add buffer to the array 
-		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+		Engine::Renderer2D::Init();
 
 		Engine::RenderCommand::SetClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-
 	}
 
 	void OnUpdate(float deltaTime) override
@@ -100,12 +54,11 @@ public:
 
 		auto& camera = m_CameraController.GetCamera();
 
-		Engine::Renderer::SetCamera(camera);
+		Engine::Renderer2D::SetCamera(camera);
 
-		Engine::Renderer::Init();
-		Engine::Renderer::DrawQuad({ 0.0f, 0.0f }, { 0.1f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
-		Engine::Renderer::DrawQuad({ 1.0f, 0.0f }, { 0.75f, 0.5f }, { 0, 1, 0, 1 });
-		Engine::Renderer::DrawQuad({ -1.0f, 0.0f }, { 0.75f, 0.75f }, { 0, 0, 1, 1 });
+		Engine::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 0.1f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
+		Engine::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 0.75f, 0.5f }, { 0, 1, 0, 1 });
+		Engine::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.75f, 0.75f }, { 0, 0, 1, 1 });
 
 	}
 
@@ -162,9 +115,6 @@ public:
 	{}
 
 private:
-	std::unique_ptr<Engine::Shader> m_Shader;
-	std::shared_ptr < Engine::VertexArray> m_VertexArray;
-	std::shared_ptr<Engine::VertexBuffer> m_VertexBuffer;
 	float m_Angle = 0.0f;
 
 	Engine::CameraController m_CameraController;
