@@ -28,11 +28,11 @@ namespace Engine
 		glDrawArrays(GL_TRIANGLES, 0, count);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(std::shared_ptr<VertexArray> vertexArray)
+	void OpenGLRendererAPI::DrawIndexed(std::shared_ptr<VertexArray> vertexArray, uint32_t indexCount)
 	{
 		vertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, 
-					   vertexArray->GetIndexBuffer()->GetCount(), 
+					   indexCount, 
 					   GL_UNSIGNED_INT, 
 					   nullptr);
 	}

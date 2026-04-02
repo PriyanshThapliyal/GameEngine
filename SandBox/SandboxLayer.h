@@ -6,6 +6,7 @@
 #include "Engine/Events/KeyEvent.h"
 #include "Engine/Events/MouseEvent.h"
 #include "Engine/Core/Log.h"
+#include "Engine/Events/ApplicationEvent.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -56,10 +57,15 @@ public:
 
 		Engine::Renderer2D::SetCamera(camera);
 
-		Engine::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 0.1f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
-		Engine::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 0.75f, 0.5f }, { 0, 1, 0, 1 });
-		Engine::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.75f, 0.75f }, { 0, 0, 1, 1 });
-
+		// Start Batch
+		Engine::Renderer2D::BeginScene();
+		
+		Engine::Renderer2D::DrawQuad({ 0.5f, 0.5f }, { 0.5f,0.5f }, { 1.0f, 0.0f, 0.0f, 1.0f });
+		Engine::Renderer2D::DrawQuad({ -0.5f,0.5f }, { 0.5f,0.5f }, { 0,1,0,1 });
+		Engine::Renderer2D::DrawQuad({ -0.5f, -0.5f }, { 0.5f,0.5f }, { 0,0,1,1 });	
+	
+		// End Batch (this calls flush)
+		Engine::Renderer2D::EndScene();
 	}
 
 	void OnEvent(Engine::Event& e) override

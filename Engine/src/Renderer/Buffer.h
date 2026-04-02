@@ -98,8 +98,10 @@ namespace Engine
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 
+		virtual void SetData(const void* data, uint32_t size) = 0;
+
 		// The Engine calls this to get the correct API-specific buffer
-		static VertexBuffer* Create(float* vertices, uint32_t size);
+		static std::shared_ptr<VertexBuffer> Create(float* vertices, uint32_t size);
 	};
 
 
@@ -112,7 +114,7 @@ namespace Engine
 		virtual void Unbind()  const = 0;
 
 		virtual uint32_t GetCount() const { return m_Count; }
-		static IndexBuffer* Create(uint32_t* indices, uint32_t count);
+		static std::shared_ptr<IndexBuffer> Create(uint32_t* indices, uint32_t count);
 	
 	private:
 		uint32_t m_Count;

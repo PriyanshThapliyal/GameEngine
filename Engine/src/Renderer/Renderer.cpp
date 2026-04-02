@@ -9,7 +9,7 @@ namespace Engine
     {
         RenderCommand::Init();
 
-        s_QuadVA.reset(VertexArray::Create());
+        s_QuadVA = VertexArray::Create();
 
         float vertices[] = {
             -0.5f, -0.5f, 0.0f,
@@ -68,7 +68,7 @@ namespace Engine
 		s_Shader->SetUniformFloat4("u_Color", color.r, color.g, color.b, color.a);
 
 		s_QuadVA->Bind();
-		RenderCommand::DrawIndexed(s_QuadVA);
+		RenderCommand::DrawIndexed(s_QuadVA, 0);
 	}
 
     void Renderer::SetCamera(const Camera& camera)

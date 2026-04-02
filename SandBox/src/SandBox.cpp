@@ -19,14 +19,16 @@ public:
 private:
 	
 protected:
-	virtual void OnUpdate(float deltaTime) override
-	{
-		// Update game logic here using deltaTime for frame-independent movement
-	}
 	virtual void OnRender() override
 	{
 
 	}
+
+	virtual void OnUpdate(float deltaTime) override
+	{
+		// Update game logic here using deltaTime for frame-independent movement
+	}
+	
 
 };
 
