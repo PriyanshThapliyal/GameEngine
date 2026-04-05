@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "Engine/Dependencies/GLFW/include"
 IncludeDir["spdlog"] = "Engine/Dependencies/spdlog/include"
 IncludeDir["glad"] = "Engine/Dependencies/glad/include"
 IncludeDir["glm"] = "Engine/Dependencies/glm"
+IncludeDir["stb"] = "Engine/Dependencies/stb"
 
 include "Engine/Dependencies/GLFW" -- Same Include as C++ , takes GLFW premake5.lua file and use it 
 include "Engine/Dependencies/spdlog"
@@ -45,7 +46,8 @@ project "Engine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glad}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb}"
 	}
 
 	links
@@ -116,7 +118,8 @@ project "SandBox"
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glad}",
 		"Engine/src",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb}"
 	}
 
 	links
@@ -140,7 +143,8 @@ project "SandBox"
 		defines
 		{
 			"EN_PLATFORM_WINDOWS",
-			"SPDLOG_COMPILED_LIB"
+			"SPDLOG_COMPILED_LIB",
+			"STB_IMAGE_IMPLEMENTATION"
 		}
 
 		buildoptions 

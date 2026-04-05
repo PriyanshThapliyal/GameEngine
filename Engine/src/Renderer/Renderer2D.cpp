@@ -1,10 +1,12 @@
 #include "enpch.h"
 #include "Renderer2D.h"
+#include "Texture.h"
 
 struct QuadVertex
 {
 	glm::vec3 Position;
 	glm::vec4 Color;
+	glm::vec2 TexCoord;
 };
 
 struct Renderer2DData
@@ -12,6 +14,7 @@ struct Renderer2DData
 	static const uint32_t MaxQuads = 10000;
 	static const uint32_t MaxVertices = MaxQuads * 4;
 	static const uint32_t MaxIndices = MaxQuads * 6;
+	const Engine::Texture* CurrentTexture = nullptr;
 	std::shared_ptr<Engine::VertexBuffer> VertexBuffer;
 	std::shared_ptr<Engine::VertexArray> VertexArray;
 	QuadVertex* BufferBase = nullptr;
@@ -35,7 +38,8 @@ namespace Engine
 
 		BufferLayout layout = {
 			{ ShaderDataType::Float3, "a_Position", false},
-			{ ShaderDataType::Float4 , "a_Color", false}
+			{ ShaderDataType::Float4 , "a_Color", false},
+			{ ShaderDataType::Float2 , "a_TexCoord", false}
 		};
 
 		s_Data.BufferBase = new QuadVertex[Renderer2DData::MaxVertices];
@@ -74,8 +78,10 @@ namespace Engine
 		delete[] indices;
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Texture& texture, const glm::vec4& tintColor)
 	{
+		s_Data.CurrentTexture = &texture;
+
 		if (!s_Data.BufferPtr)
 		{
 			EN_CORE_ERROR("BufferpPtr is NULL!");
@@ -84,10 +90,9 @@ namespace Engine
 
 		if (s_Data.QuadCount >= Renderer2DData::MaxQuads)
 		{
-			Flush();
-			s_Data.BufferPtr = s_Data.BufferBase;
-			s_Data.QuadCount = 0;
-			EN_CORE_INFO("Max quad count reached, flushing data!");
+			FlushAndReset();
+			EN_CORE_WARN("Max quad count reached! Flushing and resetting buffer.");
+			return;
 		}
 
 		glm::vec3 p0 = { position.x, position.y, 0.0f };
@@ -95,24 +100,34 @@ namespace Engine
 		glm::vec3 p2 = { position.x + size.x, position.y + size.y, 0.0f };
 		glm::vec3 p3 = { position.x, position.y + size.y, 0.0f };
 
+		// UVs
+		glm::vec2 uv0 = { 0.0f, 0.0f };
+		glm::vec2 uv1 = { 1.0f, 0.0f };
+		glm::vec2 uv2 = { 1.0f, 1.0f };
+		glm::vec2 uv3 = { 0.0f, 1.0f };
+
 		//Vertex 1
 		s_Data.BufferPtr->Position = p0;
-		s_Data.BufferPtr->Color = color;
+		s_Data.BufferPtr->Color = tintColor;
+		s_Data.BufferPtr->TexCoord = uv0;
 		s_Data.BufferPtr++;
 	
 		//Vertex 2
 		s_Data.BufferPtr->Position = p1;
-		s_Data.BufferPtr->Color = color;
+		s_Data.BufferPtr->Color = tintColor;
+		s_Data.BufferPtr->TexCoord = uv1;
 		s_Data.BufferPtr++;
 
 		//Vertex 3
 		s_Data.BufferPtr->Position = p2;
-		s_Data.BufferPtr->Color = color;
+		s_Data.BufferPtr->Color = tintColor;
+		s_Data.BufferPtr->TexCoord = uv2;
 		s_Data.BufferPtr++;
 
 		//Vertex 4
 		s_Data.BufferPtr->Position = p3;
-		s_Data.BufferPtr->Color = color;
+		s_Data.BufferPtr->Color = tintColor;
+		s_Data.BufferPtr->TexCoord = uv3;
 		s_Data.BufferPtr++;
 
 		s_Data.QuadCount++;
@@ -132,7 +147,8 @@ namespace Engine
 
 	void Renderer2D::EndScene()
 	{
-		Flush();
+		uint32_t datasize = (uint8_t*)s_Data.BufferPtr - (uint8_t*)s_Data.BufferBase;
+		s_Data.VertexBuffer->SetData(s_Data.BufferBase, datasize);
 	}
 
 	void Renderer2D::Flush()
@@ -141,17 +157,27 @@ namespace Engine
 		if (!s_Data.VertexArray) EN_CORE_ERROR("VA NULL");
 		if (!s_Shader) EN_CORE_ERROR("Shader NULL");
 
-		uint32_t size = (uint32_t)((uint8_t*)s_Data.BufferPtr - (uint8_t*)s_Data.BufferBase);
-
-		s_Data.VertexBuffer->Bind();
-		s_Data.VertexBuffer->SetData(s_Data.BufferBase, size);
-		
 		s_Shader->Bind();
 		s_Shader->SetUniformMat4("u_ViewProjection", s_ViewProjectionMatrix);
+		s_Shader->SetUniformInt("u_Texture", 0);
 
+		if (s_Data.CurrentTexture)
+			s_Data.CurrentTexture->Bind(0);
+
+		s_Data.VertexBuffer->Bind();
 		s_Data.VertexArray->Bind();
 
 		RenderCommand::DrawIndexed(s_Data.VertexArray, s_Data.QuadCount * 6);
+	}
+
+	void Renderer2D::FlushAndReset()
+	{
+		EndScene();
+		Flush();
+
+		s_Data.BufferPtr = s_Data.BufferBase;
+		s_Data.QuadCount = 0;
+		s_Data.CurrentTexture = nullptr;
 	}
 
 	std::shared_ptr<Shader> Renderer2D::s_Shader = nullptr;

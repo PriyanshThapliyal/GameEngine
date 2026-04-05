@@ -21,6 +21,7 @@
 #include "Renderer/VertexArray.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Renderer2D.h"
+#include "Renderer/Texture.h"
 
 #include <memory>
 
@@ -39,6 +40,8 @@ public:
 		Engine::Renderer2D::Init();
 
 		Engine::RenderCommand::SetClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+
+		m_Texture = std::make_unique<Engine::Texture>("Engine/assets/Textures/test.png");
 	}
 
 	void OnUpdate(float deltaTime) override
@@ -60,12 +63,13 @@ public:
 		// Start Batch
 		Engine::Renderer2D::BeginScene();
 		
-		Engine::Renderer2D::DrawQuad({ 0.5f, 0.5f }, { 0.5f,0.5f }, { 1.0f, 0.0f, 0.0f, 1.0f });
-		Engine::Renderer2D::DrawQuad({ -0.5f,0.5f }, { 0.5f,0.5f }, { 0,1,0,1 });
-		Engine::Renderer2D::DrawQuad({ -0.5f, -0.5f }, { 0.5f,0.5f }, { 0,0,1,1 });	
-	
+		Engine::Renderer2D::DrawQuad({  0.5f,  0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
+		Engine::Renderer2D::DrawQuad({ -0.5f,  0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
+		Engine::Renderer2D::DrawQuad({ -0.5f, -0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
+		Engine::Renderer2D::DrawQuad({  0.5f, -0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
+		
 		// End Batch (this calls flush)
-		Engine::Renderer2D::EndScene();
+		Engine::Renderer2D::FlushAndReset();
 	}
 
 	void OnEvent(Engine::Event& e) override
@@ -122,6 +126,6 @@ public:
 
 private:
 	float m_Angle = 0.0f;
-
+	std::unique_ptr<Engine::Texture> m_Texture;
 	Engine::CameraController m_CameraController;
 };

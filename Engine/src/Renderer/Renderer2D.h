@@ -9,6 +9,7 @@
 #include "Renderer.h"
 #include <memory>
 #include "../Engine/Core/Log.h"
+#include "Texture.h"
 
 namespace Engine
 {
@@ -17,11 +18,12 @@ namespace Engine
 	public:
 		static void Init();
 
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
+		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Texture& texture, const glm::vec4& tintColor);
 		static void SetCamera(const Camera& camera);
 		static void BeginScene();
 		static void EndScene();
 		static void Flush();
+		static void FlushAndReset();
 	
 	private:
 		static std::shared_ptr<Shader> s_Shader;

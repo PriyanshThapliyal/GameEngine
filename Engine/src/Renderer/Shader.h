@@ -26,7 +26,7 @@ namespace Engine
 		void SetUniformFloat(const std::string& name, float value);
 		void SetUniformFloat4(const std::string& name, float v0, float v1, float v2, float v3);
 		void SetUniformMat4(const std::string& name, glm::mat4 value);
-
+		void SetUniformInt(const std::string& name, int value);
 	private:
 		std::string ReadFile(const std::string& path);
 		unsigned int CompileShader(unsigned int type, const std::string& source);

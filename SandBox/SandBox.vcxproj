@@ -78,8 +78,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;EN_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\src;..\Engine\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;STB_IMAGE_IMPLEMENTATION;EN_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\src;..\Engine\Dependencies\glm;..\Engine\Dependencies\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -98,8 +98,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;EN_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\src;..\Engine\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;STB_IMAGE_IMPLEMENTATION;EN_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\src;..\Engine\Dependencies\glm;..\Engine\Dependencies\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -124,8 +124,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;EN_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\src;..\Engine\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;STB_IMAGE_IMPLEMENTATION;EN_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\src;..\Engine\Dependencies\glm;..\Engine\Dependencies\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
