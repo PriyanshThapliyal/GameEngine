@@ -5,6 +5,7 @@ layout(location = 1) in vec4 a_Color;
 layout(location = 2) in vec2 a_TexCoord;
 
 uniform mat4 u_ViewProjection;
+uniform mat4 u_Model;
 
 out vec2 v_TexCoord;
 out vec4 v_Color;

@@ -19,8 +19,7 @@ namespace Engine
 		static void Init();
 
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Texture& texture, const glm::vec4& tintColor);
-		static void SetCamera(const Camera& camera);
-		static void BeginScene();
+		static void BeginScene(const Camera& camera);
 		static void EndScene();
 		static void Flush();
 		static void FlushAndReset();

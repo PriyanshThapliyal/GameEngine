@@ -58,10 +58,8 @@ public:
 
 		auto& camera = m_CameraController.GetCamera();
 
-		Engine::Renderer2D::SetCamera(camera);
-
 		// Start Batch
-		Engine::Renderer2D::BeginScene();
+		Engine::Renderer2D::BeginScene(camera);
 		
 		Engine::Renderer2D::DrawQuad({  0.5f,  0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
 		Engine::Renderer2D::DrawQuad({ -0.5f,  0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
