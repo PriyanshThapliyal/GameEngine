@@ -8,7 +8,7 @@ class Sandbox : public Engine::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new SandboxLayer());
+		PushLayer(new StressTestLayer());
 	}
 
 	~Sandbox()
