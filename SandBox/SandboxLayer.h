@@ -1,12 +1,8 @@
 #pragma once
 
 #include <memory>
-
+#include "Engine.h"
 #include "Engine/Core/Layer.h"
-#include "Engine/Events/KeyEvent.h"
-#include "Engine/Events/MouseEvent.h"
-#include "Engine/Core/Log.h"
-#include "Engine/Events/ApplicationEvent.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -16,14 +12,8 @@
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
-#include "Renderer/Camera.h"
-#include "Renderer/CameraController.h"
-#include "Renderer/VertexArray.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Renderer2D.h"
-#include "Renderer/Texture.h"
 
-#include <memory>
 
 
 class SandboxLayer : public Engine::Layer

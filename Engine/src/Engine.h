@@ -19,6 +19,11 @@
 
 #include "Engine/Core/LayerStack.h"
 
+#include "Renderer/Renderer2D.h"
+#include "Renderer/CameraController.h"
+#include "Renderer/Texture.h"
+#include "Renderer/Camera.h"
+
 // --- Entry Point ---
 #include "Engine/Core/EntryPoint.h"
 

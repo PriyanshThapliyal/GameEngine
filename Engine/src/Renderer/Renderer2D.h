@@ -2,14 +2,16 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <memory>
+
 #include "Shader.h"
 #include "VertexArray.h"
 #include "Buffer.h"
 #include "RenderCommand.h"
 #include "Renderer.h"
-#include <memory>
-#include "../Engine/Core/Log.h"
 #include "Texture.h"
+
+#include "../Engine/Core/Log.h"
 
 namespace Engine
 {
