@@ -114,6 +114,9 @@
     </ClInclude>
     <ClInclude Include="src\enpch.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\Entity.h" />
+    <ClInclude Include="src\Scene\Components\TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -172,5 +175,7 @@
     </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Scene\Entity.cpp" />
   </ItemGroup>
 </Project>

@@ -79,6 +79,11 @@ namespace Engine
 		delete[] indices;
 	}
 
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
+	{
+		Renderer2D::DrawQuad(position, size, *s_Data.CurrentTexture, color);
+	}
+
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Texture& texture, const glm::vec4& tintColor)
 	{
 		s_Data.CurrentTexture = &texture;
