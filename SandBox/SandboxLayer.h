@@ -13,6 +13,13 @@
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/Camera.h"
+
+#include "Scene/Scene.h"
+#include "Scene/Entity.h"
+
+#include "Scene/Components/TransformComponent.h"
+#include "Scene/Components/SpriteRendererComponent.h"
 
 
 
@@ -27,11 +34,18 @@ public:
 	void OnAttach() override
 	{
 		EN_CORE_WARN("SandboxLayer Attached");
+
+		auto entity = m_Scene.CreateEntity();
+
+		auto& transform = entity.AddComponent<Engine::TransformComponent>();
+		auto& sprite = entity.AddComponent<Engine::SpriteRendererComponent>();
+
+		transform.Position = { 0.0f, 0.0f, 0.0f };
+		transform.Scale = { 0.5, 0.5f, 1.0f};
+		sprite.Color = { 1.0f, 1.0f, 0.0f, 1.0f };	
+
 		Engine::Renderer2D::Init();
-
-		Engine::RenderCommand::SetClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-
-		m_Texture = std::make_unique<Engine::Texture>("Engine/assets/Textures/test.png");
+		Engine::RenderCommand::SetClearColor(0.1f,0.1f,0.1f,1.0f);
 	}
 
 	void OnUpdate(float deltaTime) override
@@ -46,18 +60,7 @@ public:
 	{
 		Engine::RenderCommand::Clear();
 
-		auto& camera = m_CameraController.GetCamera();
-
-		// Start Batch
-		Engine::Renderer2D::BeginScene(camera);
-		
-		Engine::Renderer2D::DrawQuad({  0.5f,  0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
-		Engine::Renderer2D::DrawQuad({ -0.5f,  0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
-		Engine::Renderer2D::DrawQuad({ -0.5f, -0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
-		Engine::Renderer2D::DrawQuad({  0.5f, -0.5f }, { 0.5f, 0.5f }, *m_Texture, {1.0f, 1.0f, 1.0f, 1.0f});
-		
-		// End Batch (this calls flush)
-		Engine::Renderer2D::FlushAndReset();
+		m_Scene.OnRender(m_CameraController.GetCamera());
 	}
 
 	void OnEvent(Engine::Event& e) override
@@ -116,93 +119,5 @@ private:
 	float m_Angle = 0.0f;
 	std::unique_ptr<Engine::Texture> m_Texture;
 	Engine::CameraController m_CameraController;
-};
-
-class StressTestLayer : public Engine::Layer
-{
-public:
-	StressTestLayer()
-		: Layer("StressTestLayer")
-		, m_CameraController(1280.f / 720.0f)
-	{}
-
-	void OnAttach() override
-	{
-		EN_CORE_WARN("StressTestLayer Attached");
-
-		// Ideally move this to Application init (only once)
-		Engine::Renderer2D::Init();
-
-		Engine::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
-		m_Texture = std::make_unique<Engine::Texture>("Engine/assets/Textures/test.png");
-
-		// Generate MANY quads
-		for (int x = -100; x < 100; x++)
-		{
-			for (int y = -25; y < 25; y++)
-			{
-				m_Positions.push_back({
-					x * 0.25f,
-					y * 0.25f,
-					0.0f
-					});
-			}
-		}
-
-		EN_CORE_WARN("Generated {0} quads", m_Positions.size());
-	}
-
-	void OnUpdate(float deltaTime) override
-	{
-		//Keep camera active
-		m_CameraController.OnUpdate(deltaTime);
-	}
-
-	void OnRender() override
-	{
-		Engine::RenderCommand::Clear();
-
-		auto& camera = m_CameraController.GetCamera();
-
-		//start batch
-		Engine::Renderer2D::BeginScene(camera);
-
-		for (auto& pos : m_Positions)
-		{
-			Engine::Renderer2D::DrawQuad(
-				pos,
-				{ 0.2f, 0.2f },
-				*m_Texture,
-				{ 1.0f, 1.0f, 1.0f, 1.0f }
-			);
-		}
-
-		// Correct ending
-		Engine::Renderer2D::FlushAndReset();
-	}
-
-	void OnEvent(Engine::Event& e) override
-	{
-		if (e.GetEventType() == Engine::EventType::WindowResize)
-		{
-			auto& resizeEvent = static_cast<Engine::WindowResizeEvent&>(e);
-
-			uint32_t width = resizeEvent.GetWidth();
-			uint32_t height = resizeEvent.GetHeight();
-
-			Engine::RenderCommand::SetViewport(0, 0, width, height);
-
-			m_CameraController.OnResize(
-				(float)width,
-				(float)height
-			);
-		}
-	}
-
-private:
-	std::vector<glm::vec3> m_Positions;
-
-	std::unique_ptr<Engine::Texture> m_Texture;
-	Engine::CameraController m_CameraController;
+	Engine::Scene m_Scene;
 };

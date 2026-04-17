@@ -3,6 +3,9 @@
 #include "Entity.h"
 #include "../Renderer/Renderer2D.h"
 
+#include "Components/TransformComponent.h"
+#include "Components/SpriteRendererComponent.h"
+
 namespace Engine
 {
 	Entity Scene::CreateEntity()
@@ -12,11 +15,8 @@ namespace Engine
 		Entity entity(s_NextID++, this);
 		m_Entities.push_back(entity);
 
-		m_RenderData[entity.GetID()] = {
-			{0.0f, 0.0f},		//Position
-			{1.0f, 1.0f},			//Size
-			{1.0f, 1.0f, 1.0f, 1.0f}//Color
-		};
+		entity.AddComponent<TransformComponent>();
+		entity.AddComponent<SpriteRendererComponent>();
 
 		return entity;
 	}
@@ -26,25 +26,33 @@ namespace Engine
 
 	}
 
-	void Scene::OnRender()
+	void Scene::OnRender(const Camera& camera)
 	{
-		Renderer2D::BeginScene(m_Camera);
+		Renderer2D::BeginScene(camera);
 
-		for (auto& entity : m_Entities)
+		auto transformStorage = GetStorage<TransformComponent>();
+		auto spriteStorage = GetStorage<SpriteRendererComponent>();
+
+		for (auto& [entityID, transform] : transformStorage->Data)
 		{
-			auto& data = m_RenderData[entity.GetID()];
+			if (spriteStorage->Data.find(entityID) != spriteStorage->Data.end())
+			{
+				auto& sprite = spriteStorage->Data[entityID];
 
-			Renderer2D::DrawQuad(
-				data.Position,
-				data.Size,
-				data.Color
-			);
+				Renderer2D::DrawQuad(
+					transform.Position,
+					transform.Scale,
+					sprite.Color
+				);
+			}
 		}
-		
+
 		Renderer2D::EndScene();
 	}
+
 	void Scene::DestroyEntity(Entity entity)
 	{
 		
 	}
+
 }
