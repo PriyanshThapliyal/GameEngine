@@ -26,7 +26,7 @@ struct Renderer2DData
 namespace Engine
 {
 	static Renderer2DData s_Data;
-
+	
 	void Renderer2D::Init()
 	{
 		s_Shader = std::make_shared<Shader>("Engine/assets/Shaders/quad.vert", "Engine/assets/Shaders/quad.frag");

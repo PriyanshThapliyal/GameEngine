@@ -117,6 +117,7 @@
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Scene\Entity.h" />
     <ClInclude Include="src\Scene\Components\TransformComponent.h" />
+    <ClInclude Include="src\Scene\Components\SpriteRendererComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -177,5 +178,8 @@
     <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\Entity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Scene\Entity.inl" />
   </ItemGroup>
 </Project>
