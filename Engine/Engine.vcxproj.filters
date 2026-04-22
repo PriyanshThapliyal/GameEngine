@@ -118,6 +118,7 @@
     <ClInclude Include="src\Scene\Entity.h" />
     <ClInclude Include="src\Scene\Components\TransformComponent.h" />
     <ClInclude Include="src\Scene\Components\SpriteRendererComponent.h" />
+    <ClInclude Include="src\Scene\Components\VelocityComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">

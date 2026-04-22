@@ -5,6 +5,7 @@
 
 #include "Components/TransformComponent.h"
 #include "Components/SpriteRendererComponent.h"
+#include "Components/VelocityComponent.h"
 
 namespace Engine
 {
@@ -23,6 +24,17 @@ namespace Engine
 
 	void Scene::OnUpdate(float dt)
 	{
+		for (auto entity : m_Entities)
+		{
+			if (entity.HasComponent<TransformComponent>() &&
+				entity.HasComponent<VelocityComponent>())
+			{
+				auto& transform = entity.GetComponent<TransformComponent>();
+				auto& velocity = entity.GetComponent<VelocityComponent>();
+
+				transform.Position += glm::vec3(velocity.Velocity * dt, 0.0f);
+			}
+		}
 
 	}
 

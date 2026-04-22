@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="src\Scene\Components\SpriteRendererComponent.h" />
     <ClInclude Include="src\Scene\Components\TransformComponent.h" />
+    <ClInclude Include="src\Scene\Components\VelocityComponent.h" />
     <ClInclude Include="src\Scene\Entity.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Engine.h" />
