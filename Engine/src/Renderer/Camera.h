@@ -7,7 +7,9 @@ namespace Engine
 	class Camera
 	{
 	public:
-		Camera(float left, float rignt, float bottom, float top, float nearClip, float farClip);
+		Camera();
+
+		Camera(float left, float right, float bottom, float top, float nearClip, float farClip);
 
 		void SetPosition(const glm::vec3& position);
 		const glm::vec3& GetPosition() const { return m_Position; }

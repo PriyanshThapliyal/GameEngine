@@ -5,6 +5,12 @@
 
 namespace Engine
 {
+	Camera::Camera()
+	{
+		m_ViewMatrix = glm::mat4(1.0f);
+		SetProjection(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
+	}
+
 	Camera::Camera(float left, float right, float bottom, float top, float near, float far)
 	{
 		m_ProjectionMatrix = glm::ortho(left, right, bottom, top, near, far);
@@ -18,7 +24,7 @@ namespace Engine
 		RecalculateViewMatrix();
 	}
 
-	void Camera::SetProjection(float left, float right, float bottom, float top, float far, float near)
+	void Camera::SetProjection(float left, float right, float bottom, float top, float near, float far)
 	{
 		m_ProjectionMatrix = glm::ortho(left, right, bottom, top, near, far);
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;

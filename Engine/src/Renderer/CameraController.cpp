@@ -19,17 +19,21 @@ namespace Engine {
 
 	void CameraController::OnUpdate(float deltaTime)
 	{
-		float velocity = m_CameraSpeed * deltaTime;
+		glm::vec2 directon = { 0.0f, 0.0f };
 
 		if (Input::IsKeyPressed(KeyCode::A))
-			m_CameraPosition.x += velocity;
+			directon.x -= 1.0f;
 		if (Input::IsKeyPressed(KeyCode::D))
-			m_CameraPosition.x -= velocity;
+			directon.x += 1.0f;
 		if (Input::IsKeyPressed(KeyCode::W))
-			m_CameraPosition.y -= velocity;
+			directon.y += 1.0f;
 		if (Input::IsKeyPressed(KeyCode::S))
-			m_CameraPosition.y += velocity;
+			directon.y -= 1.0f;
 
+		if(glm::length(directon) > 0.0f)
+			directon = glm::normalize(directon);
+
+		m_CameraPosition += glm::vec3(directon, 0.0f) * m_CameraSpeed * deltaTime;
 		m_Camera.SetPosition(m_CameraPosition);
 	}
 

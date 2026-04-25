@@ -7,5 +7,6 @@ namespace Engine
 	struct VelocityComponent
 	{
 		glm::vec2 Velocity = {0.0f, 0.0f};
+		float Speed = 2.0f;
 	};
 }

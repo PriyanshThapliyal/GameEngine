@@ -29,13 +29,14 @@ class SandboxLayer : public Engine::Layer
 public:
 	SandboxLayer()
 		: Layer("SandboxLayer")
-		, m_CameraController(1280.f / 720.0f)
 	{}
 
 	void OnAttach() override
 	{
 		EN_CORE_WARN("SandboxLayer Attached");
 		
+		m_Scene.Init();
+
 		auto entity = m_Scene.CreateEntity();
 
 		auto& transform = entity.AddComponent<Engine::TransformComponent>();
@@ -54,8 +55,6 @@ public:
 	void OnUpdate(float deltaTime) override
 	{
 		m_Angle += deltaTime;
-		
-		m_CameraController.OnUpdate(deltaTime);
 		m_Scene.OnUpdate(deltaTime);
 
 	}
@@ -64,7 +63,7 @@ public:
 	{
 		Engine::RenderCommand::Clear();
 
-		m_Scene.OnRender(m_CameraController.GetCamera());
+		m_Scene.OnRender();
 	}
 
 	void OnEvent(Engine::Event& e) override
@@ -107,12 +106,6 @@ public:
 			// Fix ViewPort
 			Engine::RenderCommand::SetViewport(0, 0, width, height);
 
-			// Update Camera
-			m_CameraController.OnResize(
-				(float)width,
-				(float)height
-			);
-
 		}
 	}
 
@@ -122,6 +115,5 @@ public:
 private:
 	float m_Angle = 0.0f;
 	std::unique_ptr<Engine::Texture> m_Texture;
-	Engine::CameraController m_CameraController;
 	Engine::Scene m_Scene;
 };

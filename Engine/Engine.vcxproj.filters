@@ -91,9 +91,6 @@
     <ClInclude Include="src\Renderer\Camera.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\CameraController.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer\RenderCommand.h">
       <Filter>Renderer</Filter>
     </ClInclude>
@@ -119,6 +116,8 @@
     <ClInclude Include="src\Scene\Components\TransformComponent.h" />
     <ClInclude Include="src\Scene\Components\SpriteRendererComponent.h" />
     <ClInclude Include="src\Scene\Components\VelocityComponent.h" />
+    <ClInclude Include="src\Scene\Components\CameraComponent.h" />
+    <ClInclude Include="src\Scene\Components\ControlledComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -152,9 +151,6 @@
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Camera.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\CameraController.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\RenderCommand.cpp">

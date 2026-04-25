@@ -156,6 +156,8 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scene\Components\CameraComponent.h" />
+    <ClInclude Include="src\Scene\Components\ControlledComponent.h" />
     <ClInclude Include="src\Scene\Components\SpriteRendererComponent.h" />
     <ClInclude Include="src\Scene\Components\TransformComponent.h" />
     <ClInclude Include="src\Scene\Components\VelocityComponent.h" />
@@ -183,7 +185,6 @@
     <ClInclude Include="src\Platform\OpenGL\Window\WindowsInput.h" />
     <ClInclude Include="src\Renderer\Buffer.h" />
     <ClInclude Include="src\Renderer\Camera.h" />
-    <ClInclude Include="src\Renderer\CameraController.h" />
     <ClInclude Include="src\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\Renderer2D.h" />
@@ -207,7 +208,6 @@
     <ClCompile Include="src\Platform\OpenGL\Window\WindowsInput.cpp" />
     <ClCompile Include="src\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Renderer\Camera.cpp" />
-    <ClCompile Include="src\Renderer\CameraController.cpp" />
     <ClCompile Include="src\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\Renderer2D.cpp" />

@@ -27,9 +27,9 @@ namespace Engine
 	public:
 		Entity CreateEntity();
 		void DestroyEntity(Entity entity);
-
+		void Init();
 		void OnUpdate(float dt);
-		void OnRender(const Camera& camera);
+		void OnRender();
 
 		template<typename T>
 		ComponentStorage<T>* GetStorage()
