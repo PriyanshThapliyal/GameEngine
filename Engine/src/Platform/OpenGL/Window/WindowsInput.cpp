@@ -60,6 +60,30 @@ namespace Engine
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
+	bool WindowsInput::IsKeyReleasedImpl(KeyCode key)
+	{
+		auto window = static_cast<GLFWwindow*> (Application::Get().GetWindow().GetNativeWindow());
+		
+		int glfwKey = KeyCodeToGLFW(key);
+		if (glfwKey == -1)
+			return false; // Invalid key code
+
+		auto state = glfwGetKey(window, glfwKey);
+		return state == GLFW_RELEASE;
+	}
+
+	bool WindowsInput::IsMouseButtonReleasedImpl(MouseCode button)
+	{
+		auto window = static_cast<GLFWwindow*> (Application::Get().GetWindow().GetNativeWindow());
+
+		int glfwButton = MouseCodeToGLFW(button);
+		if (glfwButton == -1)
+			return false; // Invalid mouse button code
+
+		auto state = glfwGetMouseButton(window, glfwButton);
+		return state == GLFW_RELEASE;
+	}
+
 	std::pair<float, float> WindowsInput::GetMousePositionImpl()
 	{
 		auto window = static_cast<GLFWwindow*> (Application::Get().GetWindow().GetNativeWindow());

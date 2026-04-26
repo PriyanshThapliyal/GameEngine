@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="src\Scene\Components\CameraComponent.h" />
     <ClInclude Include="src\Scene\Components\ControlledComponent.h" />
+    <ClInclude Include="src\Scene\Components\DragableComponent.h" />
     <ClInclude Include="src\Scene\Components\SpriteRendererComponent.h" />
     <ClInclude Include="src\Scene\Components\TransformComponent.h" />
     <ClInclude Include="src\Scene\Components\VelocityComponent.h" />

@@ -16,6 +16,8 @@ namespace Engine
 		virtual ~IComponentStorage() = default;
 	};
 
+	struct TransformComponent;
+
 	template<typename T>
 	struct ComponentStorage : IComponentStorage
 	{
@@ -31,6 +33,12 @@ namespace Engine
 		void OnUpdate(float dt);
 		void OnRender();
 
+		void UpdateInput(float dt);
+		void UpdateMovement(float dt);
+		void UpdateDragging(float dt);
+
+		bool IsMouseOver(const TransformComponent& transform, glm::vec2 mousePos);
+
 		template<typename T>
 		ComponentStorage<T>* GetStorage()
 		{
@@ -42,6 +50,21 @@ namespace Engine
 			}
 
 			return static_cast<ComponentStorage<T>*>(m_ComponentStores[index].get());
+		}
+
+		template<typename... Components>
+		std::vector<Entity> GetView()
+		{
+			std::vector<Entity> result;
+			result.reserve(m_Entities.size());
+
+			for (auto& entity : m_Entities)
+			{
+				if ((entity.HasComponent<Components>() && ...))
+					result.push_back(entity);
+			}
+
+			return result;
 		}
 
 	private:

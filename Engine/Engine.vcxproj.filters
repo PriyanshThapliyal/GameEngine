@@ -118,6 +118,7 @@
     <ClInclude Include="src\Scene\Components\VelocityComponent.h" />
     <ClInclude Include="src\Scene\Components\CameraComponent.h" />
     <ClInclude Include="src\Scene\Components\ControlledComponent.h" />
+    <ClInclude Include="src\Scene\Components\DragableComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
