@@ -119,6 +119,9 @@
     <ClInclude Include="src\Scene\Components\CameraComponent.h" />
     <ClInclude Include="src\Scene\Components\ControlledComponent.h" />
     <ClInclude Include="src\Scene\Components\DragableComponent.h" />
+    <ClInclude Include="src\Renderer\CameraController.h" />
+    <ClInclude Include="src\Scene\Components\EnemyComponent.h" />
+    <ClInclude Include="src\Scene\Components\PlayerComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -173,9 +176,10 @@
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
-    <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\Entity.cpp" />
+    <ClCompile Include="src\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Renderer\CameraController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Scene\Entity.inl" />

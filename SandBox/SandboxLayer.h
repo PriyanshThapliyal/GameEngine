@@ -39,20 +39,6 @@ public:
 		
 		m_Scene.Init();
 
-		auto entity = m_Scene.CreateEntity();
-
-		auto& drag = entity.AddComponent<Engine::DragableComponent>();
-		auto& transform = entity.AddComponent<Engine::TransformComponent>();
-		auto& sprite = entity.AddComponent<Engine::SpriteRendererComponent>();
-		auto& velocity = entity.AddComponent<Engine::VelocityComponent>();
-		auto& control = entity.AddComponent<Engine::ControlledComponent>();
-
-		velocity.Velocity = { 0.0f, 0.0f };
-		transform.Position = { -5.0f, 0.0f, 0.0f };
-		transform.Scale = { 0.25, 0.25f, 1.0f};
-		sprite.Color = { 0.0f, 1.0f, 1.0f, 1.0f };	
-		control.IsControlled = true;
-
 		Engine::Renderer2D::Init();
 		Engine::RenderCommand::SetClearColor(0.1f,0.1f,0.1f,1.0f);
 	}
