@@ -11,6 +11,8 @@
 #include "Components/CameraComponent.h"
 #include "Components/ControlledComponent.h"
 #include "Components/DragableComponent.h"
+#include "Components/EnemyComponent.h"
+#include "Components/PlayerComponent.h"
 
 namespace Engine
 {
@@ -28,28 +30,45 @@ namespace Engine
 
 	void Scene::Init()
 	{
+		// Camera
 		Entity camera = CreateEntity();
-
 		camera.AddComponent<VelocityComponent>();
 		camera.AddComponent<CameraComponent>();
-		//camera.AddComponent<ControlledComponent>();
-
 		camera.GetComponent<CameraComponent>().Primary = true;
 
+		// Player
+		auto playerTexture = Texture::Texture("Engine/assets/Textures/player.png");
+		Entity player = CreateEntity();
+		auto& playerTransform = player.AddComponent<TransformComponent>().Position = { 0.0f, 5.0f, 0.0f };
+		auto& playerSprite = player.AddComponent<SpriteRendererComponent>();
+		auto& playerVelocity = player.AddComponent<VelocityComponent>();
+		auto& playerControl = player.AddComponent<ControlledComponent>();
+		auto& playerDrag = player.AddComponent<DragableComponent>();
+		auto& playerComp = player.AddComponent<PlayerComponent>();
 
-		Entity quad = CreateEntity();
+		// Enemy
+		auto enemyTexture = Texture::Texture("Engine/assets/Textures/enemy.png");
+		Entity enemy = CreateEntity();
+		auto& enemyTransform = enemy.AddComponent<TransformComponent>().Position = { 0.0f, -7.0f, 0.0f };
+		auto& enemySprite = enemy.AddComponent<SpriteRendererComponent>().Color = { 1.0f, 0.0f, 0.0f, 1.0f };
+		auto& enemyVelocity = enemy.AddComponent<VelocityComponent>().Velocity = { 2.5f, 0.0f };
+		auto& enemyComp = enemy.AddComponent<EnemyComponent>();
 
-		quad.AddComponent<SpriteRendererComponent>();
-		quad.AddComponent<DragableComponent>();
-		quad.AddComponent<VelocityComponent>();
-		quad.AddComponent<ControlledComponent>();
+		// Wall
+		Entity wallTop = CreateEntity();
+		Entity wallBottom = CreateEntity();
 
-		quad.GetComponent<SpriteRendererComponent>().Color = { 0.0f, 1.0f, 0.0f, 1.0f };
-		quad.GetComponent<DragableComponent>().IsDragging = false;
-		quad.GetComponent<ControlledComponent>().IsControlled = true;
+		auto& topWall = wallTop.AddComponent<TransformComponent>();
+		auto& bottomWall = wallBottom.AddComponent<TransformComponent>();
+		
+		wallTop.AddComponent<SpriteRendererComponent>().Color = { 0.0f, 1.0f, 0.0f, 1.0f };
+		wallBottom.AddComponent<SpriteRendererComponent>().Color = { 0.0f, 1.0f, 0.0f, 1.0f };
+		
+		topWall.Position = { -10.0f, 9.5f, 0.0f };
+		bottomWall.Position = { -10.0f, -10.0f, 0.0f };
 
-		quad.GetComponent<TransformComponent>().Position = { 5.0f, 0.0f, 0.0f };
-		quad.GetComponent<TransformComponent>().Scale = { 0.5f, 0.70f, 1.0f };
+		topWall.Scale = { 20.0f, 0.5f, 0.0f };
+		bottomWall.Scale = { 20.0f, 0.5f, 0.0f };
 	}
 
 	void Scene::OnUpdate(float dt)
@@ -57,6 +76,7 @@ namespace Engine
 		Scene::UpdateInput(dt);
 		Scene::UpdateDragging(dt);
 		Scene::UpdateMovement(dt);
+		Scene::UpdateEnemy(dt);
 
 	}
 
@@ -96,6 +116,16 @@ namespace Engine
 			auto& transform = entity.GetComponent<TransformComponent>();
 			auto& sprite = entity.GetComponent<SpriteRendererComponent>();
 			
+			if (sprite.Texture)
+			{
+				Renderer2D::DrawQuad(
+					transform.Position,
+					transform.Scale,
+					*sprite.Texture,
+					sprite.Color
+				);
+			}
+			else
 			Renderer2D::DrawQuad(
 					transform.Position,
 					transform.Scale,
@@ -140,6 +170,7 @@ namespace Engine
 			if (entity.HasComponent<CameraComponent>()) continue;
 
 			auto& velocity = entity.GetComponent<VelocityComponent>();
+			auto& transform = entity.GetComponent<TransformComponent>();
 
 			velocity.Velocity = { 0.0f, 0.0f };
 
@@ -147,6 +178,32 @@ namespace Engine
 			if (Input::IsKeyPressed(KeyCode::A)) velocity.Velocity.x -= 1.0f;
 			if (Input::IsKeyPressed(KeyCode::W)) velocity.Velocity.y += 1.0f;
 			if (Input::IsKeyPressed(KeyCode::S)) velocity.Velocity.y -= 1.0f;
+
+			if (transform.Position.x > 9.0f )
+			{
+				transform.Position.x = 9.0f;
+				velocity.Velocity.x = 0.0f;
+			}
+			
+			if (transform.Position.x < -10.0f)
+			{
+				transform.Position.x = -10.0f;
+				velocity.Velocity.x = 0.0f;
+			}
+
+			if (transform.Position.y > 8.5f)
+			{
+				transform.Position.y = 8.0f;
+				velocity.Velocity.y = 0.0f;
+			}
+			
+			if (transform.Position.y < -9.5f)
+			{
+				transform.Position.y = -9.0f;
+				velocity.Velocity.y = 0.0f;
+			}
+			
+			velocity.Speed = 5.0f;
 
 			if (glm::length(velocity.Velocity) > 0.0f)
 				velocity.Velocity = glm::normalize(velocity.Velocity) * velocity.Speed;
@@ -258,9 +315,43 @@ namespace Engine
 		}
 	}
 
+	void Scene::UpdateEnemy(float dt)
+	{
+		glm::vec3 playerPos{ 0.0f };
+		bool foundPlayer = false;
+
+		for (auto entity : GetView<TransformComponent, PlayerComponent>())
+		{
+			playerPos = entity.GetComponent<TransformComponent>().Position;
+			foundPlayer = true;
+			break; // Assuming only one player, we can break after finding it
+		}
+		
+		if (!foundPlayer) return;
+
+		//  Enemy Movement Logic
+
+		for (auto entity : GetView<TransformComponent, EnemyComponent, VelocityComponent>())
+		{
+			auto& transform = entity.GetComponent<TransformComponent>();
+			auto& velocity = entity.GetComponent<VelocityComponent>();
+
+			glm::vec3 direction = playerPos - transform.Position;
+
+			if (glm::length(direction) > 0.001f)
+			{
+				direction = glm::normalize(direction);
+				velocity.Velocity = glm::vec2(direction) * velocity.Speed;
+			}
+			else
+			{
+				velocity.Velocity = { 0.0f, 0.0f };
+			}
+		}
+	}
+
 	void Scene::DestroyEntity(Entity entity)
 	{
 		
 	}
-
 }

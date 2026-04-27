@@ -36,6 +36,7 @@ namespace Engine
 		void UpdateInput(float dt);
 		void UpdateMovement(float dt);
 		void UpdateDragging(float dt);
+		void UpdateEnemy(float dt);
 
 		bool IsMouseOver(const TransformComponent& transform, glm::vec2 mousePos);
 
