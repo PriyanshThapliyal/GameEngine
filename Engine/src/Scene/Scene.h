@@ -8,6 +8,26 @@
 #include "glm/glm.hpp"
 
 #include "../Renderer/Camera.h"
+#include "../Renderer/Renderer2D.h"
+
+#include "../Engine/Input/Input.h"
+
+// Components
+#include "Components/TransformComponent.h"
+#include "Components/SpriteRendererComponent.h"
+#include "Components/VelocityComponent.h"
+#include "Components/CameraComponent.h"
+#include "Components/ControlledComponent.h"
+#include "Components/DragableComponent.h"
+#include "Components/EnemyComponent.h"
+#include "Components/PlayerComponent.h"
+
+// Systems
+#include "Systems/MovementSystem.h"
+#include "Systems/InputSystem.h"
+#include "Systems/EnemyAISystem.h"
+#include "Systems/DragSystem.h"
+#include "Systems/CollisionSystem.h"
 
 namespace Engine
 {
@@ -37,8 +57,7 @@ namespace Engine
 		void UpdateMovement(float dt);
 		void UpdateDragging(float dt);
 		void UpdateEnemy(float dt);
-
-		bool IsMouseOver(const TransformComponent& transform, glm::vec2 mousePos);
+		void UpdateCollision(float dt);
 
 		template<typename T>
 		ComponentStorage<T>* GetStorage()

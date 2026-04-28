@@ -122,6 +122,11 @@
     <ClInclude Include="src\Renderer\CameraController.h" />
     <ClInclude Include="src\Scene\Components\EnemyComponent.h" />
     <ClInclude Include="src\Scene\Components\PlayerComponent.h" />
+    <ClInclude Include="src\Scene\Systems\MovementSystem.h" />
+    <ClInclude Include="src\Scene\Systems\InputSystem.h" />
+    <ClInclude Include="src\Scene\Systems\EnemyAISystem.h" />
+    <ClInclude Include="src\Scene\Systems\DragSystem.h" />
+    <ClInclude Include="src\Scene\Systems\CollisionSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -180,6 +185,11 @@
     <ClCompile Include="src\Scene\Entity.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Renderer\CameraController.cpp" />
+    <ClCompile Include="src\Scene\Systems\MovementSystem.cpp" />
+    <ClCompile Include="src\Scene\Systems\InputSystem.cpp" />
+    <ClCompile Include="src\Scene\Systems\EnemyAISystem.cpp" />
+    <ClCompile Include="src\Scene\Systems\DragSystem.cpp" />
+    <ClCompile Include="src\Scene\Systems\CollisionSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Scene\Entity.inl" />
