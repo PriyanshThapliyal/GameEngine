@@ -31,13 +31,15 @@ class SandboxLayer : public Engine::Layer
 public:
 	SandboxLayer()
 		: Layer("SandboxLayer")
+
 	{}
 
 	void OnAttach() override
 	{
 		EN_CORE_WARN("SandboxLayer Attached");
-		
-		m_Scene.Init();
+
+		m_Scene = Engine::Application::Get().GetScene();
+		m_Scene->Init();
 
 		Engine::Renderer2D::Init();
 		Engine::RenderCommand::SetClearColor(0.1f,0.1f,0.1f,1.0f);
@@ -46,7 +48,7 @@ public:
 	void OnUpdate(float deltaTime) override
 	{
 		m_Angle += deltaTime;
-		m_Scene.OnUpdate(deltaTime);
+		m_Scene->OnUpdate(deltaTime);
 
 	}
 
@@ -54,50 +56,12 @@ public:
 	{
 		Engine::RenderCommand::Clear();
 
-		m_Scene.OnRender();
+		m_Scene->OnRender();
 	}
 
 	void OnEvent(Engine::Event& e) override
 	{
-		if (e.GetEventType() == Engine::EventType::KeyPressed)
-		{
-			auto& keyEvent = static_cast<Engine::KeyPressedEvent&>(e);
-
-			EN_CORE_TRACE("Key Pressed : {0} , Repeat : {1}", (int)keyEvent.GetKeyCode(), keyEvent.IsRepeat());
-		}
-
-		//if (e.GetEventType() == Engine::EventType::MouseMoved)
-		//{
-		//	auto& mouseEvent = static_cast<Engine::MouseMovedEvent&>(e);
-
-		//	EN_CORE_TRACE("Mouse Moved : {0} , {1}", mouseEvent.GetX(), mouseEvent.GetY());
-		//}
-
-		if (e.GetEventType() == Engine::EventType::MouseButtonPressed)
-		{
-			auto& mouseEvent = static_cast<Engine::MouseButtonPressedEvent&>(e);
-
-			EN_CORE_TRACE("Mouse Button Pressed : {0}", mouseEvent.GetMouseButton());
-		}
-
-		if (e.GetEventType() == Engine::EventType::MouseScrolled)
-		{
-			auto& mouseEvent = static_cast<Engine::MouseScrolledEvent&>(e);
-
-			EN_CORE_TRACE("Mouse Scrolled : {0} , {1}", mouseEvent.GetXOffset(), mouseEvent.GetYOffset());
-		}
-
-		if (e.GetEventType() == Engine::EventType::WindowResize)
-		{
-			auto& resizeEvent = static_cast<Engine::WindowResizeEvent&>(e);
-
-			uint32_t width = resizeEvent.GetWidth();
-			uint32_t height = resizeEvent.GetHeight();
-
-			// Fix ViewPort
-			Engine::RenderCommand::SetViewport(0, 0, width, height);
-
-		}
+		
 	}
 
 	void OnDetach()
@@ -106,5 +70,5 @@ public:
 private:
 	float m_Angle = 0.0f;
 	std::unique_ptr<Engine::Texture> m_Texture;
-	Engine::Scene m_Scene;
+	Engine::Scene* m_Scene = nullptr;
 };

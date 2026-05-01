@@ -5,16 +5,25 @@
 #include "Engine/Core/Log.h"
 #include "glad/glad.h"
 
+#include "../../Editor/EditorLayer.h"
+#include "../../Scene/Scene.h"
+
 namespace Engine {
 	Application::Application() : m_Window(1280, 720, "Engine")
 	{
 		s_Instance = this;
+
+		m_Scene = new Scene();
+
 		m_Window.SetEventCallback([this](Event& e) 
 			{ OnEvent(e); });
+
+		PushLayer(new EditorLayer(m_Scene));
 	}
 
 	Application::~Application()
 	{
+		delete m_Scene;
 	}
 
 	Application* Application::s_Instance = nullptr;
@@ -77,8 +86,8 @@ namespace Engine {
 
 	void Application::Run()
 	{
-
 		float lastTime = Time::GetTime();
+
 		while (m_Running)
 		{
 			float currentTime = Time::GetTime();
@@ -89,11 +98,15 @@ namespace Engine {
 			glClear(GL_COLOR_BUFFER_BIT);
 			
 			PollEvents();	// Poll and handle events
+
+			m_Scene->OnUpdate(deltaTime);
 			
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnUpdate(deltaTime);
 			}
+
+			m_Scene->OnRender();
 			
 			for (Layer* layer : m_LayerStack)
 			{

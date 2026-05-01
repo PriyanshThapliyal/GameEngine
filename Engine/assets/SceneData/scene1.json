@@ -1,0 +1,157 @@
+{
+    "Entities": [
+        {
+            "Camera": {
+                "Primary": true,
+                "Zoom": [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            },
+            "Transform": {
+                "Position": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Rotation": 0.0,
+                "Scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "Velocity": {
+                "Speed": 2.0,
+                "Velocity": [
+                    0.0,
+                    0.0
+                ]
+            }
+        },
+        {
+            "Controlled": {
+                "IsControlled": true
+            },
+            "Dragable": {
+                "IsDragging": false,
+                "Offset": [
+                    0.0,
+                    0.0
+                ]
+            },
+            "Player": {
+                "Speed": 5.0
+            },
+            "Sprite": {
+                "Color": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ]
+            },
+            "Transform": {
+                "Position": [
+                    8.218832015991211,
+                    -9.5,
+                    0.0
+                ],
+                "Rotation": 0.0,
+                "Scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "Velocity": {
+                "Speed": 2.0,
+                "Velocity": [
+                    5.0,
+                    0.0
+                ]
+            }
+        },
+        {
+            "Enemy": {
+                "Speed": 3.5,
+                "Time": 35.582061767578125
+            },
+            "Sprite": {
+                "Color": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ]
+            },
+            "Transform": {
+                "Position": [
+                    2.6237504482269287,
+                    -7.3138747215271,
+                    0.0
+                ],
+                "Rotation": 0.0,
+                "Scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "Velocity": {
+                "Speed": 2.0,
+                "Velocity": [
+                    3.259993076324463,
+                    -1.27375328540802
+                ]
+            }
+        },
+        {
+            "Sprite": {
+                "Color": [
+                    0.0,
+                    1.0,
+                    0.0,
+                    1.0
+                ]
+            },
+            "Transform": {
+                "Position": [
+                    -10.0,
+                    9.5,
+                    0.0
+                ],
+                "Rotation": 0.0,
+                "Scale": [
+                    20.0,
+                    0.5,
+                    0.0
+                ]
+            }
+        },
+        {
+            "Sprite": {
+                "Color": [
+                    0.0,
+                    1.0,
+                    0.0,
+                    1.0
+                ]
+            },
+            "Transform": {
+                "Position": [
+                    -10.0,
+                    -10.0,
+                    0.0
+                ],
+                "Rotation": 0.0,
+                "Scale": [
+                    20.0,
+                    0.5,
+                    0.0
+                ]
+            }
+        }
+    ]
+}

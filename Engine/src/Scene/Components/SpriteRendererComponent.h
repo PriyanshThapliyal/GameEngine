@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "../../Renderer/Texture.h"
 
 namespace Engine
 {
@@ -14,5 +15,6 @@ namespace Engine
 
 		SpriteRendererComponent(const glm::vec4& color)
 			: Color(color) {}
+
 	};
 }

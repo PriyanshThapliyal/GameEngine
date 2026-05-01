@@ -155,6 +155,12 @@ namespace Engine
 
 	void Scene::DestroyEntity(Entity entity)
 	{
-		
+			
+	}
+
+	void Scene::Clear()
+	{
+		m_Entities.clear();
+		m_ComponentStores.clear();
 	}
 }

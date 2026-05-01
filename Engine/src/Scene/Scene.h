@@ -49,6 +49,7 @@ namespace Engine
 	public:
 		Entity CreateEntity();
 		void DestroyEntity(Entity entity);
+		void Clear();
 		void Init();
 		void OnUpdate(float dt);
 		void OnRender();

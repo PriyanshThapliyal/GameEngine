@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{8C1A20B0-78BC-4A86-6177-5EDA4DB8D1D6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Engine">
       <UniqueIdentifier>{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}</UniqueIdentifier>
     </Filter>
@@ -25,8 +28,21 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{B3F7140E-1F0C-3DBF-E88D-E01E546139F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Components">
+      <UniqueIdentifier>{E8C60300-D4BF-2252-FDF1-07D7E949025E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Systems">
+      <UniqueIdentifier>{BA50F9DD-2611-7514-EF4B-BE915BCBB9F0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\.hpp" />
+    <ClInclude Include="src\Editor\EditorLayer.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Engine\Core\Application.h">
       <Filter>Engine\Core</Filter>
@@ -91,6 +107,9 @@
     <ClInclude Include="src\Renderer\Camera.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\CameraController.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\RenderCommand.h">
       <Filter>Renderer</Filter>
     </ClInclude>
@@ -106,29 +125,66 @@
     <ClInclude Include="src\Renderer\Shader.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Texture.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\VertexArray.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\Components\CameraComponent.h">
+      <Filter>Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Components\ControlledComponent.h">
+      <Filter>Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Components\DragableComponent.h">
+      <Filter>Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Components\EnemyComponent.h">
+      <Filter>Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Components\PlayerComponent.h">
+      <Filter>Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Components\SpriteRendererComponent.h">
+      <Filter>Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Components\TransformComponent.h">
+      <Filter>Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Components\VelocityComponent.h">
+      <Filter>Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Entity.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneSerializer.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Systems\CollisionSystem.h">
+      <Filter>Scene\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Systems\DragSystem.h">
+      <Filter>Scene\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Systems\EnemyAISystem.h">
+      <Filter>Scene\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Systems\InputSystem.h">
+      <Filter>Scene\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Systems\MovementSystem.h">
+      <Filter>Scene\Systems</Filter>
+    </ClInclude>
     <ClInclude Include="src\enpch.h" />
-    <ClInclude Include="src\Renderer\Texture.h" />
-    <ClInclude Include="src\Scene\Scene.h" />
-    <ClInclude Include="src\Scene\Entity.h" />
-    <ClInclude Include="src\Scene\Components\TransformComponent.h" />
-    <ClInclude Include="src\Scene\Components\SpriteRendererComponent.h" />
-    <ClInclude Include="src\Scene\Components\VelocityComponent.h" />
-    <ClInclude Include="src\Scene\Components\CameraComponent.h" />
-    <ClInclude Include="src\Scene\Components\ControlledComponent.h" />
-    <ClInclude Include="src\Scene\Components\DragableComponent.h" />
-    <ClInclude Include="src\Renderer\CameraController.h" />
-    <ClInclude Include="src\Scene\Components\EnemyComponent.h" />
-    <ClInclude Include="src\Scene\Components\PlayerComponent.h" />
-    <ClInclude Include="src\Scene\Systems\MovementSystem.h" />
-    <ClInclude Include="src\Scene\Systems\InputSystem.h" />
-    <ClInclude Include="src\Scene\Systems\EnemyAISystem.h" />
-    <ClInclude Include="src\Scene\Systems\DragSystem.h" />
-    <ClInclude Include="src\Scene\Systems\CollisionSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Editor\EditorLayer.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
     <ClCompile Include="src\Engine\Core\Application.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
@@ -162,6 +218,9 @@
     <ClCompile Include="src\Renderer\Camera.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\CameraController.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Renderer\RenderCommand.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -177,21 +236,36 @@
     <ClCompile Include="src\Renderer\Shader.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\Texture.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Renderer\VertexArray.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\Entity.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\SceneSerializer.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Systems\CollisionSystem.cpp">
+      <Filter>Scene\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Systems\DragSystem.cpp">
+      <Filter>Scene\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Systems\EnemyAISystem.cpp">
+      <Filter>Scene\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Systems\InputSystem.cpp">
+      <Filter>Scene\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Systems\MovementSystem.cpp">
+      <Filter>Scene\Systems</Filter>
+    </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
-    <ClCompile Include="src\Scene\Scene.cpp" />
-    <ClCompile Include="src\Scene\Entity.cpp" />
-    <ClCompile Include="src\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Renderer\CameraController.cpp" />
-    <ClCompile Include="src\Scene\Systems\MovementSystem.cpp" />
-    <ClCompile Include="src\Scene\Systems\InputSystem.cpp" />
-    <ClCompile Include="src\Scene\Systems\EnemyAISystem.cpp" />
-    <ClCompile Include="src\Scene\Systems\DragSystem.cpp" />
-    <ClCompile Include="src\Scene\Systems\CollisionSystem.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\Scene\Entity.inl" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "Engine/Core/LayerStack.h"
 
 namespace Engine {
+	class Scene;
 
 	class Application
 	{
@@ -14,6 +15,7 @@ namespace Engine {
 
 		void Run();
 		Window& GetWindow() { return m_Window; }
+		Scene* GetScene() { return m_Scene; }
 
 		static Application& Get() { return *s_Instance; }
 		virtual void OnEvent(Event& e);
@@ -34,7 +36,7 @@ namespace Engine {
 
 	private:
 		Window m_Window;
-
+		Scene* m_Scene = nullptr;
 		LayerStack m_LayerStack;
 
 		static Application* s_Instance; // Static instance for global access
