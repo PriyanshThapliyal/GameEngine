@@ -17,6 +17,9 @@ namespace Engine
 			case KeyCode::A: return GLFW_KEY_A;
 			case KeyCode::S: return GLFW_KEY_S;
 			case KeyCode::D: return GLFW_KEY_D;
+			case KeyCode::O: return GLFW_KEY_O;
+			case KeyCode::LeftControl: return GLFW_KEY_LEFT_CONTROL;
+			case KeyCode::LeftShift: return GLFW_KEY_LEFT_SHIFT;
 			default:
 				return -1;
 			}

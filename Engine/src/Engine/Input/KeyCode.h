@@ -8,7 +8,10 @@ namespace Engine
 		W ,
 		A ,
 		S ,
-		D 
+		D ,
+		O,
+		LeftControl,
+		LeftShift
 	};
 }
 
