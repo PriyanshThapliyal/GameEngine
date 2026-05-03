@@ -5,7 +5,8 @@
 #include "Engine/Core/Log.h"
 #include "glad/glad.h"
 
-#include "../../Editor/EditorLayer.h"
+#include "LayerStack/Editor/EditorLayer.h"
+#include "../../Platform/OpenGL/OpenGLImGuiLayer.h"
 #include "../../Scene/Scene.h"
 
 namespace Engine {
@@ -14,11 +15,13 @@ namespace Engine {
 		s_Instance = this;
 
 		m_Scene = new Scene();
+		m_ImGuiLayer = new OpenGLImGuiLayer();
 
 		m_Window.SetEventCallback([this](Event& e) 
 			{ OnEvent(e); });
 
 		PushLayer(new EditorLayer(m_Scene));
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -100,20 +103,25 @@ namespace Engine {
 			PollEvents();	// Poll and handle events
 
 			m_Scene->OnUpdate(deltaTime);
-			
+
 			for (Layer* layer : m_LayerStack)
-			{
 				layer->OnUpdate(deltaTime);
-			}
 
 			m_Scene->OnRender();
+
+			for (Layer* layer : m_LayerStack)
+				layer->OnRender();
+
+			m_ImGuiLayer->Begin();
 			
 			for (Layer* layer : m_LayerStack)
-			{
-				layer->OnRender();
-			}
+				layer->OnImGuiRender();
+
+			m_ImGuiLayer->End();
+
 			SwapBuffers();	// Swap the front and back buffers
 		}
+
 	}
 
 	void Application::PushLayer(Layer* layer)

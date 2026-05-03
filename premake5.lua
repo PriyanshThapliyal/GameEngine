@@ -19,6 +19,7 @@ IncludeDir["glad"] = "Engine/Dependencies/glad/include"
 IncludeDir["glm"] = "Engine/Dependencies/glm"
 IncludeDir["stb"] = "Engine/Dependencies/stb"
 IncludeDir["json"] = "Engine/Dependencies/json"
+IncludeDir["ImGui"] = "Engine/Dependencies/ImGui"
 
 include "Engine/Dependencies/GLFW" -- Same Include as C++ , takes GLFW premake5.lua file and use it 
 include "Engine/Dependencies/spdlog"
@@ -50,7 +51,8 @@ project "Engine"
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb}",
-		"%{IncludeDir.json}"
+		"%{IncludeDir.json}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links

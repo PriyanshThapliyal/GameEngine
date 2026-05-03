@@ -1,14 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Editor">
-      <UniqueIdentifier>{8C1A20B0-78BC-4A86-6177-5EDA4DB8D1D6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine">
       <UniqueIdentifier>{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{130D9B61-7FC2-1357-08B7-0D2E746B0A5B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\LayerStack">
+      <UniqueIdentifier>{15EFBA34-01E9-E386-EA55-7A97D6EE49F3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\LayerStack\Editor">
+      <UniqueIdentifier>{ABC2D000-17DB-B72A-E087-47C44C5F4CC4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\LayerStack\ImGui">
+      <UniqueIdentifier>{FF9F81BA-EB5A-7166-9412-EAB080ACBBF6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Events">
       <UniqueIdentifier>{5FAFB439-CB6F-3070-94AA-79ED002A754C}</UniqueIdentifier>
@@ -40,9 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\.hpp" />
-    <ClInclude Include="src\Editor\EditorLayer.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Engine\Core\Application.h">
       <Filter>Engine\Core</Filter>
@@ -53,11 +56,17 @@
     <ClInclude Include="src\Engine\Core\ENTRYPOINT.H">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Core\Layer.h">
-      <Filter>Engine\Core</Filter>
+    <ClInclude Include="src\Engine\Core\LayerStack\Editor\EditorLayer.h">
+      <Filter>Engine\Core\LayerStack\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Core\LayerStack.h">
-      <Filter>Engine\Core</Filter>
+    <ClInclude Include="src\Engine\Core\LayerStack\ImGui\ImGuiLayer.h">
+      <Filter>Engine\Core\LayerStack\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\LayerStack\Layer.h">
+      <Filter>Engine\Core\LayerStack</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\LayerStack\LayerStack.h">
+      <Filter>Engine\Core\LayerStack</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Core\Log.h">
       <Filter>Engine\Core</Filter>
@@ -180,16 +189,26 @@
       <Filter>Scene\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\enpch.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLImGuiLayer.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\imconfig.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\imgui.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\imgui_internal.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3_loader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Editor\EditorLayer.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Core\Application.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Core\LayerStack.cpp">
-      <Filter>Engine\Core</Filter>
+    <ClCompile Include="src\Engine\Core\LayerStack\Editor\EditorLayer.cpp">
+      <Filter>Engine\Core\LayerStack\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Core\LayerStack\ImGui\ImGuiLayer.cpp">
+      <Filter>Engine\Core\LayerStack\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Core\LayerStack\LayerStack.cpp">
+      <Filter>Engine\Core\LayerStack</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Core\Log.cpp">
       <Filter>Engine\Core</Filter>
@@ -267,5 +286,18 @@
       <Filter>Scene\Systems</Filter>
     </ClCompile>
     <ClCompile Include="src\enpch.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLImGuiLayer.cpp" />
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui.cpp" />
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Dependencies\ImGui\ImGui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Dependencies\ImGui\ImGui\.editorconfig" />
+    <None Include="Dependencies\ImGui\ImGui\.gitattributes" />
+    <None Include="Dependencies\ImGui\ImGui\.gitignore" />
   </ItemGroup>
 </Project>

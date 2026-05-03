@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>enpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPLIED_LIB;EN_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;Dependencies\GLFW\include;Dependencies\spdlog\include;Dependencies\glad\include;Dependencies\glm;Dependencies\stb;Dependencies\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;Dependencies\GLFW\include;Dependencies\spdlog\include;Dependencies\glad\include;Dependencies\glm;Dependencies\stb;Dependencies\json;Dependencies\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -101,7 +101,7 @@
       <PrecompiledHeaderFile>enpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPLIED_LIB;EN_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;Dependencies\GLFW\include;Dependencies\spdlog\include;Dependencies\glad\include;Dependencies\glm;Dependencies\stb;Dependencies\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;Dependencies\GLFW\include;Dependencies\spdlog\include;Dependencies\glad\include;Dependencies\glm;Dependencies\stb;Dependencies\json;Dependencies\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -131,7 +131,7 @@
       <PrecompiledHeaderFile>enpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPLIED_LIB;EN_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;Dependencies\GLFW\include;Dependencies\spdlog\include;Dependencies\glad\include;Dependencies\glm;Dependencies\stb;Dependencies\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;Dependencies\GLFW\include;Dependencies\spdlog\include;Dependencies\glad\include;Dependencies\glm;Dependencies\stb;Dependencies\json;Dependencies\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -156,14 +156,21 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\imconfig.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\imgui.h" />
+    <ClInclude Include="Dependencies\ImGui\ImGui\imgui_internal.h" />
     <ClInclude Include="src\.hpp" />
-    <ClInclude Include="src\Editor\EditorLayer.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Engine\Core\Application.h" />
     <ClInclude Include="src\Engine\Core\Core.h" />
     <ClInclude Include="src\Engine\Core\ENTRYPOINT.H" />
-    <ClInclude Include="src\Engine\Core\Layer.h" />
-    <ClInclude Include="src\Engine\Core\LayerStack.h" />
+    <ClInclude Include="src\Engine\Core\LayerStack\Editor\EditorLayer.h" />
+    <ClInclude Include="src\Engine\Core\LayerStack\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Engine\Core\LayerStack\Layer.h" />
+    <ClInclude Include="src\Engine\Core\LayerStack\LayerStack.h" />
     <ClInclude Include="src\Engine\Core\Log.h" />
     <ClInclude Include="src\Engine\Core\Time.h" />
     <ClInclude Include="src\Engine\Events\ApplicationEvent.h" />
@@ -174,6 +181,7 @@
     <ClInclude Include="src\Engine\Input\KeyCode.h" />
     <ClInclude Include="src\Engine\Input\MouseCode.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLImGuiLayer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\Window\Window.h" />
@@ -207,12 +215,35 @@
     <ClInclude Include="src\enpch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Editor\EditorLayer.cpp" />
+    <ClCompile Include="Dependencies\ImGui\ImGui\backends\imgui_impl_glfw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui_tables.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Dependencies\ImGui\ImGui\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\Engine\Core\Application.cpp" />
-    <ClCompile Include="src\Engine\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Engine\Core\LayerStack\Editor\EditorLayer.cpp" />
+    <ClCompile Include="src\Engine\Core\LayerStack\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Engine\Core\LayerStack\LayerStack.cpp" />
     <ClCompile Include="src\Engine\Core\Log.cpp" />
     <ClCompile Include="src\Engine\Core\Time.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLImGuiLayer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\Window\Window.cpp" />
@@ -249,6 +280,11 @@
     <ProjectReference Include="Dependencies\glad\glad.vcxproj">
       <Project>{DD62977C-C999-980D-7286-7E105E9C140F}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Dependencies\ImGui\ImGui\.editorconfig" />
+    <None Include="Dependencies\ImGui\ImGui\.gitattributes" />
+    <None Include="Dependencies\ImGui\ImGui\.gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
