@@ -115,7 +115,7 @@ namespace Engine {
 			m_ImGuiLayer->Begin();
 			
 			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
+				layer->OnImGuiRender(deltaTime);
 
 			m_ImGuiLayer->End();
 

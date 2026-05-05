@@ -60,6 +60,8 @@ namespace Engine
 		void UpdateEnemy(float dt);
 		void UpdateCollision(float dt);
 
+		int GetEntityCount() const { return static_cast<int>(m_Entities.size()); }
+
 		template<typename T>
 		ComponentStorage<T>* GetStorage()
 		{

@@ -96,9 +96,32 @@ namespace Engine
 		}
 	}
 
-	void EditorLayer::OnImGuiRender()
+	void EditorLayer::OnImGuiRender(float dt)
 	{
-		ImGui::ShowDemoWindow();
+		ImGui::Begin("Debug Panel");
+		
+		ImGui::Text("State %s", isPlaying ? "PLAY" : "EDITOR");
+
+		if (ImGui::CollapsingHeader("Performance"))
+		{
+			ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.2f, 1.0f), "FPS: %.2f", 1.0f / dt);
+			ImGui::TextColored(ImVec4(0.2f, 0.8f, 1.0f, 1.0f), "Delta Time: %.3f ms", dt * 1000.0f);
+
+			ImGui::Text("CPU: %.1f%%", 0.0f); 
+			ImGui::Text("GPU: %.1f%%", 0.0f); 
+		}
+
+		if (ImGui::CollapsingHeader("Scene Info"))
+		{
+			ImGui::Text("Scene Entity Count: %d", m_Scene->GetEntityCount());
+		}
+
+		if (ImGui::CollapsingHeader("Input"))
+		{
+			ImGui::Text("Mouse Position: (%.1f, %.1f)", Input::GetMousePosition().first, Input::GetMousePosition().second);
+		}
+
+		ImGui::End();
 	}
 
 }

@@ -19,7 +19,7 @@ namespace Engine
 		virtual void OnRender() {}
 		virtual void OnUpdate(float deltaTime) {}
 
-		virtual void OnImGuiRender() {}
+		virtual void OnImGuiRender(float deltaTime) {}
 
 	protected:
 		std::string m_DebugName;

@@ -14,7 +14,7 @@ namespace Engine
 		void OnDetach() override;
 		void OnUpdate(float dt) override;
 		void OnEvent(Event& e) override;
-		void OnImGuiRender() override;
+		void OnImGuiRender(float dt) override;
 
 	private:
 		void SaveScene();
@@ -22,5 +22,6 @@ namespace Engine
 
 	private:
 		Scene* m_Scene;
+		bool isPlaying = false;
 	};
 }
