@@ -5,8 +5,10 @@
 
 namespace Engine
 {
+	class Scene;
+
 	template<typename T>
-	struct ComponentStorage;
+	class ComponentStorage;
 
 	class Scene;
 
@@ -32,6 +34,11 @@ namespace Engine
 
 		template<typename T>
 		void RemoveComponent();
+
+		bool operator==(const Entity& other) const { return m_ID == other.m_ID && m_Scene == other.m_Scene; }
+
+
+		bool IsValid() const;
 
 	private:
 		uint32_t m_ID;

@@ -8,6 +8,7 @@ namespace Engine
 	inline Entity::Entity(uint32_t id, Scene* scene) : m_ID(id), m_Scene(scene) {}
 	inline uint32_t Entity::GetID() const { return m_ID; }
 	inline Entity::operator bool() const { return m_ID != 0; }
+	inline bool Entity::IsValid() const { return m_Scene->HasEntity(*this); }
 
 	// ECS API definitions
 	template<typename T, typename... Args>
@@ -38,6 +39,7 @@ namespace Engine
 		auto storage = m_Scene->template GetStorage<T>();
 		storage->Data.erase(m_ID);
 	}
+
 }
 
 #include "Entity.h"

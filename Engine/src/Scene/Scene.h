@@ -34,14 +34,31 @@ namespace Engine
 	struct IComponentStorage
 	{
 		virtual ~IComponentStorage() = default;
+
+		virtual void Remove(Entity entity) = 0;
+		virtual bool Has(Entity entity) const = 0;
 	};
 
 	struct TransformComponent;
 
 	template<typename T>
-	struct ComponentStorage : IComponentStorage
+	class ComponentStorage : public IComponentStorage
 	{
+	public:
 		std::unordered_map<uint32_t, T> Data;
+		void Remove(Entity entity) override
+		{
+			Data.erase(entity.GetID());
+		}
+		bool Has(Entity entity) const override
+		{
+			return Data.find(entity.GetID()) != Data.end();
+		}
+
+		T& Get(Entity entity)
+		{
+			return Data.at(entity.GetID());
+		}
 	};
 
 	class Scene
@@ -61,7 +78,7 @@ namespace Engine
 		void UpdateCollision(float dt);
 
 		int GetEntityCount() const { return static_cast<int>(m_Entities.size()); }
-
+		
 		template<typename T>
 		ComponentStorage<T>* GetStorage()
 		{
@@ -90,10 +107,18 @@ namespace Engine
 			return result;
 		}
 
+		bool HasEntity(Entity entity) const
+		{
+			return std::find(m_Entities.begin(), m_Entities.end(), entity) != m_Entities.end();
+		}
+
+		const std::vector<Entity>& GetAllEntities() const;
+
 	private:
 		std::vector<Entity> m_Entities; // IDs for entities in the scene
 		std::unordered_map<std::type_index, std::unique_ptr<IComponentStorage>> m_ComponentStores;
-	
+		uint32_t m_NextEntityID = 1; 
+		Entity m_SelectedEntity;
 	};
 }
 

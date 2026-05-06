@@ -5,9 +5,7 @@ namespace Engine
 {
 	Entity Scene::CreateEntity()
 	{
-		static uint32_t s_NextID = 1;
-
-		Entity entity(s_NextID++, this);
+		Entity entity(m_NextEntityID++, this);
 		m_Entities.push_back(entity);
 
 		entity.AddComponent<TransformComponent>();
@@ -155,7 +153,25 @@ namespace Engine
 
 	void Scene::DestroyEntity(Entity entity)
 	{
-			
+		if (!HasEntity(entity))
+		{
+			EN_CORE_ERROR("Attempted to destroy non-existent entity with ID: {0}", entity.GetID());
+			return;
+		}
+
+		if (m_SelectedEntity == entity)
+			m_SelectedEntity = {};
+
+		m_Entities.erase(
+			std::remove(m_Entities.begin(), m_Entities.end(), entity),
+			m_Entities.end()
+		);
+		
+		// Remove components associated with the entity
+		for (auto& [type, store] : m_ComponentStores)
+		{
+			store->Remove(entity);
+		}
 	}
 
 	void Scene::Clear()
@@ -163,4 +179,10 @@ namespace Engine
 		m_Entities.clear();
 		m_ComponentStores.clear();
 	}
+
+	const std::vector<Entity>& Scene::GetAllEntities() const
+	{
+		return m_Entities;
+	}
+
 }

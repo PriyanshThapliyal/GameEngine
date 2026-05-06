@@ -3,9 +3,10 @@
 bin/
 bin-int/
 
-# Files
+# Files Types
 
 *.user
 *.slnx
 *.vcproj
 *.vcproj.filters
+imgui*.ini
