@@ -122,6 +122,61 @@ namespace Engine
 		}
 
 		ImGui::End();
+
+
+		// Hierarchy
+
+		ImGui::Begin("Hierarchy");
+
+		for (auto entity : m_Scene->GetAllEntities())
+		{
+			std::string name = "Entity" + std::to_string(entity.GetID());
+
+			if (ImGui::Selectable(name.c_str(), selectedEntity == entity))
+			{
+				selectedEntity = entity;
+			}
+		}
+
+		ImGui::End();
+
+		// Inspector
+
+		ImGui::Begin("Inspector");
+		
+		if (!selectedEntity)
+		{
+			const auto& entities = m_Scene->GetAllEntities();
+			if (!entities.empty())
+				selectedEntity = entities[0];
+		}
+
+		if (selectedEntity)
+		{
+			ImGui::Text("Selected Entity ID: %d", selectedEntity.GetID());
+			if (selectedEntity.HasComponent<TransformComponent>())
+			{
+				ImGui::Text("Transform Component:");
+				auto& tc = selectedEntity.GetComponent<TransformComponent>();
+				ImGui::DragFloat3("Position", &tc.Position.x, 0.1f);
+				ImGui::DragFloat3("Scale", &tc.Scale.x, 0.1f);
+				ImGui::DragFloat("Rotation", &tc.Rotation, 0.1f);
+			}
+			if (selectedEntity.HasComponent<SpriteRendererComponent>())
+			{
+				ImGui::Separator();
+				ImGui::Text("Sprite Renderer Component:");
+				auto& sc = selectedEntity.GetComponent<SpriteRendererComponent>();
+				ImGui::ColorEdit4("Color", &sc.Color.x);
+			}
+		}
+		else
+		{
+			ImGui::Text("No entity selected.");
+		}
+
+		ImGui::End();
+		
 	}
 
 }
