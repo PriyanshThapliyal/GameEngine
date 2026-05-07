@@ -40,7 +40,7 @@ namespace Engine
 		if (!e.Handled && e.GetEventType() == EventType::KeyPressed && Input::IsKeyPressed(KeyCode::O) && !Input::IsKeyPressed(KeyCode::LeftControl))
 		{
 			// Spawn an enemy at a random position
-			Entity enemy = m_Scene->CreateEntity();
+			Entity enemy = m_Scene->CreateEntity("Enemy");
 
 			EN_CORE_INFO("Spawned Enemy with ID: {0}", enemy.GetID());
 
@@ -89,7 +89,7 @@ namespace Engine
 
 		if (!hasCamera)
 		{
-			Entity cam = m_Scene->CreateEntity();
+			Entity cam = m_Scene->CreateEntity("Camera");
 			cam.AddComponent<TransformComponent>();
 			auto& cc = cam.AddComponent<CameraComponent>();
 			cc.Primary = true;
@@ -128,14 +128,32 @@ namespace Engine
 
 		ImGui::Begin("Hierarchy");
 
-		for (auto entity : m_Scene->GetAllEntities())
-		{
-			std::string name = "Entity" + std::to_string(entity.GetID());
+		const auto& view = m_Scene->GetAllEntities();
 
-			if (ImGui::Selectable(name.c_str(), selectedEntity == entity))
+		int index = 0;
+
+		for (const Entity& entity : view)
+		{
+			ImGui::PushID(index++);
+
+			auto& tag = entity.GetComponent<TagComponent>().Tag;
+
+			std::string label =
+				tag + " [" + std::to_string(entity.GetID()) + "]";
+
+			bool selected = (m_selectedEntity == entity);
+
+			if (ImGui::Selectable(label.c_str(), selected))
 			{
-				selectedEntity = entity;
+				m_selectedEntity = entity;
 			}
+
+			ImGui::PopID();
+		}
+
+		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+		{
+			m_selectedEntity = {};
 		}
 
 		ImGui::End();
@@ -144,29 +162,29 @@ namespace Engine
 
 		ImGui::Begin("Inspector");
 		
-		if (!selectedEntity)
+		if (!m_selectedEntity)
 		{
 			const auto& entities = m_Scene->GetAllEntities();
 			if (!entities.empty())
-				selectedEntity = entities[0];
+				m_selectedEntity = entities[0];
 		}
 
-		if (selectedEntity)
+		if (m_selectedEntity)
 		{
-			ImGui::Text("Selected Entity ID: %d", selectedEntity.GetID());
-			if (selectedEntity.HasComponent<TransformComponent>())
+			ImGui::Text("Selected Entity ID: %d", m_selectedEntity.GetID());
+			if (m_selectedEntity.HasComponent<TransformComponent>())
 			{
 				ImGui::Text("Transform Component:");
-				auto& tc = selectedEntity.GetComponent<TransformComponent>();
+				auto& tc = m_selectedEntity.GetComponent<TransformComponent>();
 				ImGui::DragFloat3("Position", &tc.Position.x, 0.1f);
 				ImGui::DragFloat3("Scale", &tc.Scale.x, 0.1f);
 				ImGui::DragFloat("Rotation", &tc.Rotation, 0.1f);
 			}
-			if (selectedEntity.HasComponent<SpriteRendererComponent>())
+			if (m_selectedEntity.HasComponent<SpriteRendererComponent>())
 			{
 				ImGui::Separator();
 				ImGui::Text("Sprite Renderer Component:");
-				auto& sc = selectedEntity.GetComponent<SpriteRendererComponent>();
+				auto& sc = m_selectedEntity.GetComponent<SpriteRendererComponent>();
 				ImGui::ColorEdit4("Color", &sc.Color.x);
 			}
 		}

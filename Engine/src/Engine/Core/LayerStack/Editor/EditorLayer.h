@@ -23,6 +23,6 @@ namespace Engine
 	private:
 		Scene* m_Scene;
 		bool isPlaying = false;
-		Entity selectedEntity;
+		Entity m_selectedEntity;
 	};
 }

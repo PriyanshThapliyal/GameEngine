@@ -27,6 +27,9 @@ namespace Engine
 		T& AddComponent(Args&&... args);
 
 		template<typename T>
+		const T& GetComponent() const;
+
+		template<typename T>
 		T& GetComponent();
 
 		template<typename T>

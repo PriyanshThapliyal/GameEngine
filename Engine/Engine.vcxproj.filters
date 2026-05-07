@@ -196,6 +196,7 @@
     <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\Scene\Components\TagComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">

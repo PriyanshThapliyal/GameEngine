@@ -3,26 +3,29 @@
 
 namespace Engine
 {
-	Entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& name)
 	{
-		Entity entity(m_NextEntityID++, this);
+		uint32_t id = m_NextEntityID++;
+
+		Entity entity(id, this);
+
 		m_Entities.push_back(entity);
 
 		entity.AddComponent<TransformComponent>();
-
+		entity.AddComponent<TagComponent>(name);
 		return entity;
 	}
 
 	void Scene::Init()
 	{
 		// Camera
-		Entity camera = CreateEntity();
+		Entity camera = CreateEntity("Camera");
 		camera.AddComponent<VelocityComponent>();
 		camera.AddComponent<CameraComponent>();
 		camera.GetComponent<CameraComponent>().Primary = true;
 
 		// Player
-		Entity player = CreateEntity();
+		Entity player = CreateEntity("Player");
 		auto playerTexture = Texture::Texture("Engine/assets/Textures/player.png");
 		auto& playerTransform = player.AddComponent<TransformComponent>().Position = { 0.0f, 5.0f, 0.0f };
 		auto& playerSprite = player.AddComponent<SpriteRendererComponent>();
@@ -32,7 +35,7 @@ namespace Engine
 		auto& playerComp = player.AddComponent<PlayerComponent>();
 
 		// Enemy
-		Entity enemy = CreateEntity();
+		Entity enemy = CreateEntity("Enemy");
 		auto enemyTexture = Texture::Texture("Engine/assets/Textures/enemy.png");
 		auto& enemyTransform = enemy.AddComponent<TransformComponent>().Position = { 0.0f, -7.0f, 0.0f };
 		auto& enemySprite = enemy.AddComponent<SpriteRendererComponent>().Color = { 1.0f, 0.0f, 0.0f, 1.0f };
@@ -40,8 +43,8 @@ namespace Engine
 		auto& enemyComp = enemy.AddComponent<EnemyComponent>();
 
 		// Wall
-		Entity wallTop = CreateEntity();
-		Entity wallBottom = CreateEntity();
+		Entity wallTop = CreateEntity("Top Wall");
+		Entity wallBottom = CreateEntity("Bottom Wall");
 
 		auto& topWall = wallTop.AddComponent<TransformComponent>();
 		auto& bottomWall = wallBottom.AddComponent<TransformComponent>();

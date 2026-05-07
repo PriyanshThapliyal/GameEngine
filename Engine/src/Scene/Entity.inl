@@ -20,6 +20,13 @@ namespace Engine
 	}
 
 	template<typename T>
+	const T& Entity::GetComponent() const
+	{
+		auto storage = m_Scene->template GetStorage<T>();
+		return storage->Data.at(m_ID);
+	}
+
+	template<typename T>
 	T& Entity::GetComponent()
 	{
 		auto storage = m_Scene->template GetStorage<T>();

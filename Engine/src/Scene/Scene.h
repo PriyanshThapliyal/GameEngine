@@ -21,6 +21,7 @@
 #include "Components/DragableComponent.h"
 #include "Components/EnemyComponent.h"
 #include "Components/PlayerComponent.h"
+#include "Components/TagComponent.h"
 
 // Systems
 #include "Systems/MovementSystem.h"
@@ -64,7 +65,7 @@ namespace Engine
 	class Scene
 	{
 	public:
-		Entity CreateEntity();
+		Entity CreateEntity(const std::string& name);
 		void DestroyEntity(Entity entity);
 		void Clear();
 		void Init();
@@ -98,7 +99,7 @@ namespace Engine
 			std::vector<Entity> result;
 			result.reserve(m_Entities.size());
 
-			for (auto& entity : m_Entities)
+			for (Entity entity : m_Entities)
 			{
 				if ((entity.HasComponent<Components>() && ...))
 					result.push_back(entity);
@@ -115,7 +116,7 @@ namespace Engine
 		const std::vector<Entity>& GetAllEntities() const;
 
 	private:
-		std::vector<Entity> m_Entities; // IDs for entities in the scene
+		std::vector<Entity> m_Entities; 
 		std::unordered_map<std::type_index, std::unique_ptr<IComponentStorage>> m_ComponentStores;
 		uint32_t m_NextEntityID = 1; 
 		Entity m_SelectedEntity;

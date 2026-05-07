@@ -112,7 +112,12 @@ namespace Engine
 					{"Offset", {dc.Offset.x, dc.Offset.y}}
 				};
 			}
-
+			
+			if (entity.HasComponent<TagComponent>())
+			{
+				auto& tc = entity.GetComponent<TagComponent>();
+				entityJson["Tag"] = tc.Tag;
+			}
 
 			sceneJson["Entities"].push_back(entityJson);
 		}
@@ -162,8 +167,14 @@ namespace Engine
 
 		for (const auto& entityJson : sceneJson["Entities"])
 		{
-			Entity entity = m_Scene->CreateEntity();
-			EN_CORE_INFO("Created entity with ID: {0}", entity.GetID());
+			
+			std::string name = "Unnamed Entity";
+			if (entityJson.contains("Tag"))
+			{
+				name = entityJson["Tag"].get<std::string>();
+			}
+
+			Entity entity = m_Scene->CreateEntity("Unnamed Entity");
 
 			// Deserialize Transform component (already created by CreateEntity, just get and modify)
 			if (entityJson.contains("Transform"))
@@ -287,6 +298,13 @@ namespace Engine
 					const auto& offset = dragableJson["Offset"];
 					dc.Offset = { offset[0], offset[1] };
 				}
+			}
+
+			// Deserialize Tag Component
+			if (entityJson.contains("Tag"))
+			{
+				auto& dc = entity.AddComponent<TagComponent>();
+				dc.Tag = entityJson["Tag"].get<std::string>();
 			}
 		}
 
