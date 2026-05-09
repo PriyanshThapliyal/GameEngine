@@ -162,31 +162,66 @@ namespace Engine
 
 		ImGui::Begin("Inspector");
 		
-		if (!m_selectedEntity)
-		{
-			const auto& entities = m_Scene->GetAllEntities();
-			if (!entities.empty())
-				m_selectedEntity = entities[0];
-		}
+		//if (!m_selectedEntity)
+		//{
+		//	const auto& entities = m_Scene->GetAllEntities();
+		//	if (!entities.empty())
+		//		m_selectedEntity = entities[0];
+		//}
 
 		if (m_selectedEntity)
 		{
 			ImGui::Text("Selected Entity ID: %d", m_selectedEntity.GetID());
 			if (m_selectedEntity.HasComponent<TransformComponent>())
 			{
-				ImGui::Text("Transform Component:");
 				auto& tc = m_selectedEntity.GetComponent<TransformComponent>();
-				ImGui::DragFloat3("Position", &tc.Position.x, 0.1f);
-				ImGui::DragFloat3("Scale", &tc.Scale.x, 0.1f);
-				ImGui::DragFloat("Rotation", &tc.Rotation, 0.1f);
+
+				if (ImGui::CollapsingHeader("Transform"))
+				{
+					ImGui::DragFloat3("Position", &tc.Position.x, 0.1f);
+					ImGui::DragFloat3("Scale", &tc.Scale.x, 0.1f);
+					ImGui::DragFloat("Rotation", &tc.Rotation, 0.1f);
+				}
+				
 			}
 			if (m_selectedEntity.HasComponent<SpriteRendererComponent>())
 			{
-				ImGui::Separator();
-				ImGui::Text("Sprite Renderer Component:");
-				auto& sc = m_selectedEntity.GetComponent<SpriteRendererComponent>();
-				ImGui::ColorEdit4("Color", &sc.Color.x);
+					auto& sc = m_selectedEntity.GetComponent<SpriteRendererComponent>();
+					
+					if (ImGui::CollapsingHeader("Sprite Renderer"))
+					{
+						ImGui::ColorEdit4("Color", &sc.Color.x);
+					}
+					
 			}
+			if (m_selectedEntity.HasComponent<VelocityComponent>())
+			{
+					auto& vc = m_selectedEntity.GetComponent<VelocityComponent>();
+					if (ImGui::CollapsingHeader("Velocity"))
+					{
+						ImGui::DragFloat("Velocity X", &vc.Velocity.x, 0.1f);
+						ImGui::DragFloat("Velocity Y", &vc.Velocity.y, 0.1f);
+						ImGui::DragFloat("Speed", &vc.Speed, 0.1f);
+					}
+					
+			}
+			if (m_selectedEntity.HasComponent<PlayerComponent>())
+			{
+					auto& vc = m_selectedEntity.GetComponent<PlayerComponent>();
+					if (ImGui::CollapsingHeader("Player Component"))
+					{
+						ImGui::DragFloat("Speed##Player", &vc.Speed, 0.1f);
+					}
+					
+			}
+			if (m_selectedEntity.HasComponent<EnemyComponent>())
+			{
+					auto& vc = m_selectedEntity.GetComponent<EnemyComponent>();
+				if (ImGui::CollapsingHeader("Enemy Component"))
+				{
+					ImGui::DragFloat("Speed##Enemy", &vc.Speed, 0.1f);
+				}
+					}
 		}
 		else
 		{
@@ -194,7 +229,6 @@ namespace Engine
 		}
 
 		ImGui::End();
-		
 	}
 
 }
