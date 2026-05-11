@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "OpenGLRendererAPI.h"
+#include "../../Engine/Core/Log.h"
 
 namespace Engine
 {
@@ -10,7 +11,7 @@ namespace Engine
 	{
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_DEPTH_TEST);
+		//glEnable(GL_DEPTH_TEST);
 	}
 
 	void OpenGLRendererAPI::Clear()

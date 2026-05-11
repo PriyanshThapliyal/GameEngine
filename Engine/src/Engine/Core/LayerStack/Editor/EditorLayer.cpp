@@ -24,18 +24,20 @@ namespace Engine
 
 	void EditorLayer::OnUpdate(float dt)
 	{
-		
+		if (m_SceneState == SceneState::Edit)
+		{
+			m_EditorCamera.OnUpdate(dt);
+
+			m_Scene->OnEditorUpdate(dt, m_EditorCamera);
+		}
+		else
+		{
+			m_Scene->OnRuntimeUpdate(dt);
+		}
 	}
 
 	void EditorLayer::OnEvent(Event& e)
 	{
-		// SAVE
-		if (e.GetEventType() == EventType::KeyPressed && Input::IsKeyPressed(KeyCode::LeftControl) && Input::IsKeyPressed(KeyCode::S))
-		{
-			SaveScene();
-			e.Handled = true;
-		}
-
 		//Test : Spawn Enemy
 		if (!e.Handled && e.GetEventType() == EventType::KeyPressed && Input::IsKeyPressed(KeyCode::O) && !Input::IsKeyPressed(KeyCode::LeftControl))
 		{
@@ -54,13 +56,20 @@ namespace Engine
 			e.Handled = true;
 		}
 
-		// LOAD
-		if (!e.Handled && e.GetEventType() == EventType::KeyPressed && Input::IsKeyPressed(KeyCode::LeftControl) && Input::IsKeyPressed(KeyCode::O))
-		{
-			LoadScene();
-			e.Handled = true;
-		}
+		m_EditorCamera.OnEvent(e);
 	}
+
+	void EditorLayer::OnScenePlay()
+	{
+		m_SceneState = SceneState::Play;
+	}
+
+	void EditorLayer::OnSceneStop()
+	{
+		m_SceneState = SceneState::Edit;
+	}
+
+
 
 	void EditorLayer::SaveScene()
 	{
@@ -226,6 +235,32 @@ namespace Engine
 		else
 		{
 			ImGui::Text("No entity selected.");
+		}
+
+		ImGui::End();
+
+		// ToolBar
+
+		ImGui::Begin("Toolbar");
+
+		if (ImGui::Button("Save Scene"))
+		{
+			EditorLayer::SaveScene();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Load Scene"))
+		{
+			EditorLayer::LoadScene();
+		}
+
+		if (ImGui::Button(m_SceneState == SceneState::Edit ? "Play" : "Stop"))
+		{
+			if (m_SceneState == SceneState::Edit)
+				OnScenePlay();
+			else
+				OnSceneStop();
 		}
 
 		ImGui::End();

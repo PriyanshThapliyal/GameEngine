@@ -48,15 +48,12 @@ public:
 	void OnUpdate(float deltaTime) override
 	{
 		m_Angle += deltaTime;
-		m_Scene->OnUpdate(deltaTime);
 
 	}
 
 	void OnRender() override
 	{
-		Engine::RenderCommand::Clear();
 
-		m_Scene->OnRender();
 	}
 
 	void OnEvent(Engine::Event& e) override

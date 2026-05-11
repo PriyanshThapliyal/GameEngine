@@ -197,6 +197,7 @@
     <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="src\Scene\Components\TagComponent.h" />
+    <ClInclude Include="src\Engine\Core\LayerStack\Editor\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -295,6 +296,7 @@
     <ClCompile Include="Dependencies\ImGui\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Dependencies\ImGui\ImGui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Engine\Core\LayerStack\Editor\EditorCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\ImGui\ImGui\.editorconfig" />

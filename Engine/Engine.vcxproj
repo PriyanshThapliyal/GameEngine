@@ -162,6 +162,7 @@
     <ClInclude Include="Dependencies\ImGui\ImGui\imconfig.h" />
     <ClInclude Include="Dependencies\ImGui\ImGui\imgui.h" />
     <ClInclude Include="Dependencies\ImGui\ImGui\imgui_internal.h" />
+    <ClInclude Include="src\Engine\Core\LayerStack\Editor\EditorCamera.h" />
     <ClInclude Include="src\.hpp" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Engine\Core\Application.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Dependencies\ImGui\ImGui\imgui_widgets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Engine\Core\LayerStack\Editor\EditorCamera.cpp" />
     <ClCompile Include="src\Engine\Core\Application.cpp" />
     <ClCompile Include="src\Engine\Core\LayerStack\Editor\EditorLayer.cpp" />
     <ClCompile Include="src\Engine\Core\LayerStack\ImGui\ImGuiLayer.cpp" />
