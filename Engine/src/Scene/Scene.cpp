@@ -26,7 +26,7 @@ namespace Engine
 
 		// Player
 		Entity player = CreateEntity("Player");
-		auto playerTexture = Texture::Texture("Engine/assets/Textures/player.png");
+		//auto playerTexture = Texture::Texture("Engine/assets/Textures/player.png");
 		auto& playerTransform = player.AddComponent<TransformComponent>().Position = { 0.0f, 5.0f, 0.0f };
 		auto& playerSprite = player.AddComponent<SpriteRendererComponent>();
 		auto& playerVelocity = player.AddComponent<VelocityComponent>();
@@ -36,7 +36,7 @@ namespace Engine
 
 		// Enemy
 		Entity enemy = CreateEntity("Enemy");
-		auto enemyTexture = Texture::Texture("Engine/assets/Textures/enemy.png");
+		//auto enemyTexture = Texture::Texture("Engine/assets/Textures/enemy.png");
 		auto& enemyTransform = enemy.AddComponent<TransformComponent>().Position = { 0.0f, -7.0f, 0.0f };
 		auto& enemySprite = enemy.AddComponent<SpriteRendererComponent>().Color = { 1.0f, 0.0f, 0.0f, 1.0f };
 		auto& enemyVelocity = enemy.AddComponent<VelocityComponent>().Velocity = { 2.5f, 0.0f };
@@ -49,7 +49,7 @@ namespace Engine
 		auto& topWall = wallTop.AddComponent<TransformComponent>();
 		auto& bottomWall = wallBottom.AddComponent<TransformComponent>();
 		
-		wallTop.AddComponent<SpriteRendererComponent>().Color = { 0.0f, 1.0f, 0.0f, 1.0f };
+		wallTop.AddComponent<SpriteRendererComponent>().Color = { 1.0f, 1.0f, 0.0f, 1.0f };
 		wallBottom.AddComponent<SpriteRendererComponent>().Color = { 0.0f, 1.0f, 0.0f, 1.0f };
 		
 		topWall.Position = { -10.0f, 9.5f, 0.0f };
@@ -59,17 +59,47 @@ namespace Engine
 		bottomWall.Scale = { 20.0f, 0.5f, 0.0f };
 	}
 
-	void Scene::OnUpdate(float dt)
+	void Scene::OnEditorUpdate(float dt, EditorCamera& camera)
+	{
+		Renderer2D::BeginScene(camera);
+
+		for (auto entity : GetView<TransformComponent, SpriteRendererComponent>())
+		{
+			auto& transform = entity.GetComponent<TransformComponent>();
+
+			auto& sprite = entity.GetComponent<SpriteRendererComponent>();
+
+			if (sprite.Texture)
+			{
+				Renderer2D::DrawQuad(
+					transform.Position,
+					transform.Scale,
+					*sprite.Texture,
+					sprite.Color
+				);
+			}
+			else
+				Renderer2D::DrawQuad(
+					transform.Position,
+					transform.Scale,
+					sprite.Color
+				);
+		}
+		Renderer2D::EndScene();
+	}
+
+	void Scene::OnRuntimeUpdate(float dt)
 	{
 		UpdateInput(dt);
 		UpdateDragging(dt);
 		UpdateMovement(dt);
 		UpdateEnemy(dt);
 		UpdateCollision(dt);
+		OnRenderRuntime();
 
 	}
 
-	void Scene::OnRender()
+	void Scene::OnRenderRuntime()
 	{
 		Camera* mainCamera = nullptr;
 		glm::vec3 cameraPosition{ 0.0f };
@@ -121,8 +151,7 @@ namespace Engine
 					sprite.Color
 				);
 		}
-
-		Renderer2D::FlushAndReset();
+		Renderer2D::EndScene();
 	}
 
 	// Handle player input and update velocity components accordingly

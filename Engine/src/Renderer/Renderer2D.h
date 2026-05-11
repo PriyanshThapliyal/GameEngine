@@ -12,9 +12,12 @@
 #include "Texture.h"
 
 #include "../Engine/Core/Log.h"
+#include "../Engine/Core/LayerStack/Editor/EditorCamera.h"
 
 namespace Engine
 {
+	class EditorCamera;
+
 	class Renderer2D
 	{
 	public:
@@ -23,9 +26,9 @@ namespace Engine
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Texture& texture, const glm::vec4& tintColor);
 		static void BeginScene(const Camera& camera);
+		static void BeginScene(const EditorCamera& camera);
 		static void EndScene();
 		static void Flush();
-		static void FlushAndReset();
 		static Texture& GetWhiteTexture();
 	
 	private:

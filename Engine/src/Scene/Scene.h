@@ -11,6 +11,7 @@
 #include "../Renderer/Renderer2D.h"
 
 #include "../Engine/Input/Input.h"
+#include "../Engine/Core/LayerStack/Editor/EditorCamera.h"
 
 // Components
 #include "Components/TransformComponent.h"
@@ -62,6 +63,8 @@ namespace Engine
 		}
 	};
 
+	class EditorCamera;
+
 	class Scene
 	{
 	public:
@@ -69,8 +72,9 @@ namespace Engine
 		void DestroyEntity(Entity entity);
 		void Clear();
 		void Init();
-		void OnUpdate(float dt);
-		void OnRender();
+		void OnEditorUpdate(float dt, EditorCamera& camera);
+		void OnRuntimeUpdate(float dt);
+		void OnRenderRuntime();
 
 		void UpdateInput(float dt);
 		void UpdateMovement(float dt);

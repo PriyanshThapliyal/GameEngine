@@ -4,6 +4,7 @@
 #include "Time.h"
 #include "Engine/Core/Log.h"
 #include "glad/glad.h"
+#include "../Events/MouseEvent.h"
 
 #include "LayerStack/Editor/EditorLayer.h"
 #include "../../Platform/OpenGL/OpenGLImGuiLayer.h"
@@ -102,12 +103,8 @@ namespace Engine {
 			
 			PollEvents();	// Poll and handle events
 
-			m_Scene->OnUpdate(deltaTime);
-
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate(deltaTime);
-
-			m_Scene->OnRender();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnRender();
