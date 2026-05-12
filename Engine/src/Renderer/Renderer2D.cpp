@@ -15,6 +15,7 @@ struct Renderer2DData
 	static const uint32_t MaxVertices = MaxQuads * 4;
 	static const uint32_t MaxIndices = MaxQuads * 6;
 	const Engine::Texture* CurrentTexture = nullptr;
+	std::shared_ptr<Engine::Texture> WhiteTexture;
 	std::shared_ptr<Engine::VertexBuffer> VertexBuffer;
 	std::shared_ptr<Engine::VertexArray> VertexArray;
 	QuadVertex* BufferBase = nullptr;
@@ -32,6 +33,9 @@ namespace Engine
 		RenderCommand::Init();
 
 		s_Shader = std::make_shared<Shader>("Engine/assets/Shaders/quad.vert", "Engine/assets/Shaders/quad.frag");
+
+		uint32_t whiteTextureData = 0xffffffff;
+		s_Data.WhiteTexture = std::make_shared<Texture>(1, 1, &whiteTextureData, 4);
 
 		s_Data.VertexArray = VertexArray::Create();
 
@@ -85,10 +89,22 @@ namespace Engine
 		const glm::vec2& size,
 		const glm::vec4& color)
 	{
+		if (s_Data.CurrentTexture != s_Data.WhiteTexture.get() && s_Data.QuadCount > 0)
+		{
+			EndScene();
+		}
+
+		s_Data.CurrentTexture = s_Data.WhiteTexture.get();
+
 		if (!s_Data.BufferPtr)
 		{
 			EN_CORE_ERROR("BufferPtr is NULL!");
 			return;
+		}
+		
+		if (s_Data.QuadCount >= Renderer2DData::MaxQuads)
+		{
+			EndScene();
 		}
 
 		glm::vec3 p0 = { position.x, position.y, 0.0f };
@@ -131,6 +147,11 @@ namespace Engine
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Texture& texture, const glm::vec4& tintColor)
 	{
+		if (s_Data.CurrentTexture != &texture && s_Data.QuadCount > 0)
+		{
+			EndScene();
+		}
+
 		s_Data.CurrentTexture = &texture;
 
 		if (!s_Data.BufferPtr)
