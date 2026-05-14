@@ -6,28 +6,23 @@
 #include "glad/glad.h"
 #include "../Events/MouseEvent.h"
 
-#include "LayerStack/Editor/EditorLayer.h"
 #include "../../Platform/OpenGL/OpenGLImGuiLayer.h"
-#include "../../Scene/Scene.h"
 
 namespace Engine {
-	Application::Application() : m_Window(1280, 720, "Engine")
+	Application::Application(const char* title) : m_Window(1280, 720, title)
 	{
 		s_Instance = this;
 
-		m_Scene = new Scene();
 		m_ImGuiLayer = new OpenGLImGuiLayer();
 
 		m_Window.SetEventCallback([this](Event& e) 
 			{ OnEvent(e); });
 
-		PushLayer(new EditorLayer(m_Scene));
 		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
 	{
-		delete m_Scene;
 	}
 
 	Application* Application::s_Instance = nullptr;

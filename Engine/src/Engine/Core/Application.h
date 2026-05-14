@@ -5,18 +5,16 @@
 #include "Engine/Core/LayerStack/LayerStack.h"
 
 namespace Engine {
-	class Scene;
 	class OpenGLImGuiLayer;
 
 	class Application
 	{
 	public:
-		Application();
+		Application(const char* title = "Engine");
 		virtual ~Application();
 
 		void Run();
 		Window& GetWindow() { return m_Window; }
-		Scene* GetScene() { return m_Scene; }
 
 		static Application& Get() { return *s_Instance; }
 		virtual void OnEvent(Event& e);
@@ -37,7 +35,6 @@ namespace Engine {
 
 	private:
 		Window m_Window;
-		Scene* m_Scene = nullptr;
 		LayerStack m_LayerStack;
 		OpenGLImGuiLayer* m_ImGuiLayer;
 

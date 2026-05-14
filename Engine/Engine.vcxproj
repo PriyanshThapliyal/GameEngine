@@ -156,19 +156,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_glfw.h" />
-    <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3.h" />
-    <ClInclude Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="Dependencies\ImGui\ImGui\imconfig.h" />
-    <ClInclude Include="Dependencies\ImGui\ImGui\imgui.h" />
-    <ClInclude Include="Dependencies\ImGui\ImGui\imgui_internal.h" />
-    <ClInclude Include="src\Engine\Core\LayerStack\Editor\EditorCamera.h" />
     <ClInclude Include="src\.hpp" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Engine\Core\Application.h" />
     <ClInclude Include="src\Engine\Core\Core.h" />
     <ClInclude Include="src\Engine\Core\ENTRYPOINT.H" />
-    <ClInclude Include="src\Engine\Core\LayerStack\Editor\EditorLayer.h" />
     <ClInclude Include="src\Engine\Core\LayerStack\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Engine\Core\LayerStack\Layer.h" />
     <ClInclude Include="src\Engine\Core\LayerStack\LayerStack.h" />
@@ -218,29 +210,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\ImGui\ImGui\backends\imgui_impl_glfw.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Dependencies\ImGui\ImGui\backends\imgui_impl_opengl3.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Dependencies\ImGui\ImGui\imgui.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Dependencies\ImGui\ImGui\imgui_demo.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Dependencies\ImGui\ImGui\imgui_draw.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Dependencies\ImGui\ImGui\imgui_tables.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Dependencies\ImGui\ImGui\imgui_widgets.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Engine\Core\LayerStack\Editor\EditorCamera.cpp" />
     <ClCompile Include="src\Engine\Core\Application.cpp" />
-    <ClCompile Include="src\Engine\Core\LayerStack\Editor\EditorLayer.cpp" />
     <ClCompile Include="src\Engine\Core\LayerStack\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Engine\Core\LayerStack\LayerStack.cpp" />
     <ClCompile Include="src\Engine\Core\Log.cpp" />
@@ -283,11 +273,6 @@
     <ProjectReference Include="Dependencies\glad\glad.vcxproj">
       <Project>{DD62977C-C999-980D-7286-7E105E9C140F}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Dependencies\ImGui\ImGui\.editorconfig" />
-    <None Include="Dependencies\ImGui\ImGui\.gitattributes" />
-    <None Include="Dependencies\ImGui\ImGui\.gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

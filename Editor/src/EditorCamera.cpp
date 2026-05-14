@@ -1,15 +1,12 @@
-#include "enpch.h"
 #include "EditorCamera.h"
-#include "../../../Input/Input.h"
-#include "../../../Input/KeyCode.h"
-#include "../../../Events/Event.h"
-#include "../../../Events/MouseEvent.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "../../Log.h"
+#include "Engine/Input/Input.h"
+#include "Engine/Input/KeyCode.h"
+#include "Engine/Events/MouseEvent.h"
 
-namespace Engine
+namespace Editor
 {
 	EditorCamera::EditorCamera()
 	{
@@ -21,27 +18,27 @@ namespace Engine
 	{
 		float speed = m_MoveSpeed * dt;
 
-		if (Input::IsKeyPressed(KeyCode::A))
+		if (Engine::Input::IsKeyPressed(Engine::KeyCode::A))
 			m_Position.x -= speed;
 
-		if (Input::IsKeyPressed(KeyCode::D))
+		if (Engine::Input::IsKeyPressed(Engine::KeyCode::D))
 			m_Position.x += speed;
 
-		if (Input::IsKeyPressed(KeyCode::W))
+		if (Engine::Input::IsKeyPressed(Engine::KeyCode::W))
 			m_Position.y += speed;
 
-		if (Input::IsKeyPressed(KeyCode::S))
+		if (Engine::Input::IsKeyPressed(Engine::KeyCode::S))
 			m_Position.y -= speed;
 
-		EditorCamera::UpdateView();
+		UpdateView();
 	}
 
-	void EditorCamera::OnEvent(Event& e)
+	void EditorCamera::OnEvent(Engine::Event& e)
 	{
-		EventDispatcher dispatcher(e);
+		Engine::EventDispatcher dispatcher(e);
 
-		dispatcher.Dispatch<MouseScrolledEvent>(
-			[this](MouseScrolledEvent& e)
+		dispatcher.Dispatch<Engine::MouseScrolledEvent>(
+			[this](Engine::MouseScrolledEvent& e)
 			{
 				OnMouseScrolled(e.GetYOffset());
 				return false;
@@ -51,10 +48,9 @@ namespace Engine
 	void EditorCamera::UpdateProjection()
 	{
 		float aspectRatio = 16.0f / 9.0f;
-
 		float left = -aspectRatio * m_Zoom;
 		float right = aspectRatio * m_Zoom;
-		float top =  m_Zoom;
+		float top = m_Zoom;
 		float bottom = -m_Zoom;
 
 		m_Projection = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
@@ -71,6 +67,7 @@ namespace Engine
 
 		if (m_Zoom < 0.1f)
 			m_Zoom = 0.1f;
-		EditorCamera::UpdateProjection();
+
+		UpdateProjection();
 	}
 }

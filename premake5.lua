@@ -40,7 +40,14 @@ project "Engine"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/src/.hpp"
+		"%{prj.name}/src/.hpp",
+		"%{IncludeDir.ImGui}/ImGui/imgui.cpp",
+		"%{IncludeDir.ImGui}/ImGui/imgui_demo.cpp",
+		"%{IncludeDir.ImGui}/ImGui/imgui_draw.cpp",
+		"%{IncludeDir.ImGui}/ImGui/imgui_tables.cpp",
+		"%{IncludeDir.ImGui}/ImGui/imgui_widgets.cpp",
+		"%{IncludeDir.ImGui}/ImGui/backends/imgui_impl_glfw.cpp",
+		"%{IncludeDir.ImGui}/ImGui/backends/imgui_impl_opengl3.cpp"
 	}
 
 	includedirs
@@ -62,6 +69,9 @@ project "Engine"
 		"spdlog",
 		"glad"
 	}
+
+	filter "files:Engine/Dependencies/ImGui/ImGui/**.cpp"
+		enablepch "Off"
 
 	filter "system:windows"
 		cppdialect "C++20"
@@ -98,79 +108,6 @@ project "Engine"
 		optimize "Full"
 		symbols "On"
 
-	filter {}
+filter {}
 
-
-project "SandBox"
-	location "SandBox"
-	kind "ConsoleApp"
-	language "C++"
-
-	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
-	
-	debugdir "%{wks.location}"
-
-	files
-	{
-		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/src/**.h"
-	}
-
-	includedirs
-	{
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.glad}",
-		"Engine/src",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb}"
-	}
-
-	links
-	{
-		"Engine",
-		"spdlog",
-		"GLFW",
-		"glad"
-	}
-
-	filter "system:windows"
-		staticruntime "On"
-		cppdialect "C++20"
-		systemversion "latest"
-
-		buildoptions 
-		{
-			"/utf-8"
-		}
-
-		defines
-		{
-			"EN_PLATFORM_WINDOWS",
-			"SPDLOG_COMPILED_LIB",
-			"STB_IMAGE_IMPLEMENTATION"
-		}
-
-		buildoptions 
-        {
-            "/utf-8"
-        }
-
-
-	filter "configurations:Debug"
-		defines "EN_DEBUG"
-		symbols "On"
-
-	filter "configurations:Release"
-		defines "EN_RELEASE"
-		optimize "On"
-		symbols "On"
-
-	filter "configurations:Dist"
-		defines "EN_DIST"
-		optimize "Full"
-		symbols "On"
-
-	filter {}
-		debugdir "%{wks.location}"
+include "Editor"

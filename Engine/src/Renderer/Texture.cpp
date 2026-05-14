@@ -1,4 +1,5 @@
 #include "enpch.h"
+#define STB_IMAGE_IMPLEMENTATION
 #include "Texture.h"
 #include "../Engine/Core/Log.h"
 

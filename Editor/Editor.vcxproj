@@ -15,10 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D43924E3-4019-A37E-4931-2E55B58F09E0}</ProjectGuid>
+    <ProjectGuid>{8C1A20B0-78BC-4A86-6177-5EDA4DB8D1D6}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SandBox</RootNamespace>
+    <RootNamespace>Editor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -55,31 +55,31 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)..\bin\Debug-x86_64\SandBox\</OutDir>
-    <IntDir>$(ProjectDir)..\bin-int\Debug-x86_64\SandBox\</IntDir>
-    <TargetName>SandBox</TargetName>
+    <OutDir>$(ProjectDir)..\bin\Debug-x86_64\Editor\</OutDir>
+    <IntDir>$(ProjectDir)..\bin-int\Debug-x86_64\Editor\</IntDir>
+    <TargetName>Editor</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)..\bin\Release-x86_64\SandBox\</OutDir>
-    <IntDir>$(ProjectDir)..\bin-int\Release-x86_64\SandBox\</IntDir>
-    <TargetName>SandBox</TargetName>
+    <OutDir>$(ProjectDir)..\bin\Release-x86_64\Editor\</OutDir>
+    <IntDir>$(ProjectDir)..\bin-int\Release-x86_64\Editor\</IntDir>
+    <TargetName>Editor</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)..\bin\Dist-x86_64\SandBox\</OutDir>
-    <IntDir>$(ProjectDir)..\bin-int\Dist-x86_64\SandBox\</IntDir>
-    <TargetName>SandBox</TargetName>
+    <OutDir>$(ProjectDir)..\bin\Dist-x86_64\Editor\</OutDir>
+    <IntDir>$(ProjectDir)..\bin-int\Dist-x86_64\Editor\</IntDir>
+    <TargetName>Editor</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;STB_IMAGE_IMPLEMENTATION;EN_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\src;..\Engine\Dependencies\glm;..\Engine\Dependencies\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;EN_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;..\Engine\src;..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\Dependencies\glm;..\Engine\Dependencies\stb;..\Engine\Dependencies\json;..\Engine\Dependencies\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -98,8 +98,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;STB_IMAGE_IMPLEMENTATION;EN_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\src;..\Engine\Dependencies\glm;..\Engine\Dependencies\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;EN_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;..\Engine\src;..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\Dependencies\glm;..\Engine\Dependencies\stb;..\Engine\Dependencies\json;..\Engine\Dependencies\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -124,8 +124,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;STB_IMAGE_IMPLEMENTATION;EN_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\src;..\Engine\Dependencies\glm;..\Engine\Dependencies\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>EN_PLATFORM_WINDOWS;SPDLOG_COMPILED_LIB;EN_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;..\Engine\src;..\Engine\Dependencies\GLFW\include;..\Engine\Dependencies\spdlog\include;..\Engine\Dependencies\glad\include;..\Engine\Dependencies\glm;..\Engine\Dependencies\stb;..\Engine\Dependencies\json;..\Engine\Dependencies\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -147,7 +147,23 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\SandBox.cpp" />
+    <ClInclude Include="src\EditorCamera.h" />
+    <ClInclude Include="src\EditorLayer.h" />
+    <ClInclude Include="src\Panels\InspectorPanel.h" />
+    <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
+    <ClInclude Include="src\Panels\StatisticsPanel.h" />
+    <ClInclude Include="src\Panels\ToolbarPanel.h" />
+    <ClInclude Include="src\Panels\ViewportPanel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\EditorApp.cpp" />
+    <ClCompile Include="src\EditorCamera.cpp" />
+    <ClCompile Include="src\EditorLayer.cpp" />
+    <ClCompile Include="src\Panels\InspectorPanel.cpp" />
+    <ClCompile Include="src\Panels\SceneHierarchyPanel.cpp" />
+    <ClCompile Include="src\Panels\StatisticsPanel.cpp" />
+    <ClCompile Include="src\Panels\ToolbarPanel.cpp" />
+    <ClCompile Include="src\Panels\ViewportPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

@@ -214,17 +214,17 @@ namespace Engine
 		s_Data.ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
-	void Renderer2D::BeginScene(const EditorCamera& camera)
+	void Renderer2D::BeginScene(const glm::mat4& viewProjectionMatrix)
 	{
 		s_Data.BufferPtr = s_Data.BufferBase;
 		s_Data.QuadCount = 0;
 
-		s_Data.ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+		s_Data.ViewProjectionMatrix = viewProjectionMatrix;
 	}
 
 	void Renderer2D::EndScene()
 	{
-		uint32_t datasize = (uint8_t*)s_Data.BufferPtr - (uint8_t*)s_Data.BufferBase;
+		uint32_t datasize = static_cast<uint32_t>((uint8_t*)s_Data.BufferPtr - (uint8_t*)s_Data.BufferBase);
 		s_Data.VertexBuffer->SetData(s_Data.BufferBase, datasize);
 		Flush();
 	}

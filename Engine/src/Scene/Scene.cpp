@@ -18,53 +18,11 @@ namespace Engine
 
 	void Scene::Init()
 	{
-		// Camera
-		Entity camera = CreateEntity("Camera");
-		camera.AddComponent<VelocityComponent>();
-		camera.AddComponent<CameraComponent>();
-		camera.GetComponent<CameraComponent>().Primary = true;
-
-		// Player
-		Entity player = CreateEntity("Player");
-		auto playerTexture = std::make_shared<Texture>("Engine/assets/Textures/player.png");
-		auto& playerTransform = player.AddComponent<TransformComponent>().Position = { 0.0f, 5.0f, 0.0f };
-		auto& playerSprite = player.AddComponent<SpriteRendererComponent>();
-		playerSprite.Texture = playerTexture;
-		auto& playerVelocity = player.AddComponent<VelocityComponent>();
-		auto& playerControl = player.AddComponent<ControlledComponent>();
-		auto& playerDrag = player.AddComponent<DragableComponent>();
-		auto& playerComp = player.AddComponent<PlayerComponent>();
-
-		// Enemy
-		Entity enemy = CreateEntity("Enemy");
-		auto enemyTexture = std::make_shared<Texture>("Engine/assets/Textures/enemy.png");
-		auto& enemyTransform = enemy.AddComponent<TransformComponent>().Position = { 0.0f, -7.0f, 0.0f };
-		auto& enemySprite = enemy.AddComponent<SpriteRendererComponent>();
-		enemySprite.Color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		enemySprite.Texture = enemyTexture;
-		auto& enemyVelocity = enemy.AddComponent<VelocityComponent>().Velocity = { 2.5f, 0.0f };
-		auto& enemyComp = enemy.AddComponent<EnemyComponent>();
-
-		// Wall
-		Entity wallTop = CreateEntity("Top Wall");
-		Entity wallBottom = CreateEntity("Bottom Wall");
-
-		auto& topWall = wallTop.AddComponent<TransformComponent>();
-		auto& bottomWall = wallBottom.AddComponent<TransformComponent>();
-		
-		wallTop.AddComponent<SpriteRendererComponent>().Color = { 1.0f, 1.0f, 0.0f, 1.0f };
-		wallBottom.AddComponent<SpriteRendererComponent>().Color = { 0.0f, 1.0f, 0.0f, 1.0f };
-		
-		topWall.Position = { -10.0f, 9.5f, 0.0f };
-		bottomWall.Position = { -10.0f, -10.0f, 0.0f };
-
-		topWall.Scale = { 20.0f, 0.5f, 0.0f };
-		bottomWall.Scale = { 20.0f, 0.5f, 0.0f };
 	}
 
-	void Scene::OnEditorUpdate(float dt, EditorCamera& camera)
+	void Scene::OnEditorUpdate(float dt, const glm::mat4& viewProjectionMatrix)
 	{
-		Renderer2D::BeginScene(camera);
+		Renderer2D::BeginScene(viewProjectionMatrix);
 
 		for (auto entity : GetView<TransformComponent, SpriteRendererComponent>())
 		{
@@ -99,7 +57,6 @@ namespace Engine
 		UpdateEnemy(dt);
 		UpdateCollision(dt);
 		OnRenderRuntime();
-
 	}
 
 	void Scene::OnRenderRuntime()
