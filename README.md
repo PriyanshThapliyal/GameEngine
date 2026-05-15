@@ -103,5 +103,5 @@ The Editor operates separately from the runtime layer, allowing real-time scene 
 - Tilemap editor
 - Undo/Redo system
 
-
-MIT License
+## LICENCE
+This project is licensed under the MIT License
