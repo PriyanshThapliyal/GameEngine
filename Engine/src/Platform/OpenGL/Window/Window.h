@@ -45,6 +45,3 @@ namespace Engine {
 		WindowData m_Data;
 	};
 }
-
-
-// Note : The implementation of the Window class is in the corresponding .cpp file, and it uses GLFW for window management. The header file only declares the interface of the Window class, while the implementation details are hidden in the .cpp file to avoid exposing GLFW-specific code in the header.

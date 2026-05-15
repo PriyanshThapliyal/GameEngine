@@ -11,11 +11,3 @@
 #include<unordered_map>
 #include<unordered_set>
 #include<functional>
-
-
-
-#ifdef HZ_PLATFORM_WINDOWS
-	#include "Window.h"
-#endif
-
-
