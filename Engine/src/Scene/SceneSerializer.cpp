@@ -51,6 +51,9 @@ namespace Engine
 				entityJson["Sprite"] = {
 					{"Color", {sc.Color.r, sc.Color.g, sc.Color.b, sc.Color.a}}
 				};
+
+				if (!sc.TexturePath.empty())
+					entityJson["Sprite"]["TexturePath"] = sc.TexturePath;
 			}
 
 			// Velocity components to JSON
@@ -210,6 +213,12 @@ namespace Engine
 				{
 					const auto& color = spriteJson["Color"];
 					sc.Color = { color[0], color[1], color[2], color[3] };
+				}
+
+				if (spriteJson.contains("TexturePath") && spriteJson["TexturePath"].is_string())
+				{
+					sc.TexturePath = spriteJson["TexturePath"].get<std::string>();
+					sc.Texture = std::make_shared<Texture>(sc.TexturePath);
 				}
 			}
 

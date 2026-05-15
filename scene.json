@@ -48,10 +48,11 @@
             "Sprite": {
                 "Color": [
                     1.0,
-                    0.0,
-                    0.0,
+                    1.0,
+                    1.0,
                     1.0
-                ]
+                ],
+                "TexturePath": "Engine/assets/Textures/player.png"
             },
             "Tag": "Player",
             "Transform": {
@@ -83,10 +84,11 @@
             "Sprite": {
                 "Color": [
                     1.0,
-                    0.0,
-                    0.0,
+                    1.0,
+                    1.0,
                     1.0
-                ]
+                ],
+                "TexturePath": "Engine/assets/Textures/enemy.png"
             },
             "Tag": "Enemy",
             "Transform": {
@@ -113,11 +115,12 @@
         {
             "Sprite": {
                 "Color": [
-                    0.0,
                     1.0,
-                    0.0,
+                    1.0,
+                    1.0,
                     1.0
-                ]
+                ],
+                "TexturePath": "Engine/assets/Textures/stone.png"
             },
             "Tag": "Top Wall",
             "Transform": {
@@ -137,11 +140,12 @@
         {
             "Sprite": {
                 "Color": [
-                    0.0,
                     1.0,
-                    0.0,
+                    1.0,
+                    1.0,
                     1.0
-                ]
+                ],
+                "TexturePath": "Engine/assets/Textures/stone.png"
             },
             "Tag": "Bottom Wall",
             "Transform": {

@@ -38,8 +38,8 @@
             "Dragable": {
                 "IsDragging": false,
                 "Offset": [
-                    0.0,
-                    0.0
+                    -0.3434619903564453,
+                    -0.4953422546386719
                 ]
             },
             "Player": {
@@ -51,13 +51,14 @@
                     1.0,
                     1.0,
                     1.0
-                ]
+                ],
+                "TexturePath": "Engine/assets/Textures/player.png"
             },
             "Tag": "Player",
             "Transform": {
                 "Position": [
-                    0.16632170975208282,
-                    -1.3562462329864502,
+                    -4.178073883056641,
+                    -9.5,
                     0.0
                 ],
                 "Rotation": 0.0,
@@ -70,15 +71,15 @@
             "Velocity": {
                 "Speed": 2.0,
                 "Velocity": [
-                    -4.949747562408447,
-                    -4.949747562408447
+                    0.0,
+                    0.0
                 ]
             }
         },
         {
             "Enemy": {
                 "Speed": 3.5,
-                "Time": 59.62091064453125
+                "Time": 77.2266616821289
             },
             "Sprite": {
                 "Color": [
@@ -86,13 +87,14 @@
                     1.0,
                     1.0,
                     1.0
-                ]
+                ],
+                "TexturePath": "Engine/assets/Textures/enemy.png"
             },
             "Tag": "Enemy",
             "Transform": {
                 "Position": [
-                    4.173371315002441,
-                    -1.5500972270965576,
+                    -3.4592413902282715,
+                    -3.678772449493408,
                     0.0
                 ],
                 "Rotation": 0.0,
@@ -105,8 +107,8 @@
             "Velocity": {
                 "Speed": 2.0,
                 "Velocity": [
-                    -3.4959115982055664,
-                    0.16912341117858887
+                    -0.42893847823143005,
+                    -3.473616600036621
                 ]
             }
         },
@@ -115,9 +117,10 @@
                 "Color": [
                     1.0,
                     1.0,
-                    0.0,
+                    1.0,
                     1.0
-                ]
+                ],
+                "TexturePath": "Engine/assets/Textures/stone.png"
             },
             "Tag": "Top Wall",
             "Transform": {
@@ -137,11 +140,12 @@
         {
             "Sprite": {
                 "Color": [
-                    0.0,
                     1.0,
-                    0.0,
+                    1.0,
+                    1.0,
                     1.0
-                ]
+                ],
+                "TexturePath": "Engine/assets/Textures/stone.png"
             },
             "Tag": "Bottom Wall",
             "Transform": {

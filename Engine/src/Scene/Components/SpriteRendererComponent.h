@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include <glm/glm.hpp>
 #include "../../Renderer/Texture.h"
@@ -11,6 +12,7 @@ namespace Engine
 	{
 		glm::vec4 Color = { 1.0f, 0.0f, 0.0f, 1.0f }; // tint
 		std::shared_ptr<Texture> Texture;
+		std::string TexturePath;
 		float TilingFactor = 1.0f;
 
 		SpriteRendererComponent() = default;

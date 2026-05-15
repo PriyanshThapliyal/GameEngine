@@ -18,6 +18,8 @@
 #include "Scene/Scene.h"
 #include "Scene/SceneSerializer.h"
 
+#include "Renderer/Texture.h"
+
 namespace Editor
 {
 	EditorLayer::EditorLayer(Engine::Scene* scene)
@@ -68,7 +70,9 @@ namespace Editor
 			tc.Position = { 0.0f, 0.0f, 0.0f };
 
 			auto& sc = enemy.AddComponent<Engine::SpriteRendererComponent>();
-			sc.Color = { 1.0f, 0.0f, 0.6f, 1.0f };
+			sc.Color = { 1.0f, 1.0f, 1.0f, 1.0f };
+			sc.TexturePath = "Engine/assets/Textures/enemy.png";
+			sc.Texture = std::make_shared<Engine::Texture>(sc.TexturePath);
 
 			enemy.AddComponent<Engine::EnemyComponent>();
 			enemy.AddComponent<Engine::VelocityComponent>();
@@ -169,7 +173,10 @@ namespace Editor
 		tc.Position = { 0.0f, 0.0f, 0.0f };
 		tc.Scale = { 1.0f, 1.0f, 1.0f };
 
-		player.AddComponent<Engine::SpriteRendererComponent>(glm::vec4(0.2f, 0.8f, 0.0f, 1.0f));
+		auto& sc = player.AddComponent<Engine::SpriteRendererComponent>();
+		sc.TexturePath = "Engine/assets/Textures/player.png";
+		sc.Color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		sc.Texture = std::make_shared<Engine::Texture>(sc.TexturePath);
 		player.AddComponent<Engine::PlayerComponent>();
 		player.AddComponent<Engine::VelocityComponent>();
 		player.AddComponent<Engine::ControlledComponent>();
@@ -180,10 +187,12 @@ namespace Editor
 	{
 		Engine::Entity ground = m_Scene->CreateEntity("Ground");
 		auto& tc = ground.GetComponent<Engine::TransformComponent>();
-		tc.Position = { 0.0f, -3.0f, 0.0f };
-		tc.Scale = { 12.0f, 1.0f, 1.0f };
+		tc.Position = { -10.0f, -10.0f, 0.0f };
+		tc.Scale = { 20.0f, 20.0f, 1.0f };
 
-		ground.AddComponent<Engine::SpriteRendererComponent>(glm::vec4(0.25f, 0.25f, 0.3f, 1.0f));
+		auto& sc = ground.AddComponent<Engine::SpriteRendererComponent>(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		sc.TexturePath = "Engine/assets/Textures/grass.png";
+		sc.Texture = std::make_shared<Engine::Texture>(sc.TexturePath);
 	}
 
 	void EditorLayer::CreateProps()
@@ -195,9 +204,11 @@ namespace Editor
 			tc.Position = { -4.0f + i * 2.0f, -1.5f, 0.0f };
 			tc.Scale = { 0.8f, 0.8f, 1.0f };
 
-			crate.AddComponent<Engine::SpriteRendererComponent>(
-				glm::vec4(0.6f, 0.4f + i * 0.1f, 0.2f, 1.0f)
+			auto& sc = crate.AddComponent<Engine::SpriteRendererComponent>(
+				glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)
 			);
+			sc.TexturePath = "Engine/assets/Textures/crate.png";
+			sc.Texture = std::make_shared<Engine::Texture>(sc.TexturePath);
 		}
 	}
 }
